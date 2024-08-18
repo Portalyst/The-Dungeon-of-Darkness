@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuyaa8o2dhxne"]
+
+[ext_resource type="PackedScene" uid="uid://xn1ixdo80xjb" path="res://scenes/items.tscn" id="1_iswyv"]
+[ext_resource type="Texture2D" uid="uid://bhiye2dgaasak" path="res://sprites/gear/weapon/dagger/dagger.png" id="2_pt358"]
+
+[node name="dagger" instance=ExtResource("1_iswyv")]
+Name = "dagger"
+damage = "1-4"
+type = "weapon"
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(1, 0)
+texture = ExtResource("2_pt358")
+
+[node name="Label2" parent="GearInfo" index="2"]
+offset_top = -6.0
+offset_bottom = 2.0

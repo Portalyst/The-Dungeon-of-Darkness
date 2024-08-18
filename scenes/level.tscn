@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=3 uid="uid://cbf7xxmkd213u"]
+
+[ext_resource type="Texture2D" uid="uid://dc0pyd6bbox86" path="res://sprites/tilemap/tilemap.png" id="1_h88ys"]
+[ext_resource type="PackedScene" uid="uid://dvncy03pg6kt3" path="res://scenes/chest.tscn" id="3_f1ujg"]
+[ext_resource type="PackedScene" uid="uid://yxjysn3avnhl" path="res://scenes/hero.tscn" id="3_k6w27"]
+[ext_resource type="PackedScene" uid="uid://d2fnqlituht84" path="res://scenes/mimic_chest.tscn" id="4_ewkml"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v8edw"]
+texture = ExtResource("1_h88ys")
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/terrains_peering_bit/right_side = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/terrains_peering_bit/right_side = 0
+1:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0/terrains_peering_bit/left_side = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/terrains_peering_bit/bottom_side = 0
+2:0/0/terrains_peering_bit/left_side = 0
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/terrain = 0
+3:0/0/terrains_peering_bit/bottom_side = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+0:1/0/terrains_peering_bit/right_side = 0
+0:1/0/terrains_peering_bit/bottom_side = 0
+0:1/0/terrains_peering_bit/top_side = 0
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 0
+1:1/0/terrains_peering_bit/right_side = 0
+1:1/0/terrains_peering_bit/bottom_side = 0
+1:1/0/terrains_peering_bit/left_side = 0
+1:1/0/terrains_peering_bit/top_side = 0
+1:1/0/custom_data_0 = true
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 0
+2:1/0/terrains_peering_bit/bottom_side = 0
+2:1/0/terrains_peering_bit/left_side = 0
+2:1/0/terrains_peering_bit/top_side = 0
+3:1/0 = 0
+3:1/0/terrain_set = 0
+3:1/0/terrain = 0
+3:1/0/terrains_peering_bit/top_side = 0
+0:2/0 = 0
+0:2/0/terrain_set = 0
+0:2/0/terrain = 0
+0:2/0/terrains_peering_bit/right_side = 0
+0:2/0/terrains_peering_bit/top_side = 0
+1:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrain = 0
+1:2/0/terrains_peering_bit/right_side = 0
+1:2/0/terrains_peering_bit/left_side = 0
+1:2/0/terrains_peering_bit/top_side = 0
+2:2/0 = 0
+2:2/0/terrain_set = 0
+2:2/0/terrain = 0
+2:2/0/terrains_peering_bit/left_side = 0
+2:2/0/terrains_peering_bit/top_side = 0
+3:2/0 = 0
+3:2/0/terrain_set = 0
+3:2/0/terrain = 0
+0:3/0 = 0
+0:3/0/custom_data_0 = true
+
+[sub_resource type="TileSet" id="TileSet_lrb6u"]
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(1, 1, 1, 1)
+custom_data_layer_0/name = "walk"
+custom_data_layer_0/type = 1
+sources/0 = SubResource("TileSetAtlasSource_v8edw")
+
+[node name="level" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_lrb6u")
+format = 2
+layer_0/tile_data = PackedInt32Array(524296, 131072, 2, 458760, 131072, 1, 393224, 131072, 1, 327688, 131072, 1, 262152, 131072, 1, 196616, 131072, 1, 131080, 131072, 1, 65544, 131072, 1, 8, 131072, 0, 524295, 65536, 2, 458759, 0, 3, 393223, 0, 3, 327687, 0, 3, 262151, 0, 3, 196615, 0, 3, 131079, 0, 3, 65543, 0, 3, 7, 65536, 0, 524294, 65536, 2, 458758, 0, 3, 393222, 0, 3, 327686, 0, 3, 262150, 0, 3, 196614, 0, 3, 131078, 0, 3, 65542, 0, 3, 6, 65536, 0, 524293, 65536, 2, 458757, 0, 3, 393221, 0, 3, 327685, 0, 3, 262149, 0, 3, 196613, 0, 3, 131077, 0, 3, 65541, 0, 3, 5, 65536, 0, 524292, 65536, 2, 458756, 0, 3, 393220, 0, 3, 327684, 0, 3, 262148, 0, 3, 196612, 0, 3, 131076, 0, 3, 65540, 0, 3, 4, 65536, 0, 524291, 65536, 2, 458755, 0, 3, 393219, 0, 3, 327683, 0, 3, 262147, 0, 3, 196611, 0, 3, 131075, 0, 3, 65539, 0, 3, 3, 65536, 0, 524290, 65536, 2, 458754, 0, 3, 393218, 0, 3, 327682, 0, 3, 262146, 0, 3, 196610, 0, 3, 131074, 0, 3, 65538, 0, 3, 2, 65536, 0, 524289, 65536, 2, 458753, 0, 3, 393217, 0, 3, 327681, 0, 3, 262145, 0, 3, 196609, 0, 3, 131073, 0, 3, 65537, 0, 3, 1, 65536, 0, 524288, 0, 2, 458752, 0, 1, 393216, 0, 1, 327680, 0, 1, 262144, 0, 1, 196608, 0, 1, 131072, 0, 1, 65536, 0, 1, 0, 0, 0, 262155, 196608, 2)
+
+[node name="Hero" parent="." instance=ExtResource("3_k6w27")]
+position = Vector2(56, 104)
+
+[node name="Chest" parent="." instance=ExtResource("3_f1ujg")]
+position = Vector2(40, 88)
+
+[node name="Chest2" parent="." instance=ExtResource("3_f1ujg")]
+position = Vector2(40, 104)
+
+[node name="Chest3" parent="." instance=ExtResource("3_f1ujg")]
+position = Vector2(40, 120)
+
+[node name="mimic_base" parent="." instance=ExtResource("4_ewkml")]
+position = Vector2(120, 24)

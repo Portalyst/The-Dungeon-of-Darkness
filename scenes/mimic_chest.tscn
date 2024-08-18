@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://d2fnqlituht84"]
+
+[ext_resource type="PackedScene" uid="uid://b4dpvg0rvrgdg" path="res://scenes/mimic_base.tscn" id="1_rbfka"]
+[ext_resource type="Texture2D" uid="uid://c25kbhqtljucr" path="res://sprites/enemy/mimic/chest_mimic.png" id="2_85rwe"]
+[ext_resource type="Texture2D" uid="uid://djmcccdsjabag" path="res://sprites/enemy/mimic/chest.png" id="3_v5l0r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t87rd"]
+atlas = ExtResource("2_85rwe")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lp2w2"]
+atlas = ExtResource("3_v5l0r")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4cpe7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t87rd")
+}],
+"loop": true,
+"name": &"active",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lp2w2")
+}],
+"loop": true,
+"name": &"pass",
+"speed": 5.0
+}]
+
+[node name="mimic_base" instance=ExtResource("1_rbfka")]
+armor = 12
+damage = 8
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_4cpe7")
+animation = &"active"
+
+[node name="CollisionShape2D" parent="att_area" index="0"]
+position = Vector2(0, 0.5)

@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://byr8fhnjwjqcc"]
+
+[ext_resource type="Script" path="res://scripts/color_rect.gd" id="1_ect5d"]
+
+[node name="ColorRect" type="ColorRect" groups=["items_slots"]]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(16, 16)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("1_ect5d")
+metadata/_edit_use_anchors_ = true

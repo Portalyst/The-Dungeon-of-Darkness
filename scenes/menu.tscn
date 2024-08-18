@@ -1,0 +1,140 @@
+[gd_scene load_steps=12 format=3 uid="uid://6mhr1uie8vnt"]
+
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_1gnhe"]
+[ext_resource type="Texture2D" uid="uid://m3ix21omfpsm" path="res://sprites/menu/menu.png" id="1_xlwuj"]
+[ext_resource type="Texture2D" uid="uid://bsrvjpgaovoe" path="res://sprites/menu/play.png" id="2_pk3bx"]
+[ext_resource type="Texture2D" uid="uid://to4ebvidbawq" path="res://sprites/menu/settings.png" id="3_v7xac"]
+[ext_resource type="PackedScene" uid="uid://2lgjckgyl3ve" path="res://scenes/smoke1.tscn" id="4_1gcg7"]
+[ext_resource type="Texture2D" uid="uid://dd14hwmmyvgrr" path="res://sprites/menu/exit.png" id="4_amrwh"]
+[ext_resource type="Texture2D" uid="uid://cukb2jn6dohlj" path="res://sprites/menu/logo.png" id="7_os7fh"]
+
+[sub_resource type="Animation" id="Animation_3ma8e"]
+resource_name = "exit_area"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Menu/Exit:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0813566, 0.0, -0.0976095, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_3o2j8"]
+resource_name = "play_area"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Menu/Play:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0812662, 0.0, -0.0654133, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_6e1ad"]
+resource_name = "setting_area"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Menu/Settings:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0540704, 0.0, -0.0692707, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kmodd"]
+_data = {
+"exit_area": SubResource("Animation_3ma8e"),
+"play_area": SubResource("Animation_3o2j8"),
+"setting_area": SubResource("Animation_6e1ad")
+}
+
+[node name="menu" type="Node2D"]
+script = ExtResource("1_1gnhe")
+
+[node name="Menu" type="Sprite2D" parent="."]
+position = Vector2(72, 80)
+texture = ExtResource("1_xlwuj")
+
+[node name="Play" type="Sprite2D" parent="Menu"]
+position = Vector2(-41, -12)
+texture = ExtResource("2_pk3bx")
+
+[node name="Button" type="Button" parent="Menu/Play"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -15.0
+offset_top = -7.0
+offset_right = 15.0
+offset_bottom = 7.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CPUParticles2D" parent="Menu/Play" instance=ExtResource("4_1gcg7")]
+position = Vector2(-1, -1)
+
+[node name="Timer" type="Timer" parent="Menu/Play"]
+wait_time = 0.2
+one_shot = true
+
+[node name="Settings" type="Sprite2D" parent="Menu"]
+position = Vector2(-51, 21)
+texture = ExtResource("3_v7xac")
+
+[node name="Button1" type="Button" parent="Menu/Settings"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -17.0
+offset_top = -7.0
+offset_right = 17.0
+offset_bottom = 7.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CPUParticles2D" parent="Menu/Settings" instance=ExtResource("4_1gcg7")]
+position = Vector2(-1, 0)
+
+[node name="Exit" type="Sprite2D" parent="Menu"]
+position = Vector2(46, 9)
+texture = ExtResource("4_amrwh")
+
+[node name="Button2" type="Button" parent="Menu/Exit"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -14.0
+offset_top = -7.0
+offset_right = 14.0
+offset_bottom = 7.0
+
+[node name="CPUParticles2D" parent="Menu/Exit" instance=ExtResource("4_1gcg7")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kmodd")
+}
+
+[node name="Logo2" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(75, 35)
+texture = ExtResource("7_os7fh")
+
+[node name="Logo" type="Sprite2D" parent="."]
+position = Vector2(72, 29)
+texture = ExtResource("7_os7fh")
+
+[connection signal="mouse_entered" from="Menu/Play/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Menu/Play/Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="Menu/Play/Timer" to="." method="_on_timer_timeout"]
+[connection signal="mouse_entered" from="Menu/Settings/Button1" to="." method="_on_button_1_mouse_entered"]
+[connection signal="pressed" from="Menu/Settings/Button1" to="." method="_on_button_1_pressed"]
+[connection signal="mouse_entered" from="Menu/Exit/Button2" to="." method="_on_button_2_mouse_entered"]
+[connection signal="pressed" from="Menu/Exit/Button2" to="." method="_on_button_2_pressed"]

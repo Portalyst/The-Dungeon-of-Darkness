@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://clljgaj3n46bm"]
+
+[ext_resource type="PackedScene" uid="uid://xn1ixdo80xjb" path="res://scenes/items.tscn" id="1_j531b"]
+[ext_resource type="Texture2D" uid="uid://bon3aqnl0wyje" path="res://sprites/gear/weapon/halberd/sharp halbard.png" id="2_vohr7"]
+
+[node name="s halberd" instance=ExtResource("1_j531b")]
+Name = "s halberd"
+damage = "1-12"
+type = "weapon"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_vohr7")

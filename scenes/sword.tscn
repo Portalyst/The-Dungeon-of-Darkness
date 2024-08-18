@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqvu7tww7b1kg"]
+
+[ext_resource type="PackedScene" uid="uid://xn1ixdo80xjb" path="res://scenes/items.tscn" id="1_521ry"]
+[ext_resource type="Texture2D" uid="uid://cx3bqtm4y4g36" path="res://sprites/gear/weapon/sword/sword.png" id="2_ghfun"]
+
+[node name="sword" instance=ExtResource("1_521ry")]
+Name = "Sword"
+damage = "1-6"
+type = "weapon"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_ghfun")
+
+[node name="Button" parent="Sprite2D" index="0"]
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+metadata/_edit_use_anchors_ = true

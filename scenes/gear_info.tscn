@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://0ywypou41at3"]
+
+[ext_resource type="Texture2D" uid="uid://dsmaswcxgbhak" path="res://sprites/menu/gear_info.png" id="1_f1xoc"]
+[ext_resource type="FontFile" uid="uid://bbrmpyhagtyct" path="res://font/PIXY.ttf" id="2_j33yx"]
+
+[node name="GearInfo" type="Sprite2D"]
+position = Vector2(24, 16)
+texture = ExtResource("1_f1xoc")
+
+[node name="Delete10" type="Button" parent="."]
+offset_left = 11.0
+offset_top = 3.0
+offset_right = 20.0
+offset_bottom = 12.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label7" type="Label" parent="."]
+offset_left = -19.0
+offset_top = -12.0
+offset_right = 21.0
+offset_bottom = -4.0
+theme_override_fonts/font = ExtResource("2_j33yx")
+theme_override_font_sizes/font_size = 5
+text = "Name:"
+metadata/_edit_use_anchors_ = true
+
+[node name="Label8" type="Label" parent="."]
+offset_left = -19.0
+offset_top = -4.0
+offset_right = 21.0
+offset_bottom = 4.0
+theme_override_fonts/font = ExtResource("2_j33yx")
+theme_override_font_sizes/font_size = 5
+text = "Damage:"
+metadata/_edit_use_anchors_ = true

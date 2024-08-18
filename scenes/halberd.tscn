@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://qt7h1kpdbvyr"]
+
+[ext_resource type="PackedScene" uid="uid://xn1ixdo80xjb" path="res://scenes/items.tscn" id="1_c6ooc"]
+[ext_resource type="Texture2D" uid="uid://kvjisxydxnm0" path="res://sprites/gear/weapon/halberd/halberd.png" id="2_ektit"]
+
+[node name="halberd" instance=ExtResource("1_c6ooc")]
+Name = "halberd"
+damage = "1-8"
+type = "weapon"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_ektit")

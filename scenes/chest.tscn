@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://dvncy03pg6kt3"]
+
+[ext_resource type="Script" path="res://scripts/chest.gd" id="1_ym4kv"]
+[ext_resource type="Texture2D" uid="uid://djmcccdsjabag" path="res://sprites/enemy/mimic/chest.png" id="2_ajfmu"]
+[ext_resource type="Texture2D" uid="uid://b800u3ewe8mwv" path="res://sprites/background/chest/chest_looted.png" id="2_yd8c1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0f0c"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0h5l"]
+atlas = ExtResource("2_ajfmu")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0nrb"]
+atlas = ExtResource("2_yd8c1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2xiw0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0h5l")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0nrb")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[node name="Chest" type="Area2D"]
+script = ExtResource("1_ym4kv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_p0f0c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2xiw0")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

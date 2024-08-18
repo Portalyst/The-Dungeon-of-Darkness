@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyqgrnjkwb1rk"]
+
+[ext_resource type="PackedScene" uid="uid://xn1ixdo80xjb" path="res://scenes/items.tscn" id="1_fuai8"]
+[ext_resource type="Texture2D" uid="uid://c1730d1hksl2f" path="res://sprites/gear/weapon/claymore/claymore.png" id="2_vyean"]
+
+[node name="claymore" instance=ExtResource("1_fuai8")]
+Name = "claymore"
+damage = "1-8"
+type = "weapon"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_vyean")
