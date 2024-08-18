@@ -99,12 +99,23 @@ func _on_timer_timeout():
 					Global.player_action = true
 			if prep_to_att == true and Global.player_action == false:
 				var attack = randi_range(1, 20)
-				Global.player_action = true
-				prep_to_att = false
+				$dice.visible = true
+				$dice.modulate = Color(1, 1, 1)
+				$dice.text = str(attack)
+				$AnimationPlayer.play("throw")
+				await $AnimationPlayer.animation_finished
+				$dice.visible = false
 				if attack >= Global.armor:
 					var deal_damage : int = randi_range(1, damage)
-					#print(deal_damage)
+					$dice.modulate = Color(1, 0, 0)
+					$dice.visible = true
+					$dice.text = str(deal_attack)
+					$AnimationPlayer.play("throw")
+					await $AnimationPlayer.animation_finished
+					$dice.visible = false
 					deal_attack.emit(deal_damage)
+				Global.player_action = true
+				prep_to_att = false
 		$Timer.start()
 
 func _on_att_area_body_entered(body):

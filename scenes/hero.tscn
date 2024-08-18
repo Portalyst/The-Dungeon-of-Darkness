@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://yxjysn3avnhl"]
+[gd_scene load_steps=21 format=3 uid="uid://yxjysn3avnhl"]
 
 [ext_resource type="Texture2D" uid="uid://ryy8je63yf7e" path="res://sprites/hero/hero.png" id="1_dh7eb"]
 [ext_resource type="Script" path="res://scripts/hero.gd" id="1_fhpx2"]
@@ -33,6 +33,54 @@ func _on_mouse_exited():
 	deselect()
 "
 
+[sub_resource type="Animation" id="Animation_fq023"]
+resource_name = "return"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("dice:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-7, -6), Vector2(-7, -20)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("dice:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jskiy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("dice:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xncni"]
+_data = {
+"RESET": SubResource("Animation_jskiy"),
+"return": SubResource("Animation_fq023")
+}
+
 [node name="Hero" type="CharacterBody2D"]
 script = ExtResource("1_fhpx2")
 
@@ -43,6 +91,7 @@ shape = SubResource("RectangleShape2D_0ipe5")
 texture = ExtResource("1_dh7eb")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Inv" type="Sprite2D" parent="CanvasLayer"]
 position = Vector2(72, 77)
@@ -133,6 +182,7 @@ position = Vector2(72, 72)
 shape = SubResource("RectangleShape2D_mirn7")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 script = ExtResource("8_kt70t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -160,6 +210,25 @@ theme_override_styles/read_only = SubResource("StyleBoxEmpty_017yj")
 clear_button_enabled = true
 script = SubResource("GDScript_u14dc")
 
+[node name="dice" type="Label" parent="."]
+offset_left = -7.0
+offset_top = -20.0
+offset_right = 8.0
+offset_bottom = -8.0
+theme_override_fonts/font = ExtResource("4_5h4rp")
+theme_override_font_sizes/font_size = 10
+text = "10"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xncni")
+}
+
+[node name="damage_timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ItemsMenu/close_button" to="." method="_on_close_button_pressed"]
 [connection signal="body_entered" from="CanvasLayer/Area2D2" to="." method="_on_area_2d_2_body_entered"]
@@ -173,3 +242,4 @@ script = SubResource("GDScript_u14dc")
 [connection signal="mouse_exited" from="CanvasLayer2/LineEdit" to="." method="_on_line_edit_mouse_exited"]
 [connection signal="mouse_exited" from="CanvasLayer2/LineEdit" to="CanvasLayer2/LineEdit" method="_on_mouse_exited"]
 [connection signal="text_submitted" from="CanvasLayer2/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="timeout" from="damage_timer" to="." method="_on_damage_timer_timeout"]

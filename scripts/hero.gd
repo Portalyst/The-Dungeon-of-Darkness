@@ -11,7 +11,7 @@ signal remove(String)
 
 var enemy_spoted = false
 
-var moves = 6
+var moves = 100
 
 var enemy_body
 
@@ -28,6 +28,7 @@ signal player_attack(int)
 
 func _ready():
 	set_meta("player", 222)
+	$dice.visible = false
 
 func _physics_process(delta):
 	if dead == true or Global.player_action == false:
@@ -79,10 +80,7 @@ func _on_line_edit_text_submitted(new_text):
 			$Timer.start()
 	var command = new_text[0] + new_text[1] + new_text[2]
 	if command == "att" and enemy_spoted == true:
-		Global.player_action = false
-		var attk = randi_range(1, 20) + Global.boost
-		if attk >= enemy_body.armor:
-			player_attack.emit(randi_range(1, Global.damage))
+		attack()
 	
 	if new_text == "end" and Global.in_battle == true:
 		moves = 6
@@ -268,6 +266,8 @@ func get_loot(get_item):
 	InvLog.set_item(slot, get_item)
 
 func get_damage(damage):
+	$Hero.modulate = Color(1, 0, 0)
+	$damage_timer.start()
 	Global.HP -= damage
 	if Global.HP <= 0:
 		dead = true
@@ -296,3 +296,25 @@ func _on_area_2d_2_body_exited(body):
 
 func _on_close_button_pressed():
 	$CanvasLayer/ItemsMenu.hide()
+
+func attack():
+	Global.player_action = false
+	var attk = randi_range(1, 20) + Global.boost
+	$dice.text = str(attk)
+	$dice.modulate = Color(1, 1, 1)
+	$dice.visible = true
+	$AnimationPlayer.play("return")
+	await $AnimationPlayer.animation_finished
+	$dice.visible = false
+	if attk >= enemy_body.armor:
+		var deal_damage = randi_range(1, Global.damage)
+		$dice.text = str(deal_damage)
+		$dice.modulate = Color(1, 0, 0)
+		$dice.visible = true
+		$AnimationPlayer.play("return")
+		await $AnimationPlayer.animation_finished
+		$dice.visible = false
+		player_attack.emit(deal_damage)
+
+func _on_damage_timer_timeout():
+	$Hero.modulate = Color(1, 1, 1)
