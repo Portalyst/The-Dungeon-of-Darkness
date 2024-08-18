@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcvfxrqqnycne"]
+
+[ext_resource type="PackedScene" uid="uid://xn1ixdo80xjb" path="res://scenes/items.tscn" id="1_mn6hf"]
+[ext_resource type="Texture2D" uid="uid://3l16vj5jxwup" path="res://sprites/gear/armor/scaly armor.png" id="2_figrd"]
+
+[node name="scaly armor" instance=ExtResource("1_mn6hf")]
+Name = "scaly armor"
+type = "armor"
+protection = "10"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_figrd")

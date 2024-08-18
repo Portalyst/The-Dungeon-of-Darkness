@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://brcj5h2d3fgxv"]
+
+[ext_resource type="PackedScene" uid="uid://xn1ixdo80xjb" path="res://scenes/items.tscn" id="1_f4gw1"]
+[ext_resource type="Texture2D" uid="uid://c25byvhnor81r" path="res://sprites/gear/armor/iron chestplate.png" id="2_nfpm5"]
+
+[node name="iron chestplate" instance=ExtResource("1_f4gw1")]
+Name = "iron chestplate"
+type = "armor"
+protection = "10"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_nfpm5")

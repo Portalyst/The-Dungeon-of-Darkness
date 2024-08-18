@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bx2y35gnjqt44"]
+
+[ext_resource type="PackedScene" uid="uid://xn1ixdo80xjb" path="res://scenes/items.tscn" id="1_wskcg"]
+[ext_resource type="Texture2D" uid="uid://dlahay0s37bf2" path="res://sprites/gear/armor/lightweight heavy armor.png" id="2_aa6om"]
+
+[node name="lightweight heavy armor" instance=ExtResource("1_wskcg")]
+Name = "lightweight heavy armor"
+type = "armor"
+protection = "12"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_aa6om")

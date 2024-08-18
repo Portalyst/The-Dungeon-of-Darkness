@@ -1,11 +1,5 @@
 extends CharacterBody2D
 
-
-
-#@export var dagger : PackedScene
-#@export var coin : PackedScene
-#@export var potion : PackedScene
-#@export var big_potion : PackedScene
 signal open_chest(bool)
 signal remove(String)
 
@@ -98,135 +92,144 @@ func _on_line_edit_text_submitted(new_text):
 			#remove.emit(12)
 			#print(InvLog.items[12])
 		if curr_item == "sword":
-			var wp = InvLog.items.find(Global.sword)
-			if wp != -1:
-				remove.emit(wp)
+			var eq_item = InvLog.items.find(Global.sword)
+			if eq_item != -1:
+				remove.emit(eq_item)
 				weapon_changed.emit(Global.sword)
 				InvLog.items[12] = Global.sword
 				Global.damage = 6
 				Global.boost = 0
 				Global.pure = false
 		if curr_item == "dagge":
-			var wp = InvLog.items.find(Global.dagger)
-			if wp != -1:
-				remove.emit(wp)
+			var eq_item = InvLog.items.find(Global.dagger)
+			if eq_item != -1:
+				remove.emit(eq_item)
 				weapon_changed.emit(Global.dagger)
 				InvLog.items[12] = Global.dagger
 				Global.damage = 4
 				Global.boost = 0
 				Global.pure = false
 		if curr_item == "s dag":
-			var wp = InvLog.items.find(Global.s_dagger)
-			if wp != -1:
-				remove.emit(wp)
+			var eq_item = InvLog.items.find(Global.s_dagger)
+			if eq_item != -1:
+				remove.emit(eq_item)
 				weapon_changed.emit(Global.s_dagger)
 				InvLog.items[12] = Global.s_dagger
 				Global.damage = 6
 				Global.boost = 2
 				Global.pure = false
 		if curr_item == "p dag":
-			var wp = InvLog.items.find(Global.p_dagger)
-			if wp != -1:
-				remove.emit(wp)
+			var eq_item = InvLog.items.find(Global.p_dagger)
+			if eq_item != -1:
+				remove.emit(eq_item)
 				weapon_changed.emit(Global.p_dagger)
 				InvLog.items[12] = Global.p_dagger
 				Global.damage = 6
 				Global.boost = 0
 				Global.pure = true
 		if curr_item == "b swo":
-			var wp = InvLog.items.find(Global.b_sword)
-			if wp != -1:
-				remove.emit(wp)
+			var eq_item = InvLog.items.find(Global.b_sword)
+			if eq_item != -1:
+				remove.emit(eq_item)
 				weapon_changed.emit(Global.b_sword)
 				InvLog.items[12] = Global.b_sword
 				Global.damage = 4
 				Global.boost = -2
 				Global.pure = false
 		if curr_item == "p swo":
-			var wp = InvLog.items.find(Global.p_sword)
-			if wp != -1:
-				remove.emit(wp)
+			var eq_item = InvLog.items.find(Global.p_sword)
+			if eq_item != -1:
+				remove.emit(eq_item)
 				weapon_changed.emit(Global.p_sword)
 				InvLog.items[12] = Global.p_sword
 				Global.damage = 8
 				Global.boost = 0
 				Global.pure = true
 		if curr_item == "s swo":
-			var wp = InvLog.items.find(Global.s_sword)
-			if wp != -1:
-				remove.emit(wp)
+			var eq_item = InvLog.items.find(Global.s_sword)
+			if eq_item != -1:
+				remove.emit(eq_item)
 				weapon_changed.emit(Global.s_sword)
 				InvLog.items[12] = Global.s_sword
 				Global.damage = 8
 				Global.boost = 2
 				Global.pure = false
 		if curr_item == "b cla":
-			var wp = InvLog.items.find(Global.b_claymore)
-			if wp != -1:
-				remove.emit(wp)
+			var eq_item = InvLog.items.find(Global.b_claymore)
+			if eq_item != -1:
+				remove.emit(eq_item)
 				weapon_changed.emit(Global.b_claymore)
 				InvLog.items[12] = Global.b_claymore
 				Global.damage = 6
 				Global.boost = -2
 				Global.pure = false
 		if curr_item == "p cla":
-			var wp = InvLog.items.find(Global.p_claymore)
-			if wp != -1:
-				remove.emit(wp)
+			var eq_item = InvLog.items.find(Global.p_claymore)
+			if eq_item != -1:
+				remove.emit(eq_item)
 				weapon_changed.emit(Global.p_claymore)
 				InvLog.items[12] = Global.p_claymore
 				Global.damage = 12
 				Global.boost = 12 
 				Global.pure = true
 		if curr_item == "g cla":
-			var wp = InvLog.items.find(Global.g_claymore)
-			if wp != -1:
-				remove.emit(wp)
+			var eq_item = InvLog.items.find(Global.g_claymore)
+			if eq_item != -1:
+				remove.emit(eq_item)
 				weapon_changed.emit(Global.g_claymore)
 				InvLog.items[12] = Global.g_claymore
 				Global.damage = 12
 				Global.boost = 0 
 				Global.pure = false
 		if curr_item == "claym":
-			var wp = InvLog.items.find(Global.claymore)
-			if wp != -1:
-				remove.emit(wp)
+			var eq_item = InvLog.items.find(Global.claymore)
+			if eq_item != -1:
+				remove.emit(eq_item)
 				weapon_changed.emit(Global.claymore)
 				InvLog.items[12] = Global.claymore
 				Global.damage = 8
 				Global.boost = 0 
 				Global.pure = false
 		if curr_item == "p hal":
-			var wp = InvLog.items.find(Global.p_halberd)
-			if wp != -1:
-				remove.emit(wp)
+			var eq_item = InvLog.items.find(Global.p_halberd)
+			if eq_item != -1:
+				remove.emit(eq_item)
 				weapon_changed.emit(Global.p_halberd)
 				InvLog.items[12] = Global.p_halberd
 				Global.damage = 12
 				Global.boost = 0
 				Global.pure = true
 		if curr_item == "s hal":
-			var wp = InvLog.items.find(Global.s_halberd)
-			if wp != -1:
-				remove.emit(wp)
+			var eq_item = InvLog.items.find(Global.s_halberd)
+			if eq_item != -1:
+				remove.emit(eq_item)
 				weapon_changed.emit(Global.s_halberd)
 				InvLog.items[12] = Global.s_halberd
 				Global.damage = 8
 				Global.boost = 2
 				Global.pure = false
 		if curr_item == "halbe":
-			var wp = InvLog.items.find(Global.halberd)
-			if wp != -1:
-				remove.emit(wp)
+			var eq_item = InvLog.items.find(Global.halberd)
+			if eq_item != -1:
+				remove.emit(eq_item)
 				weapon_changed.emit(Global.halberd)
 				InvLog.items[12] = Global.halberd
 				Global.damage = 8
 				Global.boost = 0
 				Global.pure = false
 		if curr_item == "b hal":
-			var wp = InvLog.items.find(Global.b_halberd)
-			if wp != -1:
-				remove.emit(wp)
+			var eq_item = InvLog.items.find(Global.b_halberd)
+			if eq_item != -1:
+				remove.emit(eq_item)
+				weapon_changed.emit(Global.b_halberd)
+				InvLog.items[12] = Global.b_halberd
+				Global.damage = 6
+				Global.boost = -2
+				Global.pure = false
+		if curr_item == "":
+			var eq_item = InvLog.items.find(Global.b_halberd)
+			if eq_item != -1:
+				remove.emit(eq_item)
 				weapon_changed.emit(Global.b_halberd)
 				InvLog.items[12] = Global.b_halberd
 				Global.damage = 6

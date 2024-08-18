@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dma18o376erk"]
+
+[ext_resource type="PackedScene" uid="uid://xn1ixdo80xjb" path="res://scenes/items.tscn" id="1_tvwxt"]
+[ext_resource type="Texture2D" uid="uid://k4y0btn7wuge" path="res://sprites/gear/armor/iron armor.png" id="2_1sdd4"]
+
+[node name="iron armor" instance=ExtResource("1_tvwxt")]
+Name = "iron armor"
+type = "armor"
+protection = "8"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_1sdd4")

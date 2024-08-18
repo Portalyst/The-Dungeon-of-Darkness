@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxggcmxrxwodp"]
+
+[ext_resource type="PackedScene" uid="uid://xn1ixdo80xjb" path="res://scenes/items.tscn" id="1_7aqkb"]
+[ext_resource type="Texture2D" uid="uid://ca5w4fh1r67al" path="res://sprites/gear/armor/bone armor.png" id="2_xcfyk"]
+
+[node name="bone armor" instance=ExtResource("1_7aqkb")]
+Name = "bone armor"
+type = "armor"
+protection = "12"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_xcfyk")
