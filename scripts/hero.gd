@@ -87,11 +87,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq sword":
 		var eq_item = InvLog.items.find(Global.sword)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.sword)
 			InvLog.items[12] = Global.sword
@@ -101,11 +101,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq dagger":
 		var eq_item = InvLog.items.find(Global.dagger)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.dagger)
 			InvLog.items[12] = Global.dagger
@@ -115,11 +115,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq sharp dagger":
 		var eq_item = InvLog.items.find(Global.s_dagger)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.s_dagger)
 			InvLog.items[12] = Global.s_dagger
@@ -129,11 +129,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq pure dagger":
 		var eq_item = InvLog.items.find(Global.p_dagger)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.p_dagger)
 			InvLog.items[12] = Global.p_dagger
@@ -143,11 +143,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq broken sword":
 		var eq_item = InvLog.items.find(Global.b_sword)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.b_sword)
 			InvLog.items[12] = Global.b_sword
@@ -157,11 +157,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq pure sword":
 		var eq_item = InvLog.items.find(Global.p_sword)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.p_sword)
 			InvLog.items[12] = Global.p_sword
@@ -171,11 +171,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq sharp sword":
 		var eq_item = InvLog.items.find(Global.s_sword)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.s_sword)
 			InvLog.items[12] = Global.s_sword
@@ -185,11 +185,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq broken claymore":
 		var eq_item = InvLog.items.find(Global.b_claymore)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.b_claymore)
 			InvLog.items[12] = Global.b_claymore
@@ -199,11 +199,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq pure claymore":
 		var eq_item = InvLog.items.find(Global.p_claymore)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.p_claymore)
 			InvLog.items[12] = Global.p_claymore
@@ -213,11 +213,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq greate claymore":
 		var eq_item = InvLog.items.find(Global.g_claymore)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.g_claymore)
 			InvLog.items[12] = Global.g_claymore
@@ -227,11 +227,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq claymore":
 		var eq_item = InvLog.items.find(Global.claymore)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.claymore)
 			InvLog.items[12] = Global.claymore
@@ -241,11 +241,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq pure halberd":
 		var eq_item = InvLog.items.find(Global.p_halberd)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.p_halberd)
 			InvLog.items[12] = Global.p_halberd
@@ -255,11 +255,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq sharp halberd":
 		var eq_item = InvLog.items.find(Global.s_halberd)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.s_halberd)
 			InvLog.items[12] = Global.s_halberd
@@ -269,11 +269,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq halberd":
 		var eq_item = InvLog.items.find(Global.halberd)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.halberd)
 			InvLog.items[12] = Global.halberd
@@ -283,11 +283,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq broken halberd":
 		var eq_item = InvLog.items.find(Global.b_halberd)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.b_halberd)
 			InvLog.items[12] = Global.b_halberd
@@ -297,11 +297,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq broken spear":
 		var eq_item = InvLog.items.find(Global.b_spear)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.b_spear)
 			InvLog.items[12] = Global.b_spear
@@ -311,11 +311,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq spear":
 		var eq_item = InvLog.items.find(Global.spear)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.spear)
 			InvLog.items[12] = Global.spear
@@ -325,11 +325,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq pure spear":
 		var eq_item = InvLog.items.find(Global.p_spear)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.p_spear)
 			InvLog.items[12] = Global.p_spear
@@ -339,11 +339,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq sharp spear":
 		var eq_item = InvLog.items.find(Global.s_spear)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.s_spear)
 			InvLog.items[12] = Global.s_spear
@@ -353,11 +353,11 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq bat":
 		var eq_item = InvLog.items.find(Global.bat)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("w")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(12)
+				weapon_changed.emit(null)
+				remove.emit(-1)
 			remove.emit(eq_item)
 			weapon_changed.emit(Global.bat)
 			InvLog.items[12] = Global.bat

@@ -14,6 +14,8 @@ func _ready():
 	items[0] = Global.p_claymore
 	items[1] = Global.iron_armor
 	items[2] = Global.iron_chestplate
+	items[3] = Global.bat
+	items[4] = Global.p_spear
 	items[12] = "w"
 	items[13] = "a"
 
