@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b4dpvg0rvrgdg" path="res://scenes/mimic_base.tscn" id="1_rbfka"]
 [ext_resource type="Texture2D" uid="uid://c25kbhqtljucr" path="res://sprites/enemy/mimic/chest_mimic.png" id="2_85rwe"]
-[ext_resource type="Texture2D" uid="uid://djmcccdsjabag" path="res://sprites/enemy/mimic/chest.png" id="3_v5l0r"]
+[ext_resource type="Texture2D" uid="uid://djmcccdsjabag" path="res://sprites/background/chest/chest.png" id="3_v5l0r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t87rd"]
 atlas = ExtResource("2_85rwe")

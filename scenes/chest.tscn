@@ -1,14 +1,14 @@
 [gd_scene load_steps=8 format=3 uid="uid://dvncy03pg6kt3"]
 
 [ext_resource type="Script" path="res://scripts/chest.gd" id="1_ym4kv"]
-[ext_resource type="Texture2D" uid="uid://djmcccdsjabag" path="res://sprites/enemy/mimic/chest.png" id="2_ajfmu"]
+[ext_resource type="Texture2D" uid="uid://djmcccdsjabag" path="res://sprites/background/chest/chest.png" id="2_klhih"]
 [ext_resource type="Texture2D" uid="uid://b800u3ewe8mwv" path="res://sprites/background/chest/chest_looted.png" id="2_yd8c1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0f0c"]
 size = Vector2(16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l0h5l"]
-atlas = ExtResource("2_ajfmu")
+[sub_resource type="AtlasTexture" id="AtlasTexture_0q481"]
+atlas = ExtResource("2_klhih")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a0nrb"]
@@ -19,7 +19,7 @@ region = Rect2(0, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l0h5l")
+"texture": SubResource("AtlasTexture_0q481")
 }],
 "loop": true,
 "name": &"default",
