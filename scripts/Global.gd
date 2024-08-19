@@ -15,6 +15,8 @@ var boost = 0
 
 #weapons
 
+var bat = preload("res://scenes/bat.tscn")
+
 var p_sword = preload("res://scenes/p_sword.tscn")
 var s_sword = preload("res://scenes/s_sword.tscn")
 var sword = preload("res://scenes/sword.tscn")
@@ -33,6 +35,11 @@ var p_halberd = preload("res://scenes/p_halberd.tscn")
 var s_halberd = preload("res://scenes/s_halberd.tscn")
 var halberd = preload("res://scenes/halberd.tscn")
 var b_halberd =preload("res://scenes/b_halberd.tscn")
+
+var b_spear = preload("res://scenes/broken_spear.tscn")
+var spear = preload("res://scenes/spear.tscn")
+var s_spear = preload("res://scenes/sharp_spear.tscn")
+var p_spear = preload("res://scenes/pure_spear.tscn")
 
 #armors
 

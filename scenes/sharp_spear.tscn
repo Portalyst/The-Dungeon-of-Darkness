@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://8n5t4vfobfax"]
+
+[ext_resource type="PackedScene" uid="uid://xn1ixdo80xjb" path="res://scenes/items.tscn" id="1_47g60"]
+[ext_resource type="Texture2D" uid="uid://cu8mm6mhijx7j" path="res://sprites/gear/weapon/spear/sharp spear.png" id="2_tn866"]
+
+[node name="sharp spear" instance=ExtResource("1_47g60")]
+Name = "sharp spear"
+damage = "1-8"
+type = "weapon"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_tn866")

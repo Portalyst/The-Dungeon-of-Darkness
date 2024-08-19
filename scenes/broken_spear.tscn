@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://ce15n2y5sap26"]
+
+[ext_resource type="PackedScene" uid="uid://xn1ixdo80xjb" path="res://scenes/items.tscn" id="1_6og8i"]
+[ext_resource type="Texture2D" uid="uid://dpj3sembyemd3" path="res://sprites/gear/weapon/spear/broken spear.png" id="2_d6cwd"]
+
+[node name="broken spear" instance=ExtResource("1_6og8i")]
+Name = "broken spear"
+damage = "1-4"
+type = "weapon"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_d6cwd")

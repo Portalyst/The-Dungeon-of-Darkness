@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxt1sa6uqkq7p"]
+
+[ext_resource type="PackedScene" uid="uid://xn1ixdo80xjb" path="res://scenes/items.tscn" id="1_pbaq8"]
+[ext_resource type="Texture2D" uid="uid://cx84jhhwhggbi" path="res://sprites/gear/weapon/bat/bat.png" id="2_dun77"]
+
+[node name="bat" instance=ExtResource("1_pbaq8")]
+Name = "bat"
+damage = "1-6"
+type = "weapon"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_dun77")

@@ -92,6 +92,7 @@ shape = SubResource("RectangleShape2D_0ipe5")
 texture = ExtResource("1_dh7eb")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Inv" type="Sprite2D" parent="CanvasLayer"]
 position = Vector2(72, 77)
@@ -142,6 +143,7 @@ mouse_filter = 2
 script = ExtResource("8_ykify")
 
 [node name="ItemsMenu" type="Sprite2D" parent="CanvasLayer"]
+visible = false
 position = Vector2(72, 83)
 texture = ExtResource("6_2wlxo")
 
