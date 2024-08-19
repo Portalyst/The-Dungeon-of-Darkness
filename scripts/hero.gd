@@ -9,6 +9,10 @@ var moves = 100
 
 var enemy_body
 
+var on_line = false
+
+var mimic_in_area = false
+
 @onready var tilemap = $"../TileMap"
 
 @export var dead = false
@@ -20,14 +24,17 @@ var currarea
 signal armor_changed(item)
 signal weapon_changed(item)
 signal player_attack(int)
+signal trigger()
 
 func _ready():
 	set_meta("player", 222)
 	$dice.visible = false
 
 func _physics_process(delta):
-	if dead == true or Global.player_action == false:
+	if dead == true or Global.player_action == false or on_line == true:
 		canmove = false
+	if Global.player_action == true and on_line == false:
+		canmove = true
 	if canmove == true:
 		if Input.is_action_just_pressed("inv"):
 			$CanvasLayer.visible = !$CanvasLayer.visible
@@ -65,6 +72,8 @@ func move(direction: Vector2):
 func _on_line_edit_text_submitted(new_text):
 	var text = $CanvasLayer2/LineEdit.get_text()
 	if new_text == "open chest":
+		if mimic_in_area == true:
+			trigger.emit()
 		if chest_in_area == true:
 			open_chest.emit()
 			new_text = "successful"
@@ -73,13 +82,13 @@ func _on_line_edit_text_submitted(new_text):
 		if chest_in_area == false:
 			new_text = "no chest"
 			$Timer.start()
-	var command = new_text[0] + new_text[1] + new_text[2]
-	if command == "att" and enemy_spoted == true:
+	if new_text == "attack" and enemy_spoted == true and Global.player_action == true:
 		attack()
 	
 	if new_text == "end" and Global.in_battle == true:
 		moves = 6
 		Global.player_action = false
+		Global.player_action = true
 
 		
 			#remove.emit(12)
@@ -477,8 +486,12 @@ func _on_line_edit_text_submitted(new_text):
 
 
 func _on_line_edit_mouse_entered():
+	print("mouse entered1")
+	print(canmove)
 	$CanvasLayer2/LineEdit.grab_focus()
-	canmove = false
+	on_line = true
+	print("mouse entered2")
+	print(canmove)
 
 
 func _on_area_2d_area_entered(area):
@@ -491,8 +504,12 @@ func _on_timer_timeout():
 	chest_in_area = false
 
 func _on_line_edit_mouse_exited():
+	print("mouse exited1")
+	print(canmove)
 	$CanvasLayer2/LineEdit.release_focus()
-	canmove = true
+	on_line = false
+	print("mouse exited2")
+	print(canmove)
 
 func _on_area_2d_area_exited(area):
 	if area.has_meta("chest"):
@@ -518,12 +535,16 @@ func _on_area_2d_body_entered(body):
 		body.deal_attack.connect(get_damage)
 		enemy_spoted = true
 		enemy_body = body
+		if body.type == "mimic":
+			mimic_in_area = true
 
 func _on_area_2d_body_exited(body):
 	if body.has_meta("enemy"):
 		body.deal_attack.disconnect(get_damage)
 		enemy_spoted = false
 		enemy_body = null
+		if body.type == "mimic":
+			mimic_in_area = false
 
 func _on_area_2d_2_body_entered(body):
 	if body.has_meta("enemy"):

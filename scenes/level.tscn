@@ -92,13 +92,10 @@ layer_0/tile_data = PackedInt32Array(524296, 131072, 2, 458760, 131072, 1, 39322
 position = Vector2(56, 104)
 
 [node name="Chest" parent="." instance=ExtResource("3_f1ujg")]
-position = Vector2(40, 88)
+position = Vector2(56, 40)
 
 [node name="Chest2" parent="." instance=ExtResource("3_f1ujg")]
-position = Vector2(40, 104)
+position = Vector2(88, 40)
 
-[node name="Chest3" parent="." instance=ExtResource("3_f1ujg")]
-position = Vector2(40, 120)
-
-[node name="mimic_base" parent="." instance=ExtResource("4_ewkml")]
-position = Vector2(120, 24)
+[node name="mimic chest" parent="." instance=ExtResource("4_ewkml")]
+position = Vector2(72, 40)

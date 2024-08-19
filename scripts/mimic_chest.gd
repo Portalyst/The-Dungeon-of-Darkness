@@ -5,10 +5,15 @@ var on_left = false
 var on_top = false
 var on_bottom = false
 
+var angry = false
+
 var prep_to_att = false
 
 signal deal_attack(int)
 
+var agr_rate = 5
+
+@export var type = "mimic"
 @export var armor : int
 @export var damage : int
 @export var HP = 8
@@ -17,6 +22,16 @@ signal deal_attack(int)
 var moves = 6
 
 var player
+
+func _process(delta):
+	if agr_rate <= 0:
+		angry = false
+		agr_rate = 0
+	if dead == false:
+		if angry == true:
+			$AnimatedSprite2D.play("active")
+		else:
+			$AnimatedSprite2D.play("pass")
 
 func _ready():
 	set_meta("enemy", 3)
@@ -81,7 +96,7 @@ func _on_area_right_body_exited(body):
 		$Timer.start()
 
 func _on_timer_timeout():
-	if dead == false:
+	if dead == false and angry == true:
 		if player.dead == false and Global.player_action == false:
 			if prep_to_att == false:
 				var direction : Vector2
@@ -106,21 +121,15 @@ func _on_timer_timeout():
 				await $AnimationPlayer.animation_finished
 				$dice.visible = false
 				if attack >= Global.armor:
-					var deal_damage : int = randi_range(1, damage)
-					$dice.modulate = Color(1, 0, 0)
-					$dice.visible = true
-					$dice.text = str(deal_attack)
-					$AnimationPlayer.play("throw")
-					await $AnimationPlayer.animation_finished
-					$dice.visible = false
-					deal_attack.emit(deal_damage)
-				Global.player_action = true
-				prep_to_att = false
+					attack()
+		Global.player_action = true
+		agr_rate -= 1
 		$Timer.start()
 
 func _on_att_area_body_entered(body):
 	if body.has_meta("player"):
 		prep_to_att = true
+		$"../Hero".trigger.connect(triggired)
 
 func _on_att_area_body_exited(body):
 	if body.has_meta("player"):
@@ -128,8 +137,31 @@ func _on_att_area_body_exited(body):
 
 func take_damage(damage):
 	if dead == false:
+		angry = true
+		agr_rate = 5
 		HP -= damage
 		if HP <= 0:
 			dead = true
 			queue_free()
 			Global.player_action = true
+
+func triggired():
+	if angry == false:
+		agr_rate = 5
+		Global.player_action = false
+		angry = true
+		attack()
+
+func attack():
+	var deal_damage = randi_range(1, damage)
+	$dice.modulate = Color(1, 0, 0)
+	$dice.visible = true
+	$dice.text = str(deal_damage)
+	print(deal_damage)
+	$AnimationPlayer.play("throw")
+	await $AnimationPlayer.animation_finished
+	$dice.visible = false
+	deal_attack.emit(deal_damage)
+	Global.player_action = true
+	print("mimic attack")
+	print(Global.player_action)

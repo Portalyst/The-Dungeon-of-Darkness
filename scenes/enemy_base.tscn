@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://b4dpvg0rvrgdg"]
 
-[ext_resource type="Script" path="res://scripts/mimic_base.gd" id="1_n6gkk"]
-[ext_resource type="FontFile" uid="uid://bbrmpyhagtyct" path="res://font/PIXY.ttf" id="2_lr612"]
+[ext_resource type="Script" path="res://scripts/enemy_base.gd" id="1_kno1i"]
+[ext_resource type="FontFile" uid="uid://bbrmpyhagtyct" path="res://font/PIXY.ttf" id="2_w47pe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5pqun"]
 size = Vector2(16, 16)
@@ -53,8 +53,8 @@ _data = {
 "throw": SubResource("Animation_xq4ap")
 }
 
-[node name="mimic_base" type="CharacterBody2D"]
-script = ExtResource("1_n6gkk")
+[node name="enemy_base" type="CharacterBody2D"]
+script = ExtResource("1_kno1i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5pqun")
@@ -94,12 +94,12 @@ shape = SubResource("RectangleShape2D_jsyns")
 one_shot = true
 
 [node name="dice" type="Label" parent="."]
-self_modulate = Color(1, 1, 1, 0)
+visible = false
 offset_left = -19.0
 offset_top = -20.0
 offset_right = 21.0
 offset_bottom = -8.0
-theme_override_fonts/font = ExtResource("2_lr612")
+theme_override_fonts/font = ExtResource("2_w47pe")
 theme_override_font_sizes/font_size = 10
 text = "10"
 horizontal_alignment = 1
