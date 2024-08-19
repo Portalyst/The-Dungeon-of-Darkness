@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cmanibvhcfnh6" path="res://sprites/gear/weapon/dagger/sharp dagger.png" id="2_oxnns"]
 
 [node name="s dagger" instance=ExtResource("1_et7w8")]
-Name = "s dagger"
+Name = "sharp dagger"
 damage = "1-6"
 type = "weapon"
 

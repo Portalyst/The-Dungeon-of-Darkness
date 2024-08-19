@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://i0qacmcstqhw" path="res://sprites/gear/weapon/halberd/broken halberd.png" id="2_enl2b"]
 
 [node name="b halberd" instance=ExtResource("1_0rwtu")]
-Name = "b halberd"
+Name = "broken halberd"
 damage = "1-4"
 type = "weapon"
 

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://divoyq8cfrvy8" path="res://sprites/gear/weapon/claymore/greate claymore.png" id="2_rg2rj"]
 
 [node name="g claymore" instance=ExtResource("1_l2ayg")]
-Name = "G Claymore"
+Name = "Great Claymore"
 damage = "1-8"
 type = "weapon"
 

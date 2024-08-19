@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bm4wtuf6snsvp" path="res://sprites/gear/weapon/claymore/broken claymore.png" id="2_g740j"]
 
 [node name="b claymore" instance=ExtResource("1_rex5g")]
-Name = "b claymore"
+Name = "broken claymore"
 damage = "1-4"
 type = "weapon"
 

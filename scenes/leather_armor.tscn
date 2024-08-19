@@ -6,7 +6,7 @@
 [node name="leather armor" instance=ExtResource("1_tjkly")]
 Name = "leather armor"
 type = "armor"
-protection = "6"
+protection = 8
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_gqlte")

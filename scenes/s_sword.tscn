@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://psbbb2p03jhs" path="res://sprites/gear/weapon/sword/sharp sword.png" id="2_fnnov"]
 
 [node name="s sword" instance=ExtResource("1_dk2t0")]
-Name = "s sword"
+Name = "sharp sword"
 damage = "1-8"
 type = "weapon"
 
