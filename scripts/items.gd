@@ -5,7 +5,7 @@ extends Node2D
 @export var item_slot : int
 @export var discription = ""
 @export var type = ""
-@export var protection = ""
+@export var protection : int
 #@export var Info : PackedScene
 
 func _ready():
@@ -28,7 +28,7 @@ func _on_button_pressed():
 	if type == "weapon":
 		$/root/level/Hero/CanvasLayer/ItemsMenu/item_damage_or_res.text = "Damage: " + damage
 	if type == "armor":
-		$/root/level/Hero/CanvasLayer/ItemsMenu/item_damage_or_res.text = "protection: " + protection
+		$/root/level/Hero/CanvasLayer/ItemsMenu/item_damage_or_res.text = "protection: " + str(protection)
 	$/root/level/Hero/CanvasLayer/ItemsMenu/discription.text = discription
 	#$GearInfo.visible = !$GearInfo.visible
 	#if $GearInfo == null:

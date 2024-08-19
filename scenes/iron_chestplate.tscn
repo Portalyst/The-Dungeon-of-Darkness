@@ -6,7 +6,7 @@
 [node name="iron chestplate" instance=ExtResource("1_f4gw1")]
 Name = "iron chestplate"
 type = "armor"
-protection = "10"
+protection = 10
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_nfpm5")

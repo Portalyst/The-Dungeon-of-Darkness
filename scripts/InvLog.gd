@@ -12,6 +12,8 @@ func _ready():
 	for i in range(slots):
 		items.append({})
 	items[0] = Global.p_claymore
+	items[1] = Global.iron_armor
+	items[2] = Global.iron_chestplate
 	items[12] = "w"
 	items[13] = "a"
 

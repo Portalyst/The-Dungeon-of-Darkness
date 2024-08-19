@@ -2,6 +2,7 @@ extends Node
 
 var coins = 15
 
+var max_HP = 10
 var HP = 10
 var armor = 10
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://yxjysn3avnhl"]
+[gd_scene load_steps=22 format=3 uid="uid://yxjysn3avnhl"]
 
 [ext_resource type="Texture2D" uid="uid://ryy8je63yf7e" path="res://sprites/hero/hero.png" id="1_dh7eb"]
 [ext_resource type="Script" path="res://scripts/hero.gd" id="1_fhpx2"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scenes/weapon_slot.gd" id="7_ssalp"]
 [ext_resource type="PackedScene" uid="uid://whp7d73o3pqr" path="res://scenes/inventory.tscn" id="7_ve8qw"]
 [ext_resource type="Script" path="res://scripts/Area2D.gd" id="8_kt70t"]
+[ext_resource type="Script" path="res://scripts/armor_slot.gd" id="8_ykify"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ipe5"]
 size = Vector2(16, 16)
@@ -114,13 +115,14 @@ offset_left = -24.0
 offset_top = -3.0
 offset_right = -24.0
 offset_bottom = -3.0
+mouse_filter = 2
 
 [node name="Button" type="Button" parent="CanvasLayer"]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = 108.0
-offset_top = 41.0
+offset_top = 39.0
 offset_right = 124.0
-offset_bottom = 57.0
+offset_bottom = 55.0
 
 [node name="weapon_slot" type="ColorRect" parent="CanvasLayer" groups=["items_slots"]]
 self_modulate = Color(1, 1, 1, 0)
@@ -128,6 +130,7 @@ offset_left = 86.0
 offset_top = 99.0
 offset_right = 102.0
 offset_bottom = 115.0
+mouse_filter = 2
 script = ExtResource("7_ssalp")
 
 [node name="armor_slot" type="ColorRect" parent="CanvasLayer"]
@@ -136,26 +139,28 @@ offset_left = 106.0
 offset_top = 99.0
 offset_right = 122.0
 offset_bottom = 115.0
+mouse_filter = 2
+script = ExtResource("8_ykify")
 
 [node name="ItemsMenu" type="Sprite2D" parent="CanvasLayer"]
+visible = false
 position = Vector2(72, 83)
 texture = ExtResource("6_2wlxo")
 
 [node name="close_button" type="Button" parent="CanvasLayer/ItemsMenu"]
-self_modulate = Color(1, 1, 1, 0)
-offset_left = 35.0
-offset_top = -60.0
+offset_left = 39.0
+offset_top = 31.0
 offset_right = 52.0
-offset_bottom = -43.0
+offset_bottom = 44.0
 
 [node name="item_name" type="Label" parent="CanvasLayer/ItemsMenu"]
 offset_left = -50.0
-offset_top = -61.0
-offset_right = -10.0
-offset_bottom = -43.0
+offset_top = -60.0
+offset_right = 56.0
+offset_bottom = -42.0
 theme_override_fonts/font = ExtResource("4_5h4rp")
 theme_override_font_sizes/font_size = 10
-text = "name"
+text = "greate claymore"
 
 [node name="item_damage_or_res" type="Label" parent="CanvasLayer/ItemsMenu"]
 offset_left = -50.0
@@ -170,7 +175,7 @@ text = "damage: "
 offset_left = -50.0
 offset_top = -21.0
 offset_right = 50.0
-offset_bottom = 42.0
+offset_bottom = 29.0
 theme_override_fonts/normal_font = ExtResource("4_5h4rp")
 theme_override_font_sizes/normal_font_size = 10
 
