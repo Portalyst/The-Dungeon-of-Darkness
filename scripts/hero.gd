@@ -388,6 +388,90 @@ func _on_line_edit_text_submitted(new_text):
 			armor_changed.emit(Global.iron_chestplate)
 			InvLog.items[13] = Global.iron_chestplate
 			Global.armor = 10
+	if new_text == "eq armor of knights":
+		var eq_item = InvLog.items.find(Global.armor_of_knights)
+		if eq_item != -1:
+			remove.emit(-1)
+			var has = InvLog.items.find("a")
+			armor_changed.emit(null)
+			if has == -1:
+				InvLog.remove_item(13)
+			remove.emit(eq_item)
+			armor_changed.emit(Global.armor_of_knights)
+			InvLog.items[13] = Global.armor_of_knights
+			Global.armor = 12
+	if new_text == "eq prototype a":
+		var eq_item = InvLog.items.find(Global.prototype_a)
+		if eq_item != -1:
+			remove.emit(-1)
+			var has = InvLog.items.find("a")
+			armor_changed.emit(null)
+			if has == -1:
+				InvLog.remove_item(13)
+			remove.emit(eq_item)
+			armor_changed.emit(Global.prototype_a)
+			InvLog.items[13] = Global.prototype_a
+			Global.armor = 18
+	if new_text == "eq scaly armor":
+		var eq_item = InvLog.items.find(Global.scaly_armor)
+		if eq_item != -1:
+			remove.emit(-1)
+			var has = InvLog.items.find("a")
+			armor_changed.emit(null)
+			if has == -1:
+				InvLog.remove_item(13)
+			remove.emit(eq_item)
+			armor_changed.emit(Global.scaly_armor)
+			InvLog.items[13] = Global.scaly_armor
+			Global.armor = 12
+	if new_text == "eq leather armor":
+		var eq_item = InvLog.items.find(Global.leather_armor)
+		if eq_item != -1:
+			remove.emit(-1)
+			var has = InvLog.items.find("a")
+			armor_changed.emit(null)
+			if has == -1:
+				InvLog.remove_item(13)
+			remove.emit(eq_item)
+			armor_changed.emit(Global.leather_armor)
+			InvLog.items[13] = Global.leather_armor
+			Global.armor = 8
+	if new_text == "eq heavy armor":
+		var eq_item = InvLog.items.find(Global.heavy_armor)
+		if eq_item != -1:
+			remove.emit(-1)
+			var has = InvLog.items.find("a")
+			armor_changed.emit(null)
+			if has == -1:
+				InvLog.remove_item(13)
+			remove.emit(eq_item)
+			armor_changed.emit(Global.heavy_armor)
+			InvLog.items[13] = Global.heavy_armor
+			Global.armor = 16
+	if new_text == "eq chain armor":
+		var eq_item = InvLog.items.find(Global.chain_armor)
+		if eq_item != -1:
+			remove.emit(-1)
+			var has = InvLog.items.find("a")
+			armor_changed.emit(null)
+			if has == -1:
+				InvLog.remove_item(13)
+			remove.emit(eq_item)
+			armor_changed.emit(Global.chain_armor)
+			InvLog.items[13] = Global.chain_armor
+			Global.armor = 10
+	if new_text == "eq bone armor":
+		var eq_item = InvLog.items.find(Global.bone_armor)
+		if eq_item != -1:
+			remove.emit(-1)
+			var has = InvLog.items.find("a")
+			armor_changed.emit(null)
+			if has == -1:
+				InvLog.remove_item(13)
+			remove.emit(eq_item)
+			armor_changed.emit(Global.bone_armor)
+			InvLog.items[13] = Global.bone_armor
+			Global.armor = 10
 	new_text = ""
 	#print(InvLog.items.find("w"))
 
