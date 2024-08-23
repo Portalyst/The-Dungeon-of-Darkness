@@ -82,8 +82,9 @@ func _on_line_edit_text_submitted(new_text):
 		if chest_in_area == false:
 			new_text = "no chest"
 			$Timer.start()
-	if new_text == "attack" and enemy_spoted == true and Global.player_action == true:
+	if new_text == "attack mimic" and enemy_spoted == true and Global.player_action == true and mimic_in_area == true:
 		attack()
+		moves = 6
 	
 	if new_text == "end" and Global.in_battle == true:
 		moves = 6
@@ -514,13 +515,15 @@ func _on_line_edit_mouse_exited():
 func _on_area_2d_area_exited(area):
 	if area.has_meta("chest"):
 		chest_in_area = false
+		area.loot.disconnect(get_loot)
 
 func _on_button_pressed():
 	$CanvasLayer.hide()
 
 func get_loot(get_item):
 	var slot = InvLog.items.find({})
-	InvLog.set_item(slot, get_item)
+	if slot != -1:
+		InvLog.set_item(slot, get_item)
 
 func get_damage(damage):
 	$Hero.modulate = Color(1, 0, 0)
@@ -533,6 +536,7 @@ func get_damage(damage):
 func _on_area_2d_body_entered(body):
 	if body.has_meta("enemy"):
 		body.deal_attack.connect(get_damage)
+		body.drop_loot.connect(get_loot)
 		enemy_spoted = true
 		enemy_body = body
 		if body.type == "mimic":
@@ -543,6 +547,7 @@ func _on_area_2d_body_exited(body):
 		body.deal_attack.disconnect(get_damage)
 		enemy_spoted = false
 		enemy_body = null
+		body.drop_loot.disconnect(get_loot)
 		if body.type == "mimic":
 			mimic_in_area = false
 

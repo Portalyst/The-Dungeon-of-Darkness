@@ -11,11 +11,11 @@ func _ready():
 	slots += 2
 	for i in range(slots):
 		items.append({})
-	items[0] = Global.p_claymore
-	items[1] = Global.iron_armor
+	items[0] = Global.coin
+	items[1] = Global.p_claymore
 	items[2] = Global.iron_chestplate
-	items[3] = Global.bat
-	items[4] = Global.p_spear
+	items[3] = Global.b_claymore
+	
 	items[12] = "w"
 	items[13] = "a"
 

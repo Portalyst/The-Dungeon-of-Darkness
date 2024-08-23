@@ -9,6 +9,9 @@ var prep_to_att = false
 
 signal deal_attack(int)
 
+signal drop_loot()
+
+@export var loot : PackedScene
 @export var type : String
 @export var armor : int
 @export var damage : int
@@ -123,6 +126,9 @@ func take_damage(damage):
 	if dead == false:
 		HP -= damage
 		if HP <= 0:
+			var chance = randi_range(0, 10)
+			if chance == 10:
+				drop_loot.emit(loot)
 			dead = true
 			queue_free()
 			Global.player_action = true

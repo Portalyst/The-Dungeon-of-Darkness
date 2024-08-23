@@ -11,8 +11,12 @@ var prep_to_att = false
 
 signal deal_attack(int)
 
+signal drop_loot()
+
 var agr_rate = 5
 
+@export var loot2 : String
+@export var loot : String
 @export var type = "mimic"
 @export var armor : int
 @export var damage : int
@@ -141,6 +145,12 @@ func take_damage(damage):
 		agr_rate = 5
 		HP -= damage
 		if HP <= 0:
+			var chance_for_one = randi_range(0, 10)
+			if chance_for_one == 10:
+				drop_loot.emit(loot)
+			var chance_for_two = randi_range(0, 20)
+			if chance_for_two == 20:
+				drop_loot.emit(loot2)
 			dead = true
 			queue_free()
 			Global.player_action = true

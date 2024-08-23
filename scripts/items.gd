@@ -29,6 +29,10 @@ func _on_button_pressed():
 		$/root/level/Hero/CanvasLayer/ItemsMenu/item_damage_or_res.text = "Damage: " + damage
 	if type == "armor":
 		$/root/level/Hero/CanvasLayer/ItemsMenu/item_damage_or_res.text = "protection: " + str(protection)
+	if type == "coin":
+		$/root/level/Hero/CanvasLayer/ItemsMenu/item_damage_or_res.text = "amount: " + str(Global.coins)
+	if type == "loot":
+		$/root/level/Hero/CanvasLayer/ItemsMenu/item_damage_or_res.text = ""
 	$/root/level/Hero/CanvasLayer/ItemsMenu/discription.text = discription
 	#$GearInfo.visible = !$GearInfo.visible
 	#if $GearInfo == null:

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://mrr3blbdjndi"]
+
+[ext_resource type="PackedScene" uid="uid://xn1ixdo80xjb" path="res://scenes/items.tscn" id="1_e8fmq"]
+[ext_resource type="Texture2D" uid="uid://dtlgxv0ieenjh" path="res://sprites/loot/mimic scaly.png" id="2_tunva"]
+
+[node name="mimic scaly" instance=ExtResource("1_e8fmq")]
+Name = "mimiv scaly"
+type = "loot"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_tunva")

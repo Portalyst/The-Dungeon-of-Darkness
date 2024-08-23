@@ -99,3 +99,5 @@ position = Vector2(88, 40)
 
 [node name="mimic chest" parent="." instance=ExtResource("4_ewkml")]
 position = Vector2(72, 40)
+loot2 = ""
+loot = ""

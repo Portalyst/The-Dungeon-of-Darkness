@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://h8a32uqul3w3"]
+
+[ext_resource type="PackedScene" uid="uid://xn1ixdo80xjb" path="res://scenes/items.tscn" id="1_u1r4m"]
+[ext_resource type="Texture2D" uid="uid://owcxr81rijl7" path="res://sprites/loot/coin.png" id="2_m5olf"]
+
+[node name="coins" instance=ExtResource("1_u1r4m")]
+Name = "coins"
+type = "coin"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_m5olf")

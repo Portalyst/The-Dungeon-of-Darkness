@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsdhuog6k5vm7"]
+
+[ext_resource type="PackedScene" uid="uid://xn1ixdo80xjb" path="res://scenes/items.tscn" id="1_fw20c"]
+[ext_resource type="Texture2D" uid="uid://dp3phejhb65q" path="res://sprites/loot/mimic tongue.png" id="2_8t802"]
+
+[node name="mimic tongue" instance=ExtResource("1_fw20c")]
+Name = "mimic tongue"
+type = "loot"
+
+[node name="GearInfo" parent="." index="1"]
+texture = ExtResource("2_8t802")

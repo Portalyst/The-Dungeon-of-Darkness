@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dvncy03pg6kt3"]
 
 [ext_resource type="Script" path="res://scripts/chest.gd" id="1_ym4kv"]
-[ext_resource type="Texture2D" uid="uid://djmcccdsjabag" path="res://sprites/background/chest/chest.png" id="2_klhih"]
+[ext_resource type="Texture2D" uid="uid://djmcccdsjabag" path="res://sprites/enemy/mimic/chest.png" id="2_klhih"]
 [ext_resource type="Texture2D" uid="uid://b800u3ewe8mwv" path="res://sprites/background/chest/chest_looted.png" id="2_yd8c1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0f0c"]
