@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 signal open_chest(bool)
 signal remove(String)
+signal open_door
 
 var enemy_spoted = false
 
@@ -12,6 +13,8 @@ var enemy_body
 var on_line = false
 
 var mimic_in_area = false
+
+var door_in_area = false
 
 @onready var tilemap = $"../TileMap"
 
@@ -85,6 +88,9 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "attack mimic" and enemy_spoted == true and Global.player_action == true and mimic_in_area == true:
 		attack()
 		moves = 6
+	
+	if new_text == "open door" and door_in_area == true and dead == false and Global.player_action == true:
+		open_door.emit()
 	
 	if new_text == "end" and Global.in_battle == true:
 		moves = 6
@@ -499,6 +505,8 @@ func _on_area_2d_area_entered(area):
 	if area.has_meta("chest"):
 		chest_in_area = true
 		area.loot.connect(get_loot)
+	if area.has_meta("door"):
+		door_in_area = true
 
 func _on_timer_timeout():
 	$CanvasLayer2/LineEdit.text = ""
