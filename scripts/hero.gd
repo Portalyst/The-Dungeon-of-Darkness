@@ -493,12 +493,8 @@ func _on_line_edit_text_submitted(new_text):
 
 
 func _on_line_edit_mouse_entered():
-	print("mouse entered1")
-	print(canmove)
 	$CanvasLayer2/LineEdit.grab_focus()
 	on_line = true
-	print("mouse entered2")
-	print(canmove)
 
 
 func _on_area_2d_area_entered(area):

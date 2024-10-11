@@ -2,8 +2,14 @@ extends Area2D
 
 var rooms = [Global.room0, Global.room1]
 
+@onready var tilemap = $"../TileMap"
+
 func _ready():
 	set_meta("door", 69)
+	var currtile: Vector2i = tilemap.local_to_map(global_position)
+	var tiledata: TileData = tilemap.get_cell_tile_data(0, currtile)
+	if tiledata.get_custom_data("walk") == false:
+		print("ZXC")
 
 func open():
 	$AnimatedSprite2D.play("opened")
@@ -12,8 +18,6 @@ func open():
 	add_child(spawn_room)
 	spawn_room.position += Vector2(80, 0)
 	Global.camera.position += Vector2(144, 0)
-	print("SUKA")
-	print(spawn_room.Markerpos)
 
 
 func _on_body_entered(body):
