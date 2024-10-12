@@ -509,12 +509,8 @@ func _on_timer_timeout():
 	chest_in_area = false
 
 func _on_line_edit_mouse_exited():
-	print("mouse exited1")
-	print(canmove)
 	$CanvasLayer2/LineEdit.release_focus()
 	on_line = false
-	print("mouse exited2")
-	print(canmove)
 
 func _on_area_2d_area_exited(area):
 	if area.has_meta("chest"):
