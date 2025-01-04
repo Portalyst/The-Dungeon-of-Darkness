@@ -13,16 +13,6 @@ var damage = 1
 var pure = false
 var boost = 0
 
-var camera
-
-var cam_pos : Vector2
-
-#rooms
-
-var room0 = load("res://scenes/room_0.tscn")
-
-var room1 = load("res://scenes/room_1.tscn")
-
 #weapons
 
 var bat = load("res://scenes/bat.tscn")

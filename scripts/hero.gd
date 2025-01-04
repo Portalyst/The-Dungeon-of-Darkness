@@ -1,8 +1,6 @@
 extends CharacterBody2D
 
-signal open_chest(bool)
-signal remove(String)
-signal open_door
+
 
 var enemy_spoted = false
 
@@ -28,6 +26,9 @@ signal armor_changed(item)
 signal weapon_changed(item)
 signal player_attack(int)
 signal trigger()
+signal open_chest(bool)
+signal remove(String)
+signal open_door
 
 func _ready():
 	set_meta("player", 222)
@@ -79,12 +80,11 @@ func _on_line_edit_text_submitted(new_text):
 			trigger.emit()
 		if chest_in_area == true:
 			open_chest.emit()
-			new_text = "successful"
-			$Timer.start()
+			chest_in_area = false
 			
-		if chest_in_area == false:
-			new_text = "no chest"
-			$Timer.start()
+		#if chest_in_area == false:
+		#	new_text = "no chest"
+		#	$Timer.start()
 	if new_text == "attack mimic" and enemy_spoted == true and Global.player_action == true and mimic_in_area == true:
 		attack()
 		moves = 6
@@ -489,6 +489,7 @@ func _on_line_edit_text_submitted(new_text):
 			InvLog.items[13] = Global.bone_armor
 			Global.armor = 10
 	new_text = ""
+	$CanvasLayer2/LineEdit.text = ""
 	#print(InvLog.items.find("w"))
 
 

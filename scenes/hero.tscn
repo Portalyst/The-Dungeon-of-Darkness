@@ -21,11 +21,11 @@ size = Vector2(144, 144)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8qgdy"]
 size = Vector2(43, 43)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5w8w7"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b3m87"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_017yj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5w8w7"]
 
 [sub_resource type="GDScript" id="GDScript_u14dc"]
 script/source = "extends LineEdit
@@ -209,9 +209,9 @@ offset_top = 137.0
 offset_right = 143.0
 offset_bottom = 168.0
 theme_override_fonts/font = ExtResource("4_5h4rp")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_5w8w7")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_b3m87")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_017yj")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5w8w7")
 clear_button_enabled = true
 script = SubResource("GDScript_u14dc")
 
@@ -233,6 +233,9 @@ libraries = {
 [node name="damage_timer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 8)
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ItemsMenu/close_button" to="." method="_on_close_button_pressed"]
