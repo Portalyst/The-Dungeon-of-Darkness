@@ -20,9 +20,11 @@ position = Vector2(136, 72)
 
 [node name="Door3" parent="." instance=ExtResource("4_ky348")]
 position = Vector2(216, 72)
+big = true
 
 [node name="Door2" parent="." instance=ExtResource("4_ky348")]
 position = Vector2(248, -72)
+big = true
 
 [node name="Big-shadow" parent="." instance=ExtResource("5_rjc17")]
 visible = false

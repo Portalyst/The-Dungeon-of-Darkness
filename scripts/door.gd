@@ -1,12 +1,22 @@
 extends Area2D
 
-signal del_shadow()
+@export var big : bool = false
+@export var opened : bool = false
+
+signal del_shadow
 
 func _ready():
 	set_meta("door", 69)
+	if big == false:
+		$AnimatedSprite2D.play("closed")
+	else:
+		$AnimatedSprite2D.play("big_closed")
 
 func open():
-	$AnimatedSprite2D.play("opened")
+	if big == false:
+		$AnimatedSprite2D.play("opened")
+	else:
+		$AnimatedSprite2D.play("big_opened")
 	$Timer.start()
 
 
@@ -21,4 +31,5 @@ func _on_body_exited(body):
 
 func _on_timer_timeout() -> void:
 	del_shadow.emit()
-	self.queue_free()
+	opened = true
+	#self.queue_free()

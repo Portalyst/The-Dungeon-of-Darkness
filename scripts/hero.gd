@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
 
+var door_cord : Vector2
+var is_door_open : bool
 
 var enemy_spoted = false
 
@@ -68,7 +70,10 @@ func move(direction: Vector2):
 		var currtile: Vector2i = tilemap.local_to_map(global_position)
 		var targtile: Vector2i = Vector2i(currtile.x + direction.x, currtile.y + direction.y)
 		var tiledata: TileData = tilemap.get_cell_tile_data(0, targtile)
+		#var walk_near = walk.emit(tilemap.map_to_local(targtile))
 		if tiledata.get_custom_data("walk") == false:
+			return
+		if door_in_area == true and door_cord == tilemap.map_to_local(targtile) and is_door_open == false:
 			return
 		global_position = tilemap.map_to_local(targtile)
 
@@ -91,6 +96,7 @@ func _on_line_edit_text_submitted(new_text):
 	
 	if new_text == "open door" and door_in_area == true and dead == false and Global.player_action == true:
 		open_door.emit()
+		is_door_open = true
 	
 	if new_text == "end" and Global.in_battle == true:
 		moves = 6
@@ -504,6 +510,8 @@ func _on_area_2d_area_entered(area):
 		area.loot.connect(get_loot)
 	if area.has_meta("door"):
 		door_in_area = true
+		door_cord = area.position
+		is_door_open = area.opened
 
 func _on_timer_timeout():
 	$CanvasLayer2/LineEdit.text = ""
@@ -517,6 +525,9 @@ func _on_area_2d_area_exited(area):
 	if area.has_meta("chest"):
 		chest_in_area = false
 		area.loot.disconnect(get_loot)
+	if area.has_meta("door"):
+		door_in_area = false
+		door_cord = Vector2(0, 0)
 
 func _on_button_pressed():
 	$CanvasLayer.hide()
