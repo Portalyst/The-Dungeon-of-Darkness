@@ -91,6 +91,12 @@ shape = SubResource("RectangleShape2D_0ipe5")
 [node name="Hero" type="Sprite2D" parent="."]
 texture = ExtResource("1_dh7eb")
 
+[node name="Area2D2" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+shape = SubResource("RectangleShape2D_mirn7")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
 
@@ -179,13 +185,6 @@ offset_bottom = 29.0
 theme_override_fonts/normal_font = ExtResource("4_5h4rp")
 theme_override_font_sizes/normal_font_size = 10
 
-[node name="Area2D2" type="Area2D" parent="CanvasLayer"]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Area2D2"]
-position = Vector2(72, 72)
-shape = SubResource("RectangleShape2D_mirn7")
-
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("8_kt70t")
 
@@ -217,9 +216,9 @@ script = SubResource("GDScript_u14dc")
 
 [node name="dice" type="Label" parent="."]
 offset_left = -7.0
-offset_top = -20.0
+offset_top = -6.0
 offset_right = 8.0
-offset_bottom = -8.0
+offset_bottom = 6.0
 theme_override_fonts/font = ExtResource("4_5h4rp")
 theme_override_font_sizes/font_size = 10
 text = "10"
@@ -237,10 +236,10 @@ one_shot = true
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, 8)
 
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
+[connection signal="body_exited" from="Area2D2" to="." method="_on_area_2d_2_body_exited"]
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ItemsMenu/close_button" to="." method="_on_close_button_pressed"]
-[connection signal="body_entered" from="CanvasLayer/Area2D2" to="." method="_on_area_2d_2_body_entered"]
-[connection signal="body_exited" from="CanvasLayer/Area2D2" to="." method="_on_area_2d_2_body_exited"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

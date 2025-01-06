@@ -9,4 +9,4 @@ func show_room():
 func _on_area_2d_area_entered(area):
 	if area.has_meta("door"):
 		area.del_shadow.connect(show_room)
-		print("connected")
+		#print("connected")

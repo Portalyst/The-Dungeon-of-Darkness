@@ -3,10 +3,11 @@ extends CharacterBody2D
 
 var door_cord : Vector2
 var is_door_open : bool
+var is_door_lock : bool
 
 var enemy_spoted = false
 
-var moves = 100
+var moves = 6
 
 var enemy_body
 
@@ -24,13 +25,17 @@ var canmove = true
 var chest_in_area = false
 var currarea
 
-signal armor_changed(item)
-signal weapon_changed(item)
+#battle
 signal player_attack(int)
 signal trigger()
 signal open_chest(bool)
+#inventory
 signal remove(String)
+signal armor_changed(item)
+signal weapon_changed(item)
+#door
 signal open_door
+signal punch_door
 
 func _ready():
 	set_meta("player", 222)
@@ -94,9 +99,15 @@ func _on_line_edit_text_submitted(new_text):
 		attack()
 		moves = 6
 	
+	if new_text == "punch door" and door_in_area == true and dead == false and Global.player_action == true and is_door_lock == true:
+		punch_door.emit()
+		is_door_lock = false
+		is_door_open = true
+	
 	if new_text == "open door" and door_in_area == true and dead == false and Global.player_action == true:
 		open_door.emit()
-		is_door_open = true
+		if is_door_lock == false:
+			is_door_open = true
 	
 	if new_text == "end" and Global.in_battle == true:
 		moves = 6
@@ -512,6 +523,7 @@ func _on_area_2d_area_entered(area):
 		door_in_area = true
 		door_cord = area.position
 		is_door_open = area.opened
+		is_door_lock = area.locked
 
 func _on_timer_timeout():
 	$CanvasLayer2/LineEdit.text = ""
@@ -566,6 +578,7 @@ func _on_area_2d_body_exited(body):
 func _on_area_2d_2_body_entered(body):
 	if body.has_meta("enemy"):
 		Global.in_battle = true
+		print("enemy spoted")
 		
 
 func _on_area_2d_2_body_exited(body):

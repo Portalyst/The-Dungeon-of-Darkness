@@ -16,15 +16,18 @@ signal drop_loot()
 @export var armor : int
 @export var damage : int
 @export var HP = 8
-@export var dead = false
+@export var dead : bool = false
 
 var moves = 6
 
 var player
 
+var start_position : Vector2
+
 func _ready():
 	set_meta("enemy", 3)
 	$"../Hero".player_attack.connect(take_damage)
+	start_position = self.position
 
 
 
@@ -112,6 +115,8 @@ func _on_timer_timeout():
 				if attack >= Global.armor:
 					attack()
 				Global.player_action = true
+		if on_top == false and on_bottom == false and on_left == false and on_right == false and prep_to_att == false:
+			self.position = start_position
 		$Timer.start()
 
 func _on_att_area_body_entered(body):

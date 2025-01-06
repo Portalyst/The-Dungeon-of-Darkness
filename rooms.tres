@@ -1,6 +1,7 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bxvp47e1ea26j"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://bxvp47e1ea26j"]
 
 [ext_resource type="Texture2D" uid="uid://dc0pyd6bbox86" path="res://sprites/tilemap/tilemap.png" id="1_y1sv5"]
+[ext_resource type="PackedScene" uid="uid://cmljrpp7x0s4t" path="res://scenes/door.tscn" id="2_eoky8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v8edw"]
 texture = ExtResource("1_y1sv5")
@@ -83,6 +84,16 @@ texture = ExtResource("1_y1sv5")
 1:4/0/custom_data_0 = true
 2:4/0 = 0
 3:4/0 = 0
+4:0/0 = 0
+4:0/0/custom_data_0 = true
+4:1/0 = 0
+4:1/0/custom_data_0 = true
+4:2/0 = 0
+4:2/0/custom_data_0 = true
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_30g2k"]
+resource_name = "doors"
+scenes/1/scene = ExtResource("2_eoky8")
 
 [resource]
 terrain_set_0/mode = 0
@@ -95,3 +106,4 @@ custom_data_layer_1/type = 1
 custom_data_layer_2/name = "up"
 custom_data_layer_2/type = 1
 sources/0 = SubResource("TileSetAtlasSource_v8edw")
+sources/1 = SubResource("TileSetScenesCollectionSource_30g2k")
