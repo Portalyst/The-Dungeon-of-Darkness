@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://yxjysn3avnhl"]
+[gd_scene load_steps=38 format=3 uid="uid://yxjysn3avnhl"]
 
 [ext_resource type="Texture2D" uid="uid://ryy8je63yf7e" path="res://sprites/hero/hero.png" id="1_dh7eb"]
 [ext_resource type="Script" path="res://scripts/hero.gd" id="1_fhpx2"]
@@ -11,6 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://whp7d73o3pqr" path="res://scenes/inventory.tscn" id="7_ve8qw"]
 [ext_resource type="Script" path="res://scripts/Area2D.gd" id="8_kt70t"]
 [ext_resource type="Script" path="res://scripts/armor_slot.gd" id="8_ykify"]
+[ext_resource type="Texture2D" uid="uid://cjrgp3plb1pjc" path="res://sprites/menu/clock_frame.png" id="11_7f47m"]
+[ext_resource type="Texture2D" uid="uid://dly7k2xd2ice7" path="res://sprites/clock/turn_end/turn_end_sheet.png" id="13_0cxyf"]
+[ext_resource type="Texture2D" uid="uid://cm3f02aniatin" path="res://sprites/clock/turn_switch/turn_switch.png" id="14_p0ns1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ipe5"]
 size = Vector2(16, 16)
@@ -33,6 +36,103 @@ script/source = "extends LineEdit
 func _on_mouse_exited():
 	deselect()
 "
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3r65"]
+atlas = ExtResource("13_0cxyf")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygqgi"]
+atlas = ExtResource("13_0cxyf")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_on1sv"]
+atlas = ExtResource("13_0cxyf")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwm17"]
+atlas = ExtResource("13_0cxyf")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyw8o"]
+atlas = ExtResource("13_0cxyf")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pfjp"]
+atlas = ExtResource("13_0cxyf")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvw3x"]
+atlas = ExtResource("14_p0ns1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2u55"]
+atlas = ExtResource("14_p0ns1")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fj6u"]
+atlas = ExtResource("14_p0ns1")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rl0g"]
+atlas = ExtResource("14_p0ns1")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nsbxk"]
+atlas = ExtResource("14_p0ns1")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kie7"]
+atlas = ExtResource("14_p0ns1")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f2ojk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q3r65")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygqgi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_on1sv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rwm17")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nyw8o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pfjp")
+}],
+"loop": false,
+"name": &"end",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvw3x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t2u55")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3fj6u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rl0g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nsbxk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1kie7")
+}],
+"loop": false,
+"name": &"switch",
+"speed": 5.0
+}]
 
 [sub_resource type="Animation" id="Animation_jskiy"]
 length = 0.001
@@ -198,6 +298,10 @@ one_shot = true
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
+[node name="ClockFrame" type="Sprite2D" parent="CanvasLayer2"]
+position = Vector2(16, 16)
+texture = ExtResource("11_7f47m")
+
 [node name="Input" type="Sprite2D" parent="CanvasLayer2"]
 position = Vector2(72, 152)
 texture = ExtResource("3_ri7jt")
@@ -213,6 +317,11 @@ theme_override_styles/read_only = SubResource("StyleBoxEmpty_017yj")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_5w8w7")
 clear_button_enabled = true
 script = SubResource("GDScript_u14dc")
+
+[node name="turn_clock" type="AnimatedSprite2D" parent="CanvasLayer2"]
+position = Vector2(16, 16)
+sprite_frames = SubResource("SpriteFrames_f2ojk")
+animation = &"end"
 
 [node name="dice" type="Label" parent="."]
 offset_left = -7.0

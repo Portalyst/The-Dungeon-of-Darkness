@@ -13,6 +13,8 @@ signal deal_attack(int)
 
 signal drop_loot()
 
+signal give_turn()
+
 var agr_rate = 5
 
 @export var loot2 : String
@@ -40,6 +42,7 @@ func _process(delta):
 func _ready():
 	set_meta("enemy", 3)
 	$"../Hero".player_attack.connect(take_damage)
+	player = $"../Hero"
 
 
 
@@ -47,21 +50,21 @@ func _on_area_up_body_entered(body):
 	if prep_to_att == false:
 		if body.has_meta("player"):
 			on_top = true
-			$Timer.start()
-			player = body
+			#$Timer.start()
+			#player = body
 	else:
 		on_top = false
 
 func _on_area_up_body_exited(body):
 	if body.has_meta("player"):
 		on_top = false
-		$Timer.start()
+		#$Timer.start()
 
 func _on_area_down_body_entered(body):
 	if prep_to_att == false:
 		if body.has_meta("player"):
 			on_bottom = true
-			$Timer.start()
+			#$Timer.start()
 			player = body
 	else:
 		on_bottom = false
@@ -69,40 +72,42 @@ func _on_area_down_body_entered(body):
 func _on_area_down_body_exited(body):
 	if body.has_meta("player"):
 		on_bottom = false
-		$Timer.start()
+		#$Timer.start()
 
 func _on_area_left_body_entered(body):
 	if prep_to_att == false:
 		if body.has_meta("player"):
 			on_left = true
 			player = body
-			$Timer.start()
+			#$Timer.start()
 	else:
 		on_left = false
 
 func _on_area_left_body_exited(body):
 	if body.has_meta("player"):
 		on_left = false
-		$Timer.start()
+		#$Timer.start()
 
 func _on_area_right_body_entered(body):
 	if prep_to_att == false:
 		if body.has_meta("player"):
 			player = body
 			on_right = true
-			$Timer.start()
+			#$Timer.start()
 	else:
 		on_right = false
 
 func _on_area_right_body_exited(body):
 	if body.has_meta("player"):
 		on_right = false
-		$Timer.start()
+		#$Timer.start()
 
 func _on_timer_timeout():
-	if dead == false and angry == true:
-		if player.dead == false and Global.player_action == false:
-			if prep_to_att == false:
+	print(dead, angry, player.dead, Global.player_action, prep_to_att)
+	#if dead == false and angry == true:
+	if player.dead == false and Global.player_action == false:
+		if prep_to_att == false:
+			if moves != 0:
 				var direction : Vector2
 				if on_top == true:
 					direction += Vector2(0, -16)
@@ -114,21 +119,22 @@ func _on_timer_timeout():
 					direction += Vector2(16, 0)
 				position += direction
 				moves -= 1
-				if moves == 0:
-					Global.player_action = true
-			if prep_to_att == true and Global.player_action == false:
-				var attack = randi_range(1, 20)
-				$dice.visible = true
-				$dice.modulate = Color(1, 1, 1)
-				$dice.text = str(attack)
-				$AnimationPlayer.play("throw")
-				await $AnimationPlayer.animation_finished
-				$dice.visible = false
-				if attack >= Global.armor:
-					attack()
-		Global.player_action = true
-		agr_rate -= 1
-		$Timer.start()
+			if moves == 0:
+				give_turn.emit()
+		if prep_to_att == true and Global.player_action == false:
+			var attack = randi_range(1, 20)
+			$dice.visible = true
+			$dice.modulate = Color(1, 1, 1)
+			$dice.text = str(attack)
+			$AnimationPlayer.play("throw")
+			await $AnimationPlayer.animation_finished
+			$dice.visible = false
+			Global.player_action = true
+			if attack >= Global.armor:
+				attack()
+		#Global.player_action = true
+		print("timer end")
+	$Timer.start()
 
 func _on_att_area_body_entered(body):
 	if body.has_meta("player"):
@@ -138,6 +144,7 @@ func _on_att_area_body_entered(body):
 func _on_att_area_body_exited(body):
 	if body.has_meta("player"):
 		prep_to_att = false
+		$"../Hero".trigger.disconnect(triggired)
 
 func take_damage(damage):
 	if dead == false:
@@ -153,25 +160,27 @@ func take_damage(damage):
 				drop_loot.emit(loot2)
 			dead = true
 			queue_free()
-			Global.player_action = true
+			give_turn.emit()
 
 func triggired():
 	if angry == false:
 		agr_rate = 5
-		Global.player_action = false
+		#Global.player_action = false
 		angry = true
 		attack()
 
 func attack():
+	agr_rate -= 1
 	var deal_damage = randi_range(1, damage)
 	$dice.modulate = Color(1, 0, 0)
 	$dice.visible = true
 	$dice.text = str(deal_damage)
-	print(deal_damage)
+	#print(deal_damage)
 	$AnimationPlayer.play("throw")
 	await $AnimationPlayer.animation_finished
 	$dice.visible = false
 	deal_attack.emit(deal_damage)
-	Global.player_action = true
-	print("mimic attack")
-	print(Global.player_action)
+	give_turn.emit()
+	#Global.player_action = true
+	#print("mimic attack")
+	#print(Global.player_action)

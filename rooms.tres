@@ -90,6 +90,10 @@ texture = ExtResource("1_y1sv5")
 4:1/0/custom_data_0 = true
 4:2/0 = 0
 4:2/0/custom_data_0 = true
+4:5/0 = 0
+4:3/0 = 0
+4:3/0/custom_data_0 = true
+4:4/0 = 0
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_30g2k"]
 resource_name = "doors"

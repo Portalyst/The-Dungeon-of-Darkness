@@ -112,7 +112,7 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "end" and Global.in_battle == true:
 		moves = 6
 		Global.player_action = false
-		Global.player_action = true
+		#Global.player_action = true
 
 		
 			#remove.emit(12)
@@ -505,6 +505,8 @@ func _on_line_edit_text_submitted(new_text):
 			armor_changed.emit(Global.bone_armor)
 			InvLog.items[13] = Global.bone_armor
 			Global.armor = 10
+	if Global.in_battle == true:
+		$CanvasLayer2/turn_clock.play("end")
 	new_text = ""
 	$CanvasLayer2/LineEdit.text = ""
 	#print(InvLog.items.find("w"))
@@ -557,10 +559,15 @@ func get_damage(damage):
 		dead = true
 		print("YOU DEAD")
 
+func take_turn() -> void:
+	Global.player_action = true
+	$CanvasLayer2/turn_clock.play("switch")
+
 func _on_area_2d_body_entered(body):
 	if body.has_meta("enemy"):
 		body.deal_attack.connect(get_damage)
 		body.drop_loot.connect(get_loot)
+		body.give_turn.connect(take_turn)
 		enemy_spoted = true
 		enemy_body = body
 		if body.type == "mimic":
@@ -569,9 +576,10 @@ func _on_area_2d_body_entered(body):
 func _on_area_2d_body_exited(body):
 	if body.has_meta("enemy"):
 		body.deal_attack.disconnect(get_damage)
+		body.drop_loot.disconnect(get_loot)
+		body.give_turn.disconnect(take_turn)
 		enemy_spoted = false
 		enemy_body = null
-		body.drop_loot.disconnect(get_loot)
 		if body.type == "mimic":
 			mimic_in_area = false
 
