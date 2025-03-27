@@ -42,6 +42,8 @@ func _ready():
 	$dice.visible = false
 
 func _physics_process(delta):
+	$Label2.text = "moves: " + str(moves)
+	$Label.text = "player action: " + str(Global.player_action)
 	if dead == true or Global.player_action == false or on_line == true:
 		canmove = false
 	if Global.player_action == true and on_line == false:
@@ -559,15 +561,17 @@ func get_damage(damage):
 		dead = true
 		print("YOU DEAD")
 
-func take_turn() -> void:
+func take_turn():
+	print("I GDE?")
 	Global.player_action = true
 	$CanvasLayer2/turn_clock.play("switch")
+	moves = 6
 
 func _on_area_2d_body_entered(body):
 	if body.has_meta("enemy"):
 		body.deal_attack.connect(get_damage)
 		body.drop_loot.connect(get_loot)
-		body.give_turn.connect(take_turn)
+		
 		enemy_spoted = true
 		enemy_body = body
 		if body.type == "mimic":
@@ -577,7 +581,6 @@ func _on_area_2d_body_exited(body):
 	if body.has_meta("enemy"):
 		body.deal_attack.disconnect(get_damage)
 		body.drop_loot.disconnect(get_loot)
-		body.give_turn.disconnect(take_turn)
 		enemy_spoted = false
 		enemy_body = null
 		if body.type == "mimic":
@@ -586,12 +589,14 @@ func _on_area_2d_body_exited(body):
 func _on_area_2d_2_body_entered(body):
 	if body.has_meta("enemy"):
 		Global.in_battle = true
+		body.give_turn.connect(take_turn)
 		print("enemy spoted")
-		
 
 func _on_area_2d_2_body_exited(body):
 	if body.has_meta("enemy"):
 		Global.in_battle = false
+		moves = 6
+		body.give_turn.disconnect(take_turn)
 
 func _on_close_button_pressed():
 	$CanvasLayer/ItemsMenu.hide()

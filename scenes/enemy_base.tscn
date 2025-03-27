@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://b4dpvg0rvrgdg"]
 
-[ext_resource type="Script" path="res://scripts/enemy_base.gd" id="1_kno1i"]
+[ext_resource type="Script" uid="uid://b54s3shl0fuvs" path="res://scripts/enemy_base.gd" id="1_kno1i"]
 [ext_resource type="FontFile" uid="uid://bbrmpyhagtyct" path="res://font/PIXY.ttf" id="2_w47pe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5pqun"]
@@ -50,7 +50,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dcbly"]
 _data = {
-"throw": SubResource("Animation_xq4ap")
+&"throw": SubResource("Animation_xq4ap")
 }
 
 [node name="enemy_base" type="CharacterBody2D"]
@@ -106,7 +106,7 @@ horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_dcbly")
+&"": SubResource("AnimationLibrary_dcbly")
 }
 
 [connection signal="body_entered" from="AreaUP" to="." method="_on_area_up_body_entered"]

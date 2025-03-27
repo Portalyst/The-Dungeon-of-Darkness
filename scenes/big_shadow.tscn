@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c3mrw3ypvsy88"]
 
 [ext_resource type="Texture2D" uid="uid://dh6v3qbehcni7" path="res://sprites/shadow/big-shadow.png" id="1_485dn"]
-[ext_resource type="Script" path="res://scripts/big_shadow.gd" id="2_slw65"]
+[ext_resource type="Script" uid="uid://db76u43nc4umx" path="res://scripts/big_shadow.gd" id="2_slw65"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v7n7m"]
 size = Vector2(208, 208)

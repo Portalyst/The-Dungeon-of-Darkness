@@ -103,9 +103,9 @@ func _on_area_right_body_exited(body):
 		#$Timer.start()
 
 func _on_timer_timeout():
-	print(dead, angry, player.dead, Global.player_action, prep_to_att)
+	print(dead, angry, player.dead, Global.player_action, prep_to_att, moves)
 	#if dead == false and angry == true:
-	if player.dead == false and Global.player_action == false:
+	if (player.dead == false) and (Global.player_action == false):
 		if prep_to_att == false:
 			if moves != 0:
 				var direction : Vector2
@@ -119,9 +119,11 @@ func _on_timer_timeout():
 					direction += Vector2(16, 0)
 				position += direction
 				moves -= 1
+				print("MOVE")
 			if moves == 0:
 				give_turn.emit()
-		if prep_to_att == true and Global.player_action == false:
+				print("EMIT")
+		if (prep_to_att == true) and (Global.player_action == false):
 			var attack = randi_range(1, 20)
 			$dice.visible = true
 			$dice.modulate = Color(1, 1, 1)

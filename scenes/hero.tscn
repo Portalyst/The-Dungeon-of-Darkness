@@ -1,16 +1,16 @@
 [gd_scene load_steps=38 format=3 uid="uid://yxjysn3avnhl"]
 
 [ext_resource type="Texture2D" uid="uid://ryy8je63yf7e" path="res://sprites/hero/hero.png" id="1_dh7eb"]
-[ext_resource type="Script" path="res://scripts/hero.gd" id="1_fhpx2"]
+[ext_resource type="Script" uid="uid://h55cxfc2yb1n" path="res://scripts/hero.gd" id="1_fhpx2"]
 [ext_resource type="Texture2D" uid="uid://dqf5nuxttdeod" path="res://sprites/input.png" id="3_ri7jt"]
 [ext_resource type="FontFile" uid="uid://bbrmpyhagtyct" path="res://font/PIXY.ttf" id="4_5h4rp"]
 [ext_resource type="Texture2D" uid="uid://d1r431r7ifuj0" path="res://sprites/menu/inv.png" id="5_6i7h2"]
 [ext_resource type="Texture2D" uid="uid://o300817wyllp" path="res://sprites/menu/items_menu.png" id="6_2wlxo"]
-[ext_resource type="Script" path="res://scripts/InvLog.gd" id="6_eabug"]
-[ext_resource type="Script" path="res://scenes/weapon_slot.gd" id="7_ssalp"]
+[ext_resource type="Script" uid="uid://b50amxr5w6x3r" path="res://scripts/InvLog.gd" id="6_eabug"]
+[ext_resource type="Script" uid="uid://rhl2q040e5q5" path="res://scenes/weapon_slot.gd" id="7_ssalp"]
 [ext_resource type="PackedScene" uid="uid://whp7d73o3pqr" path="res://scenes/inventory.tscn" id="7_ve8qw"]
-[ext_resource type="Script" path="res://scripts/Area2D.gd" id="8_kt70t"]
-[ext_resource type="Script" path="res://scripts/armor_slot.gd" id="8_ykify"]
+[ext_resource type="Script" uid="uid://beg1rsvk7wlut" path="res://scripts/Area2D.gd" id="8_kt70t"]
+[ext_resource type="Script" uid="uid://bhwtw83xk5qib" path="res://scripts/armor_slot.gd" id="8_ykify"]
 [ext_resource type="Texture2D" uid="uid://cjrgp3plb1pjc" path="res://sprites/menu/clock_frame.png" id="11_7f47m"]
 [ext_resource type="Texture2D" uid="uid://dly7k2xd2ice7" path="res://sprites/clock/turn_end/turn_end_sheet.png" id="13_0cxyf"]
 [ext_resource type="Texture2D" uid="uid://cm3f02aniatin" path="res://sprites/clock/turn_switch/turn_switch.png" id="14_p0ns1"]
@@ -178,8 +178,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xncni"]
 _data = {
-"RESET": SubResource("Animation_jskiy"),
-"return": SubResource("Animation_fq023")
+&"RESET": SubResource("Animation_jskiy"),
+&"return": SubResource("Animation_fq023")
 }
 
 [node name="Hero" type="CharacterBody2D"]
@@ -192,7 +192,6 @@ shape = SubResource("RectangleShape2D_0ipe5")
 texture = ExtResource("1_dh7eb")
 
 [node name="Area2D2" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
 shape = SubResource("RectangleShape2D_mirn7")
@@ -335,7 +334,7 @@ horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_xncni")
+&"": SubResource("AnimationLibrary_xncni")
 }
 
 [node name="damage_timer" type="Timer" parent="."]
@@ -344,6 +343,20 @@ one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, 8)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -40.0
+offset_top = -64.0
+offset_right = 32.0
+offset_bottom = -41.0
+theme_override_font_sizes/font_size = 10
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -40.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = -9.0
+theme_override_font_sizes/font_size = 10
 
 [connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
 [connection signal="body_exited" from="Area2D2" to="." method="_on_area_2d_2_body_exited"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://cmljrpp7x0s4t"]
 
-[ext_resource type="Script" path="res://scripts/door.gd" id="1_brljm"]
+[ext_resource type="Script" uid="uid://b3hnm4bcv80ok" path="res://scripts/door.gd" id="1_brljm"]
 [ext_resource type="Texture2D" uid="uid://2jcpbffil338" path="res://sprites/background/door/big/big_closed.png" id="2_dpigy"]
 [ext_resource type="Texture2D" uid="uid://cnoo02l0wdjap" path="res://sprites/background/door/big/big_opened.png" id="3_bnrxn"]
 [ext_resource type="Texture2D" uid="uid://chdm5dm8s40ja" path="res://sprites/background/door/normal/closed.png" id="4_ymmkx"]
@@ -77,8 +77,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ma7bg"]
 _data = {
-"RESET": SubResource("Animation_5hsut"),
-"locked": SubResource("Animation_attrw")
+&"RESET": SubResource("Animation_5hsut"),
+&"locked": SubResource("Animation_attrw")
 }
 
 [node name="Door" type="Area2D"]
@@ -104,7 +104,7 @@ texture = ExtResource("6_fkseu")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_ma7bg")
+&"": SubResource("AnimationLibrary_ma7bg")
 }
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
