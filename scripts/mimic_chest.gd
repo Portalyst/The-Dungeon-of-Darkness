@@ -91,7 +91,7 @@ func _on_area_right_body_exited(body):
 		#$Timer.start()
 
 func _on_timer_timeout():
-	print(dead, angry, player.dead, Global.player_action, prep_to_att, " ", on_bottom, on_left, on_right, on_top, moves)
+	#print(dead, angry, player.dead, Global.player_action, prep_to_att, " ", on_bottom, on_left, on_right, on_top, moves)
 	#if dead == false and angry == true:
 	if (player.dead == false) and (Global.player_action == false):
 		if prep_to_att == false:
@@ -99,16 +99,16 @@ func _on_timer_timeout():
 				var direction : Vector2
 				if on_top == true:
 					direction += Vector2(0, -16)
-					print("TOP")
+					#print("TOP")
 				if on_bottom == true:
 					direction += Vector2(0, 16)
-					print("BOTTOM")
+					#print("BOTTOM")
 				if on_left == true:
 					direction += Vector2(-16, 0)
-					print("LEFT")
+					#print("LEFT")
 				if on_right == true:
 					direction += Vector2(16, 0)
-					print("RIGHT")
+					#print("RIGHT")
 				position += direction
 				moves -= 1
 				#print("MOVE")
@@ -128,7 +128,7 @@ func _on_timer_timeout():
 			if attack >= Global.armor:
 				attack()
 		#Global.player_action = true
-		print("timer end")
+		#print("timer end")
 	$Timer.start()
 
 func _on_att_area_body_entered(body):

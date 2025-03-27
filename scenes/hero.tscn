@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://yxjysn3avnhl"]
+[gd_scene load_steps=55 format=3 uid="uid://yxjysn3avnhl"]
 
 [ext_resource type="Texture2D" uid="uid://ryy8je63yf7e" path="res://sprites/hero/hero.png" id="1_dh7eb"]
 [ext_resource type="Script" uid="uid://h55cxfc2yb1n" path="res://scripts/hero.gd" id="1_fhpx2"]
@@ -12,8 +12,11 @@
 [ext_resource type="Script" uid="uid://beg1rsvk7wlut" path="res://scripts/Area2D.gd" id="8_kt70t"]
 [ext_resource type="Script" uid="uid://bhwtw83xk5qib" path="res://scripts/armor_slot.gd" id="8_ykify"]
 [ext_resource type="Texture2D" uid="uid://cjrgp3plb1pjc" path="res://sprites/menu/clock_frame.png" id="11_7f47m"]
+[ext_resource type="Texture2D" uid="uid://viuttjqbhkai" path="res://sprites/menu/candle/no enemys/candle_no_enemys_SHEET.png" id="12_lunib"]
 [ext_resource type="Texture2D" uid="uid://dly7k2xd2ice7" path="res://sprites/clock/turn_end/turn_end_sheet.png" id="13_0cxyf"]
+[ext_resource type="Texture2D" uid="uid://blwyt0j13xq7o" path="res://sprites/menu/candle/candle_on/candle_on_SHEET.png" id="13_wynkb"]
 [ext_resource type="Texture2D" uid="uid://cm3f02aniatin" path="res://sprites/clock/turn_switch/turn_switch.png" id="14_p0ns1"]
+[ext_resource type="Texture2D" uid="uid://bk2pfn3n0o5lw" path="res://sprites/menu/candle/cobbweb.png" id="16_2grt1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ipe5"]
 size = Vector2(16, 16)
@@ -23,6 +26,115 @@ size = Vector2(144, 144)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8qgdy"]
 size = Vector2(43, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rpah5"]
+atlas = ExtResource("12_lunib")
+region = Rect2(128, 0, 16, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8m75t"]
+atlas = ExtResource("12_lunib")
+region = Rect2(32, 0, 16, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvoeo"]
+atlas = ExtResource("12_lunib")
+region = Rect2(48, 0, 16, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_syei6"]
+atlas = ExtResource("12_lunib")
+region = Rect2(64, 0, 16, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85qs6"]
+atlas = ExtResource("12_lunib")
+region = Rect2(80, 0, 16, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wc88v"]
+atlas = ExtResource("12_lunib")
+region = Rect2(96, 0, 16, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kt0c4"]
+atlas = ExtResource("12_lunib")
+region = Rect2(112, 0, 16, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wynkb"]
+atlas = ExtResource("12_lunib")
+region = Rect2(16, 0, 16, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fuux7"]
+atlas = ExtResource("12_lunib")
+region = Rect2(0, 0, 16, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kg8r"]
+atlas = ExtResource("12_lunib")
+region = Rect2(0, 0, 16, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ul70"]
+atlas = ExtResource("13_wynkb")
+region = Rect2(0, 0, 16, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61g13"]
+atlas = ExtResource("13_wynkb")
+region = Rect2(16, 0, 16, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7l7r2"]
+atlas = ExtResource("13_wynkb")
+region = Rect2(32, 0, 16, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rpah5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rpah5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8m75t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvoeo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_syei6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85qs6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wc88v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kt0c4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wynkb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fuux7")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4kg8r")
+}],
+"loop": true,
+"name": &"enemy_turn",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ul70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_61g13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7l7r2")
+}],
+"loop": true,
+"name": &"youre_turn",
+"speed": 5.0
+}]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b3m87"]
 
@@ -192,6 +304,7 @@ shape = SubResource("RectangleShape2D_0ipe5")
 texture = ExtResource("1_dh7eb")
 
 [node name="Area2D2" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
 shape = SubResource("RectangleShape2D_mirn7")
@@ -297,30 +410,47 @@ one_shot = true
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
-[node name="ClockFrame" type="Sprite2D" parent="CanvasLayer2"]
-position = Vector2(16, 16)
-texture = ExtResource("11_7f47m")
-
 [node name="Input" type="Sprite2D" parent="CanvasLayer2"]
 position = Vector2(72, 152)
+scale = Vector2(1, 1)
 texture = ExtResource("3_ri7jt")
 
+[node name="Candle" type="AnimatedSprite2D" parent="CanvasLayer2"]
+z_index = -1
+position = Vector2(8, 132)
+sprite_frames = SubResource("SpriteFrames_rpah5")
+animation = &"dead"
+frame = 8
+frame_progress = 1.0
+speed_scale = 2.0
+
 [node name="LineEdit" type="LineEdit" parent="CanvasLayer2"]
-offset_left = 2.0
+offset_left = 5.0
 offset_top = 137.0
-offset_right = 143.0
+offset_right = 142.0
 offset_bottom = 168.0
 theme_override_fonts/font = ExtResource("4_5h4rp")
+theme_override_font_sizes/font_size = 15
 theme_override_styles/focus = SubResource("StyleBoxEmpty_b3m87")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_017yj")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_5w8w7")
 clear_button_enabled = true
 script = SubResource("GDScript_u14dc")
 
-[node name="turn_clock" type="AnimatedSprite2D" parent="CanvasLayer2"]
-position = Vector2(16, 16)
+[node name="CLOCK" type="Node2D" parent="CanvasLayer2"]
+visible = false
+position = Vector2(17, 17)
+
+[node name="ClockFrame" type="Sprite2D" parent="CanvasLayer2/CLOCK"]
+texture = ExtResource("11_7f47m")
+
+[node name="turn_clock" type="AnimatedSprite2D" parent="CanvasLayer2/CLOCK"]
 sprite_frames = SubResource("SpriteFrames_f2ojk")
 animation = &"end"
+
+[node name="Cobbweb" type="Sprite2D" parent="CanvasLayer2"]
+position = Vector2(15, 141)
+texture = ExtResource("16_2grt1")
 
 [node name="dice" type="Label" parent="."]
 offset_left = -7.0
@@ -345,6 +475,7 @@ one_shot = true
 position = Vector2(0, 8)
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -40.0
 offset_top = -64.0
 offset_right = 32.0
@@ -352,6 +483,7 @@ offset_bottom = -41.0
 theme_override_font_sizes/font_size = 10
 
 [node name="Label2" type="Label" parent="."]
+visible = false
 offset_left = -40.0
 offset_top = -32.0
 offset_right = 32.0

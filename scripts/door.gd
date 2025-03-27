@@ -28,6 +28,7 @@ func player_punch_door() -> void:
 	locked = false
 	if big == false:
 		$AnimatedSprite2D.play("opened")
+		print("open")
 	else:
 		$AnimatedSprite2D.play("big_opened")
 	$Timer.start()
@@ -35,15 +36,13 @@ func player_punch_door() -> void:
 func _on_body_entered(body):
 	if body.has_meta("player"):
 		body.open_door.connect(open)
-		if locked == true:
-			body.punch_door.connect(player_punch_door)
+		body.punch_door.connect(player_punch_door)
 
 
 func _on_body_exited(body):
 	if body.has_meta("player"):
 		body.open_door.disconnect(open)
-		if locked == true:
-			body.punch_door.disconnect(player_punch_door)
+		body.punch_door.disconnect(player_punch_door)
 
 func _on_timer_timeout() -> void:
 	del_shadow.emit()

@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+#ловкость - dexterity
+#сила - strength
+#телосложение - physique / constitution
 
 var door_cord : Vector2
 var is_door_open : bool
@@ -42,11 +45,15 @@ func _ready():
 	$dice.visible = false
 
 func _physics_process(delta):
+	if Global.player_action == true and dead == false:
+		$CanvasLayer2/Candle.play("youre_turn")
+	if Global.player_action == false and dead == false:
+		$CanvasLayer2/Candle.play("enemy_turn")
 	$Label2.text = "moves: " + str(moves)
 	$Label.text = "player action: " + str(Global.player_action)
 	if dead == true or Global.player_action == false or on_line == true:
 		canmove = false
-	if Global.player_action == true and on_line == false:
+	if Global.player_action == true and on_line == false and dead == false:
 		canmove = true
 	if canmove == true:
 		if Input.is_action_just_pressed("inv"):
@@ -97,13 +104,17 @@ func _on_line_edit_text_submitted(new_text):
 		#if chest_in_area == false:
 		#	new_text = "no chest"
 		#	$Timer.start()
+	if new_text == "dead":
+		death()
+	
 	if new_text == "attack mimic" and enemy_spoted == true and Global.player_action == true and mimic_in_area == true:
 		attack()
 		moves = 6
 	
-	if new_text == "punch door" and door_in_area == true and dead == false and Global.player_action == true and is_door_lock == true:
+	if new_text == "punch door" and door_in_area == true and dead == false and Global.player_action == true:
 		punch_door.emit()
-		is_door_lock = false
+		if is_door_lock == true:
+			is_door_lock = false
 		is_door_open = true
 	
 	if new_text == "open door" and door_in_area == true and dead == false and Global.player_action == true:
@@ -508,7 +519,7 @@ func _on_line_edit_text_submitted(new_text):
 			InvLog.items[13] = Global.bone_armor
 			Global.armor = 10
 	if Global.in_battle == true:
-		$CanvasLayer2/turn_clock.play("end")
+		$CanvasLayer2/CLOCK/turn_clock.play("end")
 	new_text = ""
 	$CanvasLayer2/LineEdit.text = ""
 	#print(InvLog.items.find("w"))
@@ -558,20 +569,19 @@ func get_damage(damage):
 	$damage_timer.start()
 	Global.HP -= damage
 	if Global.HP <= 0:
-		dead = true
+		death()
 		print("YOU DEAD")
 
 func take_turn():
-	print("I GDE?")
+	#print("I GDE?")
 	Global.player_action = true
-	$CanvasLayer2/turn_clock.play("switch")
+	$CanvasLayer2/CLOCK/turn_clock.play("switch")
 	moves = 6
 
 func _on_area_2d_body_entered(body):
 	if body.has_meta("enemy"):
 		body.deal_attack.connect(get_damage)
 		body.drop_loot.connect(get_loot)
-		
 		enemy_spoted = true
 		enemy_body = body
 		if body.type == "mimic":
@@ -590,7 +600,7 @@ func _on_area_2d_2_body_entered(body):
 	if body.has_meta("enemy"):
 		Global.in_battle = true
 		body.give_turn.connect(take_turn)
-		print("enemy spoted")
+		#print("enemy spoted")
 
 func _on_area_2d_2_body_exited(body):
 	if body.has_meta("enemy"):
@@ -622,3 +632,9 @@ func attack():
 
 func _on_damage_timer_timeout():
 	$Hero.modulate = Color(1, 1, 1)
+
+func death():
+	$CanvasLayer2/Candle.play("dead")
+	dead = true
+	print("UMER")
+	print(dead)
