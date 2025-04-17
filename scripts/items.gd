@@ -6,6 +6,7 @@ extends Node2D
 @export var discription = ""
 @export var type = ""
 @export var protection : int
+@export var characteristic = ""
 #@export var Info : PackedScene
 
 func _ready():
@@ -17,10 +18,13 @@ func _on_delete_pressed():
 	InvLog.remove_item(item_slot)
 	queue_free()
 
-func remove_self(Index):
+func remove_self(Index): # ну ошибка где-то здесь. где? да если б я знал
 	if Index == item_slot:
 		InvLog.remove_item(item_slot)
-		queue_free()
+		#print("Index: " + str(Index))
+		#print("item_slot: " + str(item_slot))
+		#print("name: " + Name)
+		self.queue_free()
 
 func _on_button_pressed():
 	$/root/level/Hero/CanvasLayer/ItemsMenu.show()

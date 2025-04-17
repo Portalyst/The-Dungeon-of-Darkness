@@ -11,6 +11,8 @@ signal deal_attack(int)
 
 signal drop_loot()
 
+signal give_turn()
+
 @export var loot : PackedScene
 @export var type : String
 @export var armor : int
@@ -28,17 +30,15 @@ func _ready():
 	set_meta("enemy", 3)
 	$"../Hero".player_attack.connect(take_damage)
 	start_position = self.position
+	player = $"../Hero"
 
 
 
 func _on_area_up_body_entered(body):
-	if prep_to_att == false:
-		if body.has_meta("player"):
-			on_top = true
-			$Timer.start()
-			player = body
-	else:
-		on_top = false
+	if body.has_meta("player"):
+		on_top = true
+		$Timer.start()
+		player = body
 
 func _on_area_up_body_exited(body):
 	if body.has_meta("player"):
@@ -46,13 +46,10 @@ func _on_area_up_body_exited(body):
 		$Timer.start()
 
 func _on_area_down_body_entered(body):
-	if prep_to_att == false:
-		if body.has_meta("player"):
-			on_bottom = true
-			$Timer.start()
-			player = body
-	else:
-		on_bottom = false
+	if body.has_meta("player"):
+		on_bottom = true
+		$Timer.start()
+		player = body
 
 func _on_area_down_body_exited(body):
 	if body.has_meta("player"):
@@ -60,13 +57,10 @@ func _on_area_down_body_exited(body):
 		$Timer.start()
 
 func _on_area_left_body_entered(body):
-	if prep_to_att == false:
-		if body.has_meta("player"):
-			on_left = true
-			player = body
-			$Timer.start()
-	else:
-		on_left = false
+	if body.has_meta("player"):
+		on_left = true
+		player = body
+		$Timer.start()
 
 func _on_area_left_body_exited(body):
 	if body.has_meta("player"):
@@ -74,13 +68,10 @@ func _on_area_left_body_exited(body):
 		$Timer.start()
 
 func _on_area_right_body_entered(body):
-	if prep_to_att == false:
-		if body.has_meta("player"):
-			player = body
-			on_right = true
-			$Timer.start()
-	else:
-		on_right = false
+	if body.has_meta("player"):
+		player = body
+		on_right = true
+		$Timer.start()
 
 func _on_area_right_body_exited(body):
 	if body.has_meta("player"):
@@ -103,7 +94,8 @@ func _on_timer_timeout():
 				position += direction
 				moves -= 1
 				if moves == 0:
-					Global.player_action = true
+					give_turn.emit()
+					moves = 6
 			if prep_to_att == true and Global.player_action == false:
 				var attack = randi_range(1, 20)
 				$dice.visible = true
@@ -136,7 +128,7 @@ func take_damage(damage):
 				drop_loot.emit(loot)
 			dead = true
 			queue_free()
-			Global.player_action = true
+			give_turn.emit()
 
 func attack():
 	var deal_damage : int = randi_range(1, damage)
@@ -147,4 +139,4 @@ func attack():
 	await $AnimationPlayer.animation_finished
 	$dice.visible = false
 	deal_attack.emit(deal_damage)
-	Global.player_action = true
+	give_turn.emit()

@@ -9,7 +9,7 @@ func display_item(item):
 	if item:
 		var create = item.instantiate()
 		add_child(create)
-		create.item_slot = get_index()
+		create.item_slot = 13
 		#print(create.item_slot)
 		create.position += Vector2(8, 8)
 		child = create

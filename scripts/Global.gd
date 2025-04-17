@@ -1,18 +1,19 @@
 extends Node
 
-var coins = 15
+var coins : int = 15
 
-var max_HP = 10
-var HP = 10
-var armor = 10
+var max_HP : int = 10
+var HP : int = 10
+var armor : int = 10
 
-var in_battle = false
-var player_action = true
 
-var damage = 1
-var pure = false
-var boost = 0
+var in_battle : bool = false
+var player_action : bool = true
 
+var damage : int = 1
+var pure : bool = false
+var boost : int = 0
+var char_boost : int = 0
 #weapons
 
 var bat = load("res://scenes/bat.tscn")

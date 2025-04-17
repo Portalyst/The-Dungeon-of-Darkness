@@ -15,6 +15,8 @@ func _ready():
 	items[1] = Global.p_claymore
 	items[2] = Global.iron_chestplate
 	items[3] = Global.b_claymore
+	items[4] = Global.iron_armor
+	items[5] = Global.armor_of_knights
 	
 	items[12] = "w"
 	items[13] = "a"
@@ -27,10 +29,12 @@ func set_item(index, item):
 
 func remove_item(index):
 	var pre_item = items[index].duplicate()
-	#print(index)
+	print("del_indx: " + str(index))
 	if index == 12:
 		items[index] = "w"
+	if index == 13:
+		items[index] = "a"
 	else:
 		items[index] = {}
-	#item_changed.emit([index])
+	item_changed.emit([index])
 	return pre_item

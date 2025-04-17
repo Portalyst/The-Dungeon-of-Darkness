@@ -1,12 +1,18 @@
-[gd_scene load_steps=55 format=3 uid="uid://yxjysn3avnhl"]
+[gd_scene load_steps=61 format=3 uid="uid://yxjysn3avnhl"]
 
 [ext_resource type="Texture2D" uid="uid://ryy8je63yf7e" path="res://sprites/hero/hero.png" id="1_dh7eb"]
 [ext_resource type="Script" uid="uid://h55cxfc2yb1n" path="res://scripts/hero.gd" id="1_fhpx2"]
 [ext_resource type="Texture2D" uid="uid://dqf5nuxttdeod" path="res://sprites/input.png" id="3_ri7jt"]
 [ext_resource type="FontFile" uid="uid://bbrmpyhagtyct" path="res://font/PIXY.ttf" id="4_5h4rp"]
+[ext_resource type="Texture2D" uid="uid://cdb1xsuhcq6na" path="res://sprites/menu/stats/protection.png" id="4_8m75t"]
+[ext_resource type="Texture2D" uid="uid://cjcxodn21ecdq" path="res://sprites/menu/cross.png" id="4_fuux7"]
+[ext_resource type="Texture2D" uid="uid://c4u8gxskggjh4" path="res://sprites/menu/armor_icon.png" id="4_wc88v"]
 [ext_resource type="Texture2D" uid="uid://d1r431r7ifuj0" path="res://sprites/menu/inv.png" id="5_6i7h2"]
+[ext_resource type="Texture2D" uid="uid://bmmwovm5ycso" path="res://sprites/menu/weapon_icon.png" id="5_kt0c4"]
+[ext_resource type="Texture2D" uid="uid://ch87fx37lx3rs" path="res://sprites/menu/stats/strength.png" id="5_syei6"]
 [ext_resource type="Texture2D" uid="uid://o300817wyllp" path="res://sprites/menu/items_menu.png" id="6_2wlxo"]
 [ext_resource type="Script" uid="uid://b50amxr5w6x3r" path="res://scripts/InvLog.gd" id="6_eabug"]
+[ext_resource type="Texture2D" uid="uid://cnjjuc84n63b" path="res://sprites/menu/stats/dexterity.png" id="7_85qs6"]
 [ext_resource type="Script" uid="uid://rhl2q040e5q5" path="res://scenes/weapon_slot.gd" id="7_ssalp"]
 [ext_resource type="PackedScene" uid="uid://whp7d73o3pqr" path="res://scenes/inventory.tscn" id="7_ve8qw"]
 [ext_resource type="Script" uid="uid://beg1rsvk7wlut" path="res://scripts/Area2D.gd" id="8_kt70t"]
@@ -310,11 +316,71 @@ visible = false
 shape = SubResource("RectangleShape2D_mirn7")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Inv" type="Sprite2D" parent="CanvasLayer"]
 position = Vector2(72, 77)
 texture = ExtResource("5_6i7h2")
+
+[node name="ArmorIcon" type="Sprite2D" parent="CanvasLayer/Inv"]
+position = Vector2(42, 30)
+texture = ExtResource("4_wc88v")
+
+[node name="WeaponIcon" type="Sprite2D" parent="CanvasLayer/Inv"]
+position = Vector2(22, 30)
+texture = ExtResource("5_kt0c4")
+
+[node name="Cross" type="Sprite2D" parent="CanvasLayer/Inv"]
+position = Vector2(46, 6.5)
+texture = ExtResource("4_fuux7")
+
+[node name="Cross2" type="Sprite2D" parent="CanvasLayer/Inv"]
+position = Vector2(46, -29.6)
+texture = ExtResource("4_fuux7")
+
+[node name="Cross3" type="Sprite2D" parent="CanvasLayer/Inv"]
+position = Vector2(46, -12.5)
+texture = ExtResource("4_fuux7")
+
+[node name="str_label" type="Label" parent="CanvasLayer/Inv"]
+offset_left = 32.0
+offset_top = -35.0
+offset_right = 43.0
+offset_bottom = -23.0
+theme_override_fonts/font = ExtResource("4_5h4rp")
+theme_override_font_sizes/font_size = 10
+text = "10"
+
+[node name="Strength" type="Sprite2D" parent="CanvasLayer/Inv"]
+position = Vector2(22, -12.5)
+texture = ExtResource("5_syei6")
+
+[node name="prot_label" type="Label" parent="CanvasLayer/Inv"]
+texture_filter = 1
+offset_left = 32.0
+offset_top = -18.0
+offset_right = 43.0
+offset_bottom = -6.0
+theme_override_fonts/font = ExtResource("4_5h4rp")
+theme_override_font_sizes/font_size = 10
+text = "10"
+
+[node name="Protection" type="Sprite2D" parent="CanvasLayer/Inv"]
+position = Vector2(22, -29.5)
+texture = ExtResource("4_8m75t")
+
+[node name="dex_label" type="Label" parent="CanvasLayer/Inv"]
+offset_left = 32.0
+offset_top = 1.0
+offset_right = 41.0
+offset_bottom = 13.0
+theme_override_fonts/font = ExtResource("4_5h4rp")
+theme_override_font_sizes/font_size = 10
+text = "10"
+vertical_alignment = 1
+
+[node name="Dexterity" type="Sprite2D" parent="CanvasLayer/Inv"]
+position = Vector2(22, 6.5)
+texture = ExtResource("7_85qs6")
 
 [node name="Label" type="Label" parent="CanvasLayer/Inv"]
 offset_left = -37.0
@@ -334,13 +400,6 @@ offset_top = -3.0
 offset_right = -24.0
 offset_bottom = -3.0
 mouse_filter = 2
-
-[node name="Button" type="Button" parent="CanvasLayer"]
-self_modulate = Color(1, 1, 1, 0)
-offset_left = 108.0
-offset_top = 39.0
-offset_right = 124.0
-offset_bottom = 55.0
 
 [node name="weapon_slot" type="ColorRect" parent="CanvasLayer" groups=["items_slots"]]
 self_modulate = Color(1, 1, 1, 0)
@@ -412,7 +471,6 @@ one_shot = true
 
 [node name="Input" type="Sprite2D" parent="CanvasLayer2"]
 position = Vector2(72, 152)
-scale = Vector2(1, 1)
 texture = ExtResource("3_ri7jt")
 
 [node name="Candle" type="AnimatedSprite2D" parent="CanvasLayer2"]
@@ -492,7 +550,6 @@ theme_override_font_sizes/font_size = 10
 
 [connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
 [connection signal="body_exited" from="Area2D2" to="." method="_on_area_2d_2_body_exited"]
-[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ItemsMenu/close_button" to="." method="_on_close_button_pressed"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

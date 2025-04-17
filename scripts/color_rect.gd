@@ -6,4 +6,4 @@ func display_item(item):
 		add_child(create)
 		create.item_slot = get_index()
 		create.position += Vector2(8, 8)
-		#print(get_index())
+		#print("pre index: " + str(get_index()))

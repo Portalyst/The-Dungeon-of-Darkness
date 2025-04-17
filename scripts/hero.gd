@@ -2,7 +2,11 @@ extends CharacterBody2D
 
 #ловкость - dexterity
 #сила - strength
-#телосложение - physique / constitution
+#телосложение - physique / protection
+
+var dexterity : int = 1
+var strength : int = 1
+var protection : int = 1
 
 var door_cord : Vector2
 var is_door_open : bool
@@ -27,6 +31,8 @@ var door_in_area = false
 var canmove = true
 var chest_in_area = false
 var currarea
+
+#SIGNALS
 
 #battle
 signal player_attack(int)
@@ -64,20 +70,12 @@ func _physics_process(delta):
 		if canmove == true:
 			if Input.is_action_just_pressed("ui_left"):
 				move(Vector2.LEFT)
-				if Global.in_battle == true:
-					moves -= 1
 			if Input.is_action_just_pressed("ui_right"):
 				move(Vector2.RIGHT)
-				if Global.in_battle == true:
-					moves -= 1
 			if Input.is_action_just_pressed("ui_up"):
 				move(Vector2.UP)
-				if Global.in_battle == true:
-					moves -= 1
 			if Input.is_action_just_pressed("ui_down"):
 				move(Vector2.DOWN)
-				if Global.in_battle == true:
-					moves -= 1
 
 func move(direction: Vector2):
 	if canmove == true:
@@ -90,6 +88,8 @@ func move(direction: Vector2):
 		if door_in_area == true and door_cord == tilemap.map_to_local(targtile) and is_door_open == false:
 			return
 		global_position = tilemap.map_to_local(targtile)
+		if Global.in_battle == true:
+			moves -= 1
 
 
 func _on_line_edit_text_submitted(new_text):
@@ -125,11 +125,7 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "end" and Global.in_battle == true:
 		moves = 6
 		Global.player_action = false
-		#Global.player_action = true
 
-		
-			#remove.emit(12)
-			#print(InvLog.items[12])
 	if new_text == "eq sword":
 		var eq_item = InvLog.items.find(Global.sword)
 		if eq_item != -1:
@@ -144,6 +140,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 6
 			Global.boost = 0
 			Global.pure = false
+			Global.char_boost = strength
+
 	if new_text == "eq dagger":
 		var eq_item = InvLog.items.find(Global.dagger)
 		if eq_item != -1:
@@ -158,6 +156,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 4
 			Global.boost = 0
 			Global.pure = false
+			Global.char_boost = dexterity
+
 	if new_text == "eq sharp dagger":
 		var eq_item = InvLog.items.find(Global.s_dagger)
 		if eq_item != -1:
@@ -172,6 +172,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 6
 			Global.boost = 2
 			Global.pure = false
+			Global.char_boost = dexterity
+
 	if new_text == "eq pure dagger":
 		var eq_item = InvLog.items.find(Global.p_dagger)
 		if eq_item != -1:
@@ -186,6 +188,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 6
 			Global.boost = 0
 			Global.pure = true
+			Global.char_boost = dexterity
+
 	if new_text == "eq broken sword":
 		var eq_item = InvLog.items.find(Global.b_sword)
 		if eq_item != -1:
@@ -200,6 +204,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 4
 			Global.boost = -2
 			Global.pure = false
+			Global.char_boost = strength
+
 	if new_text == "eq pure sword":
 		var eq_item = InvLog.items.find(Global.p_sword)
 		if eq_item != -1:
@@ -214,6 +220,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 8
 			Global.boost = 0
 			Global.pure = true
+			Global.char_boost = strength
+
 	if new_text == "eq sharp sword":
 		var eq_item = InvLog.items.find(Global.s_sword)
 		if eq_item != -1:
@@ -228,6 +236,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 8
 			Global.boost = 2
 			Global.pure = false
+			Global.char_boost = strength
+
 	if new_text == "eq broken claymore":
 		var eq_item = InvLog.items.find(Global.b_claymore)
 		if eq_item != -1:
@@ -242,6 +252,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 6
 			Global.boost = -2
 			Global.pure = false
+			Global.char_boost = strength
+
 	if new_text == "eq pure claymore":
 		var eq_item = InvLog.items.find(Global.p_claymore)
 		if eq_item != -1:
@@ -256,6 +268,9 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 12
 			Global.boost = 12 
 			Global.pure = true
+			Global.char_boost = strength
+			print(InvLog.items[12])
+
 	if new_text == "eq greate claymore":
 		var eq_item = InvLog.items.find(Global.g_claymore)
 		if eq_item != -1:
@@ -270,6 +285,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 12
 			Global.boost = 0 
 			Global.pure = false
+			Global.char_boost = strength
+
 	if new_text == "eq claymore":
 		var eq_item = InvLog.items.find(Global.claymore)
 		if eq_item != -1:
@@ -284,6 +301,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 8
 			Global.boost = 0 
 			Global.pure = false
+			Global.char_boost = strength
+
 	if new_text == "eq pure halberd":
 		var eq_item = InvLog.items.find(Global.p_halberd)
 		if eq_item != -1:
@@ -298,6 +317,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 12
 			Global.boost = 0
 			Global.pure = true
+			Global.char_boost = strength
+
 	if new_text == "eq sharp halberd":
 		var eq_item = InvLog.items.find(Global.s_halberd)
 		if eq_item != -1:
@@ -312,6 +333,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 8
 			Global.boost = 2
 			Global.pure = false
+			Global.char_boost = strength
+
 	if new_text == "eq halberd":
 		var eq_item = InvLog.items.find(Global.halberd)
 		if eq_item != -1:
@@ -326,6 +349,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 8
 			Global.boost = 0
 			Global.pure = false
+			Global.char_boost = strength
+
 	if new_text == "eq broken halberd":
 		var eq_item = InvLog.items.find(Global.b_halberd)
 		if eq_item != -1:
@@ -340,6 +365,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 6
 			Global.boost = -2
 			Global.pure = false
+			Global.char_boost = strength
+
 	if new_text == "eq broken spear":
 		var eq_item = InvLog.items.find(Global.b_spear)
 		if eq_item != -1:
@@ -354,6 +381,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 4
 			Global.boost = -2
 			Global.pure = false
+			Global.char_boost = dexterity
+
 	if new_text == "eq spear":
 		var eq_item = InvLog.items.find(Global.spear)
 		if eq_item != -1:
@@ -368,6 +397,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 6
 			Global.boost = 0
 			Global.pure = false
+			Global.char_boost = dexterity
+
 	if new_text == "eq pure spear":
 		var eq_item = InvLog.items.find(Global.p_spear)
 		if eq_item != -1:
@@ -382,6 +413,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 8
 			Global.boost = 0
 			Global.pure = true
+			Global.char_boost = dexterity
+
 	if new_text == "eq sharp spear":
 		var eq_item = InvLog.items.find(Global.s_spear)
 		if eq_item != -1:
@@ -396,6 +429,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 8
 			Global.boost = 2
 			Global.pure = false
+			Global.char_boost = dexterity
+
 	if new_text == "eq bat":
 		var eq_item = InvLog.items.find(Global.bat)
 		if eq_item != -1:
@@ -410,6 +445,8 @@ func _on_line_edit_text_submitted(new_text):
 			Global.damage = 6
 			Global.boost = 0
 			Global.pure = false
+			Global.char_boost = strength
+
 	if new_text == "eq iron armor":
 		var eq_item = InvLog.items.find(Global.iron_armor)
 		if eq_item != -1:
@@ -425,12 +462,13 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "eq iron chestplate":
 		var eq_item = InvLog.items.find(Global.iron_chestplate)
 		if eq_item != -1:
-			remove.emit(-1)
 			var has = InvLog.items.find("a")
-			armor_changed.emit(null)
 			if has == -1:
 				InvLog.remove_item(13)
-			remove.emit(eq_item)
+				armor_changed.emit(null)
+				remove.emit(-1)
+			#print(InvLog.items[12])
+			remove.emit(eq_item) #эта сука удаляет еще и оружку. как? да если б я знал
 			armor_changed.emit(Global.iron_chestplate)
 			InvLog.items[13] = Global.iron_chestplate
 			Global.armor = 10
@@ -613,7 +651,7 @@ func _on_close_button_pressed():
 
 func attack():
 	Global.player_action = false
-	var attk = randi_range(1, 20) + Global.boost
+	var attk = randi_range(1, 20) + Global.boost + Global.char_boost
 	$dice.text = str(attk)
 	$dice.modulate = Color(1, 1, 1)
 	$dice.visible = true
