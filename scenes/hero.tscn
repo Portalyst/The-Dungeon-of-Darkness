@@ -316,6 +316,7 @@ visible = false
 shape = SubResource("RectangleShape2D_mirn7")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Inv" type="Sprite2D" parent="CanvasLayer"]
 position = Vector2(72, 77)

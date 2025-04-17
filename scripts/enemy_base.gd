@@ -79,9 +79,9 @@ func _on_area_right_body_exited(body):
 		$Timer.start()
 
 func _on_timer_timeout():
-	if dead == false:
-		if player.dead == false and Global.player_action == false:
-			if prep_to_att == false:
+	if (player.dead == false) and (Global.player_action == false):
+		if prep_to_att == false:
+			if moves != 0:
 				var direction : Vector2
 				if on_top == true:
 					direction += Vector2(0, -16)
@@ -93,23 +93,23 @@ func _on_timer_timeout():
 					direction += Vector2(16, 0)
 				position += direction
 				moves -= 1
-				if moves == 0:
-					give_turn.emit()
-					moves = 6
-			if prep_to_att == true and Global.player_action == false:
-				var attack = randi_range(1, 20)
-				$dice.visible = true
-				$dice.modulate = Color(1, 1, 1)
-				$dice.text = str(attack)
-				$AnimationPlayer.play("throw")
-				await $AnimationPlayer.animation_finished
-				$dice.visible = false
-				if attack >= Global.armor:
-					attack()
-				Global.player_action = true
-		if on_top == false and on_bottom == false and on_left == false and on_right == false and prep_to_att == false:
-			self.position = start_position
-		$Timer.start()
+			if moves == 0:
+				give_turn.emit()
+				moves = 6
+		if (prep_to_att == true) and (Global.player_action == false):
+			var attack = randi_range(1, 20)
+			$dice.visible = true
+			$dice.modulate = Color(1, 1, 1)
+			$dice.text = str(attack)
+			$AnimationPlayer.play("throw")
+			await $AnimationPlayer.animation_finished
+			$dice.visible = false
+			if attack >= Global.armor:
+				attack()
+			#Global.player_action = true
+	if on_top == false and on_bottom == false and on_left == false and on_right == false and prep_to_att == false:
+		self.position = start_position
+	$Timer.start()
 
 func _on_att_area_body_entered(body):
 	if body.has_meta("player"):
@@ -134,7 +134,7 @@ func attack():
 	var deal_damage : int = randi_range(1, damage)
 	$dice.modulate = Color(1, 0, 0)
 	$dice.visible = true
-	$dice.text = str(deal_attack)
+	$dice.text = str(deal_damage)
 	$AnimationPlayer.play("throw")
 	await $AnimationPlayer.animation_finished
 	$dice.visible = false

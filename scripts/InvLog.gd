@@ -29,7 +29,7 @@ func set_item(index, item):
 
 func remove_item(index):
 	var pre_item = items[index].duplicate()
-	print("del_indx: " + str(index))
+	#print("del_indx: " + str(index))
 	if index == 12:
 		items[index] = "w"
 	if index == 13:

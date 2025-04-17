@@ -3,7 +3,7 @@
 [ext_resource type="TileSet" uid="uid://bxvp47e1ea26j" path="res://rooms.tres" id="1_fisdl"]
 [ext_resource type="PackedScene" uid="uid://yxjysn3avnhl" path="res://scenes/hero.tscn" id="3_k6w27"]
 [ext_resource type="PackedScene" uid="uid://cmljrpp7x0s4t" path="res://scenes/door.tscn" id="4_ky348"]
-[ext_resource type="PackedScene" uid="uid://d2fnqlituht84" path="res://scenes/mimic_chest.tscn" id="5_vdgnp"]
+[ext_resource type="PackedScene" uid="uid://b4dpvg0rvrgdg" path="res://scenes/enemy_base.tscn" id="4_mx8sn"]
 
 [node name="level" type="Node2D"]
 
@@ -19,5 +19,5 @@ position = Vector2(248, -72)
 [node name="Hero" parent="." instance=ExtResource("3_k6w27")]
 position = Vector2(-72, 72)
 
-[node name="mimic chest" parent="." instance=ExtResource("5_vdgnp")]
-position = Vector2(248, -232)
+[node name="enemy_base" parent="." instance=ExtResource("4_mx8sn")]
+position = Vector2(248, -248)
