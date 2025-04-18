@@ -1,12 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://6mhr1uie8vnt"]
+[gd_scene load_steps=14 format=3 uid="uid://6mhr1uie8vnt"]
 
 [ext_resource type="Script" uid="uid://bqivvd5mxbct3" path="res://scripts/menu.gd" id="1_1gnhe"]
 [ext_resource type="Texture2D" uid="uid://m3ix21omfpsm" path="res://sprites/menu/menu.png" id="1_xlwuj"]
 [ext_resource type="Texture2D" uid="uid://bsrvjpgaovoe" path="res://sprites/menu/play.png" id="2_pk3bx"]
+[ext_resource type="Texture2D" uid="uid://p48qd1ee2yb1" path="res://sprites/menu/play_new.png" id="3_13sgg"]
 [ext_resource type="Texture2D" uid="uid://to4ebvidbawq" path="res://sprites/menu/settings.png" id="3_v7xac"]
 [ext_resource type="PackedScene" uid="uid://2lgjckgyl3ve" path="res://scenes/smoke1.tscn" id="4_1gcg7"]
 [ext_resource type="Texture2D" uid="uid://dd14hwmmyvgrr" path="res://sprites/menu/exit.png" id="4_amrwh"]
 [ext_resource type="Texture2D" uid="uid://cukb2jn6dohlj" path="res://sprites/menu/logo.png" id="7_os7fh"]
+[ext_resource type="Texture2D" uid="uid://dh6v3qbehcni7" path="res://sprites/shadow/big-shadow.png" id="8_i6lef"]
 
 [sub_resource type="Animation" id="Animation_3ma8e"]
 resource_name = "exit_area"
@@ -70,17 +72,27 @@ script = ExtResource("1_1gnhe")
 position = Vector2(72, 80)
 texture = ExtResource("1_xlwuj")
 
-[node name="Play" type="Sprite2D" parent="Menu"]
-position = Vector2(-41, -12)
-texture = ExtResource("2_pk3bx")
-
-[node name="Button" type="Button" parent="Menu/Play"]
+[node name="Button" type="Button" parent="Menu"]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = -15.0
-offset_top = -7.0
-offset_right = 15.0
-offset_bottom = 7.0
+anchors_preset = -1
+anchor_left = -0.214286
+anchor_right = -0.0337302
+anchor_bottom = 0.2875
+offset_left = 0.857143
+offset_top = -19.0
+offset_right = 30.8571
+offset_bottom = -5.00001
 metadata/_edit_use_anchors_ = true
+
+[node name="PlayNew" type="Sprite2D" parent="Menu"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.447)
+position = Vector2(-2, 11)
+texture = ExtResource("3_13sgg")
+
+[node name="Play" type="Sprite2D" parent="Menu"]
+position = Vector2(-90, -10)
+texture = ExtResource("2_pk3bx")
 
 [node name="CPUParticles2D" parent="Menu/Play" instance=ExtResource("4_1gcg7")]
 position = Vector2(-1, -1)
@@ -119,6 +131,11 @@ offset_bottom = 7.0
 
 [node name="CPUParticles2D" parent="Menu/Exit" instance=ExtResource("4_1gcg7")]
 
+[node name="Big-shadow" type="Sprite2D" parent="Menu"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(1, -2)
+texture = ExtResource("8_i6lef")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_kmodd")
@@ -133,8 +150,12 @@ texture = ExtResource("7_os7fh")
 position = Vector2(72, 29)
 texture = ExtResource("7_os7fh")
 
-[connection signal="mouse_entered" from="Menu/Play/Button" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="Menu/Play/Button" to="." method="_on_button_pressed"]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(72, 80)
+
+[connection signal="mouse_entered" from="Menu/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Menu/Button" to="." method="_on_button_mouse_exited"]
+[connection signal="pressed" from="Menu/Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="Menu/Play/Timer" to="." method="_on_timer_timeout"]
 [connection signal="mouse_entered" from="Menu/Settings/Button1" to="." method="_on_button_1_mouse_entered"]
 [connection signal="pressed" from="Menu/Settings/Button1" to="." method="_on_button_1_pressed"]
