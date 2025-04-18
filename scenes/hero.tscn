@@ -458,6 +458,7 @@ theme_override_fonts/normal_font = ExtResource("4_5h4rp")
 theme_override_font_sizes/normal_font_size = 10
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 script = ExtResource("8_kt70t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

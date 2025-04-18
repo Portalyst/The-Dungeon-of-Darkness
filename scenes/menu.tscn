@@ -90,6 +90,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="Settings" type="Sprite2D" parent="Menu"]
+visible = false
 position = Vector2(-51, 21)
 texture = ExtResource("3_v7xac")
 
@@ -105,6 +106,7 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(-1, 0)
 
 [node name="Exit" type="Sprite2D" parent="Menu"]
+visible = false
 position = Vector2(46, 9)
 texture = ExtResource("4_amrwh")
 

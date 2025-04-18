@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var big : bool = false
+@export var door_type : int = 1
 @export var opened : bool = false
 @export var locked : bool = false
 
@@ -8,28 +8,32 @@ signal del_shadow
 
 func _ready():
 	set_meta("door", 69)
-	if big == false:
+	if door_type == 1:
 		$AnimatedSprite2D.play("closed")
-	else:
+	if door_type == 2:
 		$AnimatedSprite2D.play("big_closed")
+	if door_type == 3:
+		$AnimatedSprite2D.play("very_big_closed")
 
 func open() -> void:
 	if locked == true:
 		$Lock.show()
 		$AnimationPlayer.play("locked")
 		return
-	if big == false:
+	if door_type == 1:
 		$AnimatedSprite2D.play("opened")
-	else:
+	if door_type == 2:
 		$AnimatedSprite2D.play("big_opened")
+	if door_type == 3:
+		$AnimatedSprite2D.play("very_big_opened")
 	$Timer.start()
 
 func player_punch_door() -> void:
 	locked = false
-	if big == false:
+	if door_type == 1:
 		$AnimatedSprite2D.play("opened")
-		print("open")
-	else:
+		#print("open")
+	if door_type == 2:
 		$AnimatedSprite2D.play("big_opened")
 	$Timer.start()
 
