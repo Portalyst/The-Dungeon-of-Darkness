@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-InvLog="*res://scripts/InvLog.gd"
 Global="*res://scripts/Global.gd"
+InvLog="*res://scripts/InvLog.gd"
 
 [display]
 

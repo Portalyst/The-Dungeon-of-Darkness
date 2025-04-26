@@ -49,6 +49,9 @@ signal punch_door
 func _ready():
 	set_meta("player", 222)
 	$dice.visible = false
+	$"CanvasLayer2/Bars/curr-level".text = str(Global.level)
+	HP_changed()
+	EXP_changed()
 
 func _physics_process(delta):
 	if Global.player_action == true and dead == false:
@@ -556,8 +559,8 @@ func _on_line_edit_text_submitted(new_text):
 			armor_changed.emit(Global.bone_armor)
 			InvLog.items[13] = Global.bone_armor
 			Global.armor = 10
-	if Global.in_battle == true:
-		$CanvasLayer2/CLOCK/turn_clock.play("end")
+#	if Global.in_battle == true:
+#		$CanvasLayer2/CLOCK/turn_clock.play("end")
 	new_text = ""
 	$CanvasLayer2/LineEdit.text = ""
 	#print(InvLog.items.find("w"))
@@ -606,14 +609,13 @@ func get_damage(damage):
 	$Hero.modulate = Color(1, 0, 0)
 	$damage_timer.start()
 	Global.HP -= damage
+	HP_changed()
 	if Global.HP <= 0:
 		death()
-		print("YOU DEAD")
 
 func take_turn():
 	#print("I GDE?")
 	Global.player_action = true
-	$CanvasLayer2/CLOCK/turn_clock.play("switch")
 	moves = 6
 
 func _on_area_2d_body_entered(body):
@@ -638,6 +640,7 @@ func _on_area_2d_2_body_entered(body):
 	if body.has_meta("enemy"):
 		Global.in_battle = true
 		body.give_turn.connect(take_turn)
+		body.give_exp.connect(take_exp)
 		#print("enemy spoted")
 
 func _on_area_2d_2_body_exited(body):
@@ -669,10 +672,30 @@ func attack():
 		player_attack.emit(deal_damage)
 
 func _on_damage_timer_timeout():
-	$Hero.modulate = Color(1, 1, 1)
+	if dead != true:
+		$Hero.modulate = Color(1, 1, 1)
 
 func death():
 	$CanvasLayer2/Candle.play("dead")
 	dead = true
-	print("UMER")
-	print(dead)
+	$Hero.modulate = Color(1, 0, 0)
+
+func take_exp(monster_lvl):
+	if monster_lvl == 1:
+		Global.exp += 15
+	if monster_lvl == 2:
+		Global.exp += 25
+	if monster_lvl == 3:
+		Global.exp += 45
+	if Global.exp >= Global.needful_exp:
+		Global.level += 1
+		Global.exp -= Global.needful_exp
+		Global.needful_exp = Global.needful_exp * 5 * Global.level
+		$"CanvasLayer2/Bars/curr-level".text = str(Global.level)
+	EXP_changed()
+
+func HP_changed():
+	$CanvasLayer2/Bars/HP_bar.value = Global.HP * 100 / Global.max_HP
+
+func EXP_changed():
+	$CanvasLayer2/Bars/EXP_bar.value = Global.exp * 100 / Global.needful_exp

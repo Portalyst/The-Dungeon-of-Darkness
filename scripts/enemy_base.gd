@@ -13,12 +13,15 @@ signal drop_loot()
 
 signal give_turn()
 
+signal give_exp(int)
+
 @export var loot : PackedScene
 @export var type : String
 @export var armor : int
 @export var damage : int
 @export var HP = 8
 @export var dead : bool = false
+@export var danger_lvl : int
 
 var moves = 6
 
@@ -27,12 +30,10 @@ var player
 var start_position : Vector2
 
 func _ready():
-	set_meta("enemy", 3)
-	$"../Hero".player_attack.connect(take_damage)
-	start_position = self.position
 	player = $"../Hero"
-
-
+	set_meta("enemy", 3)
+	player.player_attack.connect(take_damage)
+	start_position = self.position
 
 func _on_area_up_body_entered(body):
 	if body.has_meta("player"):
@@ -126,9 +127,10 @@ func take_damage(damage):
 			var chance = randi_range(0, 10)
 			if chance == 10:
 				drop_loot.emit(loot)
+			give_exp.emit(danger_lvl)
 			dead = true
-			queue_free()
 			give_turn.emit()
+			queue_free()
 
 func attack():
 	var deal_damage : int = randi_range(1, damage)

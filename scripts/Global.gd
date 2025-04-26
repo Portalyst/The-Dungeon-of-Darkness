@@ -4,8 +4,14 @@ var coins : int = 15
 
 var max_HP : int = 10
 var HP : int = 10
+
 var armor : int = 10
 
+var level : int = 1
+var exp : int = 0
+var needful_exp : int = 100
+
+var player
 
 var in_battle : bool = false
 var player_action : bool = true

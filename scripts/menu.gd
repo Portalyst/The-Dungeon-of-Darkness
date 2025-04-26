@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 		$Camera2D.zoom.y += 0.01
 		$"Menu/Big-shadow".modulate.a += 0.01
 	if $"Menu/Big-shadow".modulate.a >= 1:
-		get_tree().change_scene_to_file("res://scenes/level.tscn")
+		get_tree().change_scene_to_file("res://scenes/layer0.tscn")
 
 func _on_button_1_mouse_entered():
 	$AnimationPlayer.play("setting_area")

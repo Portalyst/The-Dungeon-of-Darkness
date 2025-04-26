@@ -12,13 +12,13 @@ extends Node2D
 func _ready():
 	$GearInfo/Label.text = "Name: " + Name
 	$GearInfo/Label2.text = "Damage: " + damage
-	$"/root/level/Hero".remove.connect(remove_self)
+	$/root/level/Hero.remove.connect(remove_self)
 
 func _on_delete_pressed():
 	InvLog.remove_item(item_slot)
 	queue_free()
 
-func remove_self(Index): # ну ошибка где-то здесь. где? да если б я знал
+func remove_self(Index):
 	if Index == item_slot:
 		InvLog.remove_item(item_slot)
 		#print("Index: " + str(Index))

@@ -15,8 +15,11 @@ signal drop_loot()
 
 signal give_turn()
 
+signal give_exp(int)
+
 var agr_rate = 5
 
+@export var danger_lvl : int
 @export var loot2 : String
 @export var loot : String
 @export var type = "mimic"
@@ -153,9 +156,10 @@ func take_damage(damage):
 			var chance_for_two = randi_range(0, 20)
 			if chance_for_two == 20:
 				drop_loot.emit(loot2)
+			give_exp.emit(danger_lvl)
+			give_turn.emit()
 			dead = true
 			queue_free()
-			give_turn.emit()
 
 func triggired():
 	if angry == false:

@@ -34,6 +34,7 @@ animations = [{
 
 [node name="mimic chest" instance=ExtResource("1_rbfka")]
 script = ExtResource("2_w2hud")
+danger_lvl = 3
 loot2 = "Global.mimic_tongue"
 loot = "Global.mimic_scaly"
 type = "mimic"
