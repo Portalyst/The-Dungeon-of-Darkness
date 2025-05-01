@@ -8,6 +8,8 @@ var dexterity : int = 1
 var strength : int = 1
 var protection : int = 1
 
+var free_level : int = 0
+
 var door_cord : Vector2
 var is_door_open : bool
 var is_door_lock : bool
@@ -52,7 +54,12 @@ func _ready():
 	$"CanvasLayer2/Bars/curr-level".text = str(Global.level)
 	HP_changed()
 	EXP_changed()
-
+	char_upt()
+	$CanvasLayer/Inv/Cross.self_modulate.a = 0.5
+	$CanvasLayer/Inv/Cross2.self_modulate.a = 0.5
+	$CanvasLayer/Inv/Cross3.self_modulate.a = 0.5
+	$CanvasLayer2/LineEdit.set("theme_override_colors/font_color",Color("white"))
+	
 func _physics_process(delta):
 	if Global.player_action == true and dead == false:
 		$CanvasLayer2/Candle.play("youre_turn")
@@ -96,19 +103,22 @@ func move(direction: Vector2):
 
 
 func _on_line_edit_text_submitted(new_text):
-	var text = $CanvasLayer2/LineEdit.get_text()
+	$Timer.wait_time = 0.01
 	if new_text == "open chest":
 		if mimic_in_area == true:
 			trigger.emit()
 		if chest_in_area == true:
 			open_chest.emit()
-			chest_in_area = false
+			#chest_in_area = false
 			
 		#if chest_in_area == false:
 		#	new_text = "no chest"
 		#	$Timer.start()
 	if new_text == "dead":
 		death()
+	
+	if new_text == "level":
+		new_level()
 	
 	if new_text == "attack mimic" and enemy_spoted == true and Global.player_action == true and mimic_in_area == true:
 		attack()
@@ -562,7 +572,7 @@ func _on_line_edit_text_submitted(new_text):
 #	if Global.in_battle == true:
 #		$CanvasLayer2/CLOCK/turn_clock.play("end")
 	new_text = ""
-	$CanvasLayer2/LineEdit.text = ""
+	$Timer.start()
 	#print(InvLog.items.find("w"))
 
 
@@ -583,7 +593,7 @@ func _on_area_2d_area_entered(area):
 
 func _on_timer_timeout():
 	$CanvasLayer2/LineEdit.text = ""
-	chest_in_area = false
+	$CanvasLayer2/LineEdit.set("theme_override_colors/font_color",Color("white"))
 
 func _on_line_edit_mouse_exited():
 	$CanvasLayer2/LineEdit.release_focus()
@@ -597,8 +607,8 @@ func _on_area_2d_area_exited(area):
 		door_in_area = false
 		door_cord = Vector2(0, 0)
 
-func _on_button_pressed():
-	$CanvasLayer.hide()
+#func _on_button_pressed():
+	#$CanvasLayer.hide()
 
 func get_loot(get_item):
 	var slot = InvLog.items.find({})
@@ -688,10 +698,7 @@ func take_exp(monster_lvl):
 	if monster_lvl == 3:
 		Global.exp += 45
 	if Global.exp >= Global.needful_exp:
-		Global.level += 1
-		Global.exp -= Global.needful_exp
-		Global.needful_exp = Global.needful_exp * 5 * Global.level
-		$"CanvasLayer2/Bars/curr-level".text = str(Global.level)
+		new_level()
 	EXP_changed()
 
 func HP_changed():
@@ -699,3 +706,48 @@ func HP_changed():
 
 func EXP_changed():
 	$CanvasLayer2/Bars/EXP_bar.value = Global.exp * 100 / Global.needful_exp
+
+func new_level():
+	Global.level += 1
+	free_level += 1
+	Global.exp -= Global.needful_exp
+	Global.needful_exp = Global.needful_exp * 5 * Global.level
+	$"CanvasLayer2/Bars/curr-level".text = str(Global.level)
+	$CanvasLayer/Inv/Cross.self_modulate.a = 1
+	$CanvasLayer/Inv/Cross2.self_modulate.a = 1
+	$CanvasLayer/Inv/Cross3.self_modulate.a = 1
+	$CanvasLayer2/LineEdit.set("theme_override_colors/font_color",Color("yellow"))
+	$CanvasLayer2/LineEdit.text = "новый уровень!"
+	$Timer.wait_time = 1
+
+
+func _on_str_button_pressed():
+	if free_level > 0:
+		free_level -= 1
+		strength += 1
+		if free_level == 0:
+			$CanvasLayer/Inv/Cross.self_modulate.a = 0.5
+			$CanvasLayer/Inv/Cross2.self_modulate.a = 0.5
+			$CanvasLayer/Inv/Cross3.self_modulate.a = 0.5
+		char_upt()
+
+func _on_prt_button_pressed():
+	if free_level > 0:
+		free_level -= 1
+		protection += 1
+		if free_level == 0:
+			$CanvasLayer/Inv/Cross.hide()
+		char_upt()
+
+func _on_dex_button_pressed():
+	if free_level > 0:
+		free_level -= 1
+		dexterity += 1
+		if free_level == 0:
+			$CanvasLayer/Inv/Cross.hide()
+		char_upt()
+
+func char_upt():
+	$CanvasLayer/Inv/str_label.text = str(strength)
+	$CanvasLayer/Inv/dex_label.text = str(dexterity)
+	$CanvasLayer/Inv/prot_label.text = str(protection)

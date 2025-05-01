@@ -221,7 +221,6 @@ visible = false
 shape = SubResource("RectangleShape2D_mirn7")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Inv" type="Sprite2D" parent="CanvasLayer"]
 position = Vector2(72, 77)
@@ -235,26 +234,29 @@ texture = ExtResource("4_wc88v")
 position = Vector2(22, 30)
 texture = ExtResource("5_kt0c4")
 
-[node name="Cross" type="Sprite2D" parent="CanvasLayer/Inv"]
-position = Vector2(46, 6.5)
+[node name="Cross3" type="Sprite2D" parent="CanvasLayer/Inv"]
+position = Vector2(46, -12.5)
 texture = ExtResource("4_fuux7")
 
 [node name="Cross2" type="Sprite2D" parent="CanvasLayer/Inv"]
 position = Vector2(46, -29.6)
 texture = ExtResource("4_fuux7")
 
-[node name="Cross3" type="Sprite2D" parent="CanvasLayer/Inv"]
-position = Vector2(46, -12.5)
+[node name="Cross" type="Sprite2D" parent="CanvasLayer/Inv"]
+self_modulate = Color(1, 1, 1, 0.497)
+position = Vector2(46, 6.5)
 texture = ExtResource("4_fuux7")
 
 [node name="str_label" type="Label" parent="CanvasLayer/Inv"]
-offset_left = 32.0
-offset_top = -35.0
+offset_left = 31.0
+offset_top = -18.0
 offset_right = 43.0
-offset_bottom = -23.0
+offset_bottom = -6.0
 theme_override_fonts/font = ExtResource("4_5h4rp")
 theme_override_font_sizes/font_size = 10
 text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Strength" type="Sprite2D" parent="CanvasLayer/Inv"]
 position = Vector2(22, -12.5)
@@ -262,26 +264,29 @@ texture = ExtResource("5_syei6")
 
 [node name="prot_label" type="Label" parent="CanvasLayer/Inv"]
 texture_filter = 1
-offset_left = 32.0
-offset_top = -18.0
+offset_left = 31.0
+offset_top = -35.0
 offset_right = 43.0
-offset_bottom = -6.0
+offset_bottom = -23.0
 theme_override_fonts/font = ExtResource("4_5h4rp")
 theme_override_font_sizes/font_size = 10
 text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Protection" type="Sprite2D" parent="CanvasLayer/Inv"]
 position = Vector2(22, -29.5)
 texture = ExtResource("4_8m75t")
 
 [node name="dex_label" type="Label" parent="CanvasLayer/Inv"]
-offset_left = 32.0
+offset_left = 31.0
 offset_top = 1.0
-offset_right = 41.0
+offset_right = 43.0
 offset_bottom = 13.0
 theme_override_fonts/font = ExtResource("4_5h4rp")
 theme_override_font_sizes/font_size = 10
 text = "10"
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Dexterity" type="Sprite2D" parent="CanvasLayer/Inv"]
@@ -305,7 +310,29 @@ offset_left = -24.0
 offset_top = -3.0
 offset_right = -24.0
 offset_bottom = -3.0
-mouse_filter = 2
+mouse_filter = 1
+
+[node name="prtButton" type="Button" parent="CanvasLayer"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 114.0
+offset_top = 43.5
+offset_right = 123.0
+offset_bottom = 52.5
+mouse_filter = 1
+
+[node name="strButton" type="Button" parent="CanvasLayer"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 114.0
+offset_top = 60.5
+offset_right = 123.0
+offset_bottom = 69.5
+
+[node name="dexButton" type="Button" parent="CanvasLayer"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 114.0
+offset_top = 79.5
+offset_right = 123.0
+offset_bottom = 88.5
 
 [node name="weapon_slot" type="ColorRect" parent="CanvasLayer" groups=["items_slots"]]
 self_modulate = Color(1, 1, 1, 0)
@@ -394,6 +421,7 @@ offset_left = 5.0
 offset_top = 137.0
 offset_right = 142.0
 offset_bottom = 168.0
+theme_override_colors/font_color = Color(0, 0, 9.945, 1)
 theme_override_fonts/font = ExtResource("4_5h4rp")
 theme_override_font_sizes/font_size = 15
 theme_override_styles/focus = SubResource("StyleBoxEmpty_b3m87")
@@ -490,6 +518,9 @@ theme_override_font_sizes/font_size = 10
 
 [connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
 [connection signal="body_exited" from="Area2D2" to="." method="_on_area_2d_2_body_exited"]
+[connection signal="pressed" from="CanvasLayer/prtButton" to="." method="_on_prt_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/strButton" to="." method="_on_str_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/dexButton" to="." method="_on_dex_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ItemsMenu/close_button" to="." method="_on_close_button_pressed"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
