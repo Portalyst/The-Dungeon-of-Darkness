@@ -27,4 +27,7 @@ position = Vector2(248, -424)
 position = Vector2(248, -296)
 
 [node name="Chest" parent="." instance=ExtResource("6_fxsg0")]
-position = Vector2(248, -232)
+position = Vector2(232, -232)
+
+[node name="Chest2" parent="." instance=ExtResource("6_fxsg0")]
+position = Vector2(264, -232)

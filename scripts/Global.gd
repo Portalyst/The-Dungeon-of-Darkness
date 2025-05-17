@@ -20,6 +20,9 @@ var damage : int = 1
 var pure : bool = false
 var boost : int = 0
 var char_boost : int = 0
+
+var selected_item
+
 #weapons
 
 var bat = load("res://scenes/bat.tscn")
@@ -66,3 +69,12 @@ var prototype_a = load("res://scenes/prototype_a.tscn")
 var coin = load("res://scenes/coins.tscn")
 var mimic_tongue = load("res://scenes/mimic_tongue.tscn")
 var mimic_scaly = load("res://scenes/mimic_scaly.tscn")
+
+var common_items : Array = [iron_armor, iron_chestplate, leather_armor, b_spear, spear,
+							b_halberd, halberd, b_claymore, dagger, s_dagger, p_dagger,
+							b_sword, sword, s_sword, bat]
+
+var rare_items : Array =[mimic_scaly, lightweight_heavy_armor, chain_armor, s_spear,
+						p_spear, p_sword, claymore, s_halberd, p_halberd, heavy_armor]
+
+var legendary_items : Array = [p_claymore]

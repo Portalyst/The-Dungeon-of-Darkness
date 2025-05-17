@@ -6,8 +6,10 @@ extends Node2D
 @export var discription = ""
 @export var type = ""
 @export var protection : int
-@export var characteristic = ""
+@export var Script_Name : PackedScene
+#@export var characteristic = ""
 #@export var Info : PackedScene
+
 
 func _ready():
 	$GearInfo/Label.text = "Name: " + Name
@@ -27,6 +29,8 @@ func remove_self(Index):
 		self.queue_free()
 
 func _on_button_pressed():
+	Global.selected_item = Script_Name
+	
 	$/root/level/Hero/CanvasLayer/ItemsMenu.show()
 	$/root/level/Hero/CanvasLayer/ItemsMenu/item_name.text = Name
 	if type == "weapon":

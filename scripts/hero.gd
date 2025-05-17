@@ -7,6 +7,7 @@ extends CharacterBody2D
 var dexterity : int = 1
 var strength : int = 1
 var protection : int = 1
+var attentiveness : int = 1
 
 var free_level : int = 0
 
@@ -47,9 +48,11 @@ signal weapon_changed(item)
 #door
 signal open_door
 signal punch_door
+#Secret objects
+signal try_to_spot(int)
 
 func _ready():
-	set_meta("player", 222)
+	set_meta("player", 1)
 	$dice.visible = false
 	$"CanvasLayer2/Bars/curr-level".text = str(Global.level)
 	HP_changed()
@@ -114,6 +117,9 @@ func _on_line_edit_text_submitted(new_text):
 		#if chest_in_area == false:
 		#	new_text = "no chest"
 		#	$Timer.start()
+	if new_text == "look":
+		look_around()
+	
 	if new_text == "dead":
 		death()
 	
@@ -751,3 +757,14 @@ func char_upt():
 	$CanvasLayer/Inv/str_label.text = str(strength)
 	$CanvasLayer/Inv/dex_label.text = str(dexterity)
 	$CanvasLayer/Inv/prot_label.text = str(protection)
+
+func look_around():
+	try_to_spot.emit(attentiveness)
+
+func _on_trash_button_pressed() -> void:
+	if visible == true:
+		var index_of_item = InvLog.items.find(Global.selected_item)
+		print(Global.selected_item)
+		print(index_of_item)
+		remove.emit(index_of_item)
+		print(InvLog.items.find(Global.selected_item))
