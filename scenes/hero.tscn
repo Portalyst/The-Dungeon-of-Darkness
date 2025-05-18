@@ -223,6 +223,7 @@ script = ExtResource("3_4kg8r")
 shape = SubResource("RectangleShape2D_mirn7")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Inv" type="Sprite2D" parent="CanvasLayer"]
 position = Vector2(72, 77)
@@ -355,6 +356,7 @@ mouse_filter = 2
 script = ExtResource("8_ykify")
 
 [node name="ItemsMenu" type="Sprite2D" parent="CanvasLayer"]
+visible = false
 position = Vector2(72, 83)
 texture = ExtResource("6_2wlxo")
 
@@ -486,6 +488,7 @@ position = Vector2(15, 141)
 texture = ExtResource("16_2grt1")
 
 [node name="dice" type="Label" parent="."]
+visible = false
 offset_left = -7.0
 offset_top = -6.0
 offset_right = 8.0

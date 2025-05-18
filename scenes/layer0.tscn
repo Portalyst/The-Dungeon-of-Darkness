@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbf7xxmkd213u"]
+[gd_scene load_steps=9 format=3 uid="uid://cbf7xxmkd213u"]
 
 [ext_resource type="Script" uid="uid://c3us4a7fasnod" path="res://scripts/layer_0.gd" id="1_8lkp1"]
 [ext_resource type="TileSet" uid="uid://bxvp47e1ea26j" path="res://rooms.tres" id="1_rpsrf"]
 [ext_resource type="PackedScene" uid="uid://cmljrpp7x0s4t" path="res://scenes/door.tscn" id="2_8lkp1"]
 [ext_resource type="PackedScene" uid="uid://c3mrw3ypvsy88" path="res://scenes/big_shadow.tscn" id="3_fxsg0"]
 [ext_resource type="PackedScene" uid="uid://yxjysn3avnhl" path="res://scenes/hero.tscn" id="4_bttit"]
-[ext_resource type="PackedScene" uid="uid://dvncy03pg6kt3" path="res://scenes/chest.tscn" id="6_fxsg0"]
+[ext_resource type="PackedScene" uid="uid://8my2slo55dje" path="res://scenes/cultist.tscn" id="6_fxsg0"]
+[ext_resource type="PackedScene" uid="uid://d2fnqlituht84" path="res://scenes/mimic_chest.tscn" id="7_bttit"]
+[ext_resource type="Texture2D" uid="uid://by7irsl2q5m5s" path="res://sprites/background/stairs.png" id="8_fvpmc"]
 
 [node name="level" type="Node2D"]
 script = ExtResource("1_8lkp1")
@@ -20,14 +22,18 @@ layer_0/tile_data = PackedInt32Array(196616, 65536, 0, 262152, 0, 4, -327667, 65
 position = Vector2(248, -312)
 door_type = 3
 
+[node name="Stairs" type="Sprite2D" parent="."]
+position = Vector2(248, -344)
+texture = ExtResource("8_fvpmc")
+
 [node name="Big-shadow" parent="." instance=ExtResource("3_fxsg0")]
 position = Vector2(248, -424)
 
 [node name="Hero" parent="." instance=ExtResource("4_bttit")]
-position = Vector2(248, -296)
+position = Vector2(248, -232)
 
-[node name="Chest" parent="." instance=ExtResource("6_fxsg0")]
-position = Vector2(232, -232)
+[node name="cultist" parent="." instance=ExtResource("6_fxsg0")]
+position = Vector2(536, -472)
 
-[node name="Chest2" parent="." instance=ExtResource("6_fxsg0")]
-position = Vector2(264, -232)
+[node name="mimic chest" parent="." instance=ExtResource("7_bttit")]
+position = Vector2(536, -280)

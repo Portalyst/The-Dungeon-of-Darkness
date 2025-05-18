@@ -7,19 +7,19 @@
 size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x0emv"]
-size = Vector2(162, 62)
+size = Vector2(176, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_txl5k"]
-size = Vector2(36, 38)
+size = Vector2(48, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yow3x"]
-size = Vector2(161, 63.5)
+size = Vector2(176, 64.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqtex"]
-size = Vector2(57, 169)
+size = Vector2(64, 176)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jsyns"]
-size = Vector2(64, 169)
+size = Vector2(64, 176)
 
 [sub_resource type="Animation" id="Animation_xq4ap"]
 resource_name = "throw"
@@ -64,7 +64,7 @@ shape = SubResource("RectangleShape2D_5pqun")
 [node name="AreaUP" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaUP"]
-position = Vector2(4, -52)
+position = Vector2(0, -56)
 shape = SubResource("RectangleShape2D_x0emv")
 
 [node name="att_area" type="Area2D" parent="."]
@@ -75,22 +75,23 @@ shape = SubResource("RectangleShape2D_txl5k")
 [node name="AreaDOWN" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDOWN"]
-position = Vector2(3.5, 54.25)
+position = Vector2(0, 56.125)
 shape = SubResource("RectangleShape2D_yow3x")
 
 [node name="AreaLEFT" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaLEFT"]
-position = Vector2(-48.5, 1.5)
+position = Vector2(-56, 0)
 shape = SubResource("RectangleShape2D_hqtex")
 
 [node name="AreaRIGHT" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaRIGHT"]
-position = Vector2(53, 1.5)
+position = Vector2(56, 0)
 shape = SubResource("RectangleShape2D_jsyns")
 
 [node name="Timer" type="Timer" parent="."]
+one_shot = true
 autostart = true
 
 [node name="dice" type="Label" parent="."]

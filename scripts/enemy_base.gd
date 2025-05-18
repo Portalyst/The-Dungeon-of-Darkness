@@ -94,23 +94,28 @@ func _on_timer_timeout():
 					direction += Vector2(16, 0)
 				position += direction
 				moves -= 1
+				$Timer.start()
 			if moves == 0:
 				give_turn.emit()
 				moves = 6
 		if (prep_to_att == true) and (Global.player_action == false):
 			var attack = randi_range(1, 20)
-			$dice.visible = true
 			$dice.modulate = Color(1, 1, 1)
+			$dice.show()
 			$dice.text = str(attack)
 			$AnimationPlayer.play("throw")
 			await $AnimationPlayer.animation_finished
-			$dice.visible = false
+			$dice.hide()
+			#Global.player_action = true
 			if attack >= Global.armor:
 				attack()
+			if attack < Global.armor:
+				give_turn.emit()
 			#Global.player_action = true
 	if on_top == false and on_bottom == false and on_left == false and on_right == false and prep_to_att == false:
 		self.position = start_position
-	$Timer.start()
+	if (player.dead == false) and (Global.player_action == true):
+		$Timer.start()
 
 func _on_att_area_body_entered(body):
 	if body.has_meta("player"):
@@ -135,10 +140,12 @@ func take_damage(damage):
 func attack():
 	var deal_damage : int = randi_range(1, damage)
 	$dice.modulate = Color(1, 0, 0)
-	$dice.visible = true
+	$dice.show()
 	$dice.text = str(deal_damage)
 	$AnimationPlayer.play("throw")
 	await $AnimationPlayer.animation_finished
-	$dice.visible = false
+	$dice.hide()
 	deal_attack.emit(deal_damage)
 	give_turn.emit()
+	$Timer.start()
+	print(deal_damage)

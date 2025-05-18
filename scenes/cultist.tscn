@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://8my2slo55dje"]
+
+[ext_resource type="PackedScene" uid="uid://b4dpvg0rvrgdg" path="res://scenes/enemy_base.tscn" id="1_6kwtl"]
+[ext_resource type="Texture2D" uid="uid://df5nlyin37cb6" path="res://sprites/enemy/cultist/cultist.png" id="2_ag0xj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4o0s8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ag0xj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="cultist" instance=ExtResource("1_6kwtl")]
+type = "cult"
+armor = 8
+damage = 4
+HP = 6
+danger_lvl = 2
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_4o0s8")
+
+[node name="CollisionShape2D" parent="AreaDOWN" index="0"]
+position = Vector2(0, 56)

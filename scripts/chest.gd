@@ -6,7 +6,7 @@ var close = true
 
 @export var secret : bool = false
 
-var difficulty = 1 #randi_range(1, 3)
+var difficulty = randi_range(1, 3)
 
 func _ready():
 	$AnimatedSprite2D.play("default")

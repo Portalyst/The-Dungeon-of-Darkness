@@ -46,6 +46,7 @@ func _ready():
 	set_meta("enemy", 3)
 	$"../Hero".player_attack.connect(take_damage)
 	player = $"../Hero"
+	$Timer.start()
 
 
 
@@ -94,7 +95,7 @@ func _on_area_right_body_exited(body):
 		#$Timer.start()
 
 func _on_timer_timeout():
-	#print(dead, angry, player.dead, Global.player_action, prep_to_att, " ", on_bottom, on_left, on_right, on_top, moves)
+	#print(player.dead, Global.player_action)
 	#if dead == false and angry == true:
 	if (player.dead == false) and (Global.player_action == false):
 		if prep_to_att == false:
@@ -114,25 +115,33 @@ func _on_timer_timeout():
 					#print("RIGHT")
 				position += direction
 				moves -= 1
+				$Timer.start()
 				#print("MOVE")
 			if moves == 0:
 				give_turn.emit()
 				moves = 6
 				#print("EMIT")
+		#print(prep_to_att, Global.player_action)
 		if (prep_to_att == true) and (Global.player_action == false):
 			var attack = randi_range(1, 20)
-			$dice.visible = true
 			$dice.modulate = Color(1, 1, 1)
+			$dice.show()
 			$dice.text = str(attack)
 			$AnimationPlayer.play("throw")
 			await $AnimationPlayer.animation_finished
-			$dice.visible = false
-			Global.player_action = true
+			$dice.hide()
+			#Global.player_action = true
 			if attack >= Global.armor:
 				attack()
+			if attack < Global.armor:
+				give_turn.emit()
+				print(player.dead, Global.player_action)
+	
+	if (player.dead == false) and (Global.player_action == true):
+		$Timer.start()
+	#print("timer", player.dead, Global.player_action)
 		#Global.player_action = true
 		#print("timer end")
-	$Timer.start()
 
 func _on_att_area_body_entered(body):
 	if body.has_meta("player"):
@@ -169,17 +178,23 @@ func triggired():
 		attack()
 
 func attack():
+	#print(player.dead, Global.player_action)
 	agr_rate -= 1
 	var deal_damage = randi_range(1, damage)
 	$dice.modulate = Color(1, 0, 0)
-	$dice.visible = true
+	$dice.show()
+	#print($dice.visible)
 	$dice.text = str(deal_damage)
 	#print(deal_damage)
 	$AnimationPlayer.play("throw")
 	await $AnimationPlayer.animation_finished
-	$dice.visible = false
+	#print($dice.visible)
+	print(deal_damage)
+	$dice.hide()
 	deal_attack.emit(deal_damage)
 	give_turn.emit()
+	#print(player.dead, Global.player_action)
+	$Timer.start()
 	#Global.player_action = true
 	#print("mimic attack")
 	#print(Global.player_action)
