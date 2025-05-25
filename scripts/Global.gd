@@ -78,3 +78,5 @@ var rare_items : Array =[mimic_scaly, lightweight_heavy_armor, chain_armor, s_sp
 						p_spear, p_sword, claymore, s_halberd, p_halberd, heavy_armor]
 
 var legendary_items : Array = [p_claymore]
+
+var current_level : int = 1

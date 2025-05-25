@@ -31,6 +31,8 @@ var door_in_area = false
 
 @export var dead = false
 
+@export var animation_player : AnimationPlayer
+
 var canmove = true
 var chest_in_area = false
 var currarea
@@ -51,7 +53,10 @@ signal punch_door
 #Secret objects
 signal try_to_spot(int)
 
+signal use_stair
+
 func _ready():
+	animation_player = $AnimationPlayer
 	set_meta("player", 1)
 	$dice.visible = false
 	$"CanvasLayer2/Bars/curr-level".text = str(Global.level)
@@ -64,6 +69,7 @@ func _ready():
 	$CanvasLayer2/LineEdit.set("theme_override_colors/font_color",Color("white"))
 	
 func _physics_process(delta):
+	$"CanvasLayer2/Bars/curr-level".text = str(Global.current_level)
 	if Global.player_action == true and dead == false:
 		$CanvasLayer2/Candle.play("youre_turn")
 	if Global.player_action == false and dead == false:
@@ -117,6 +123,15 @@ func _on_line_edit_text_submitted(new_text):
 		#if chest_in_area == false:
 		#	new_text = "no chest"
 		#	$Timer.start()
+	if new_text == "use stair":
+		use_stair.emit(Global.current_level)
+	
+	if new_text == "zoom 1":
+		$AnimationPlayer.play("zoom_in")
+	
+	if new_text == "zoom 2":
+		$AnimationPlayer.play("zoom_out")
+	
 	if new_text == "look":
 		look_around()
 	
@@ -596,6 +611,8 @@ func _on_area_2d_area_entered(area):
 		door_cord = area.position
 		is_door_open = area.opened
 		is_door_lock = area.locked
+	if area.has_meta("stairs"):
+		area.launch_animation.connect(stairs_animation)
 
 func _on_timer_timeout():
 	$CanvasLayer2/LineEdit.text = ""
@@ -612,6 +629,8 @@ func _on_area_2d_area_exited(area):
 	if area.has_meta("door"):
 		door_in_area = false
 		door_cord = Vector2(0, 0)
+	if area.has_meta("stair"):
+		area.launch_animation.disconnect(stairs_animation)
 
 #func _on_button_pressed():
 	#$CanvasLayer.hide()
@@ -768,3 +787,9 @@ func _on_trash_button_pressed() -> void:
 		print(index_of_item)
 		remove.emit(index_of_item)
 		print(InvLog.items.find(Global.selected_item))
+
+func stairs_animation(zoom_in_out):
+	if zoom_in_out == "in":
+		$AnimationPlayer.play("zoom_in")
+	if zoom_in_out == "out":
+		$AnimationPlayer.play("zoom_out")

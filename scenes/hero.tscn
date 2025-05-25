@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://yxjysn3avnhl"]
+[gd_scene load_steps=53 format=3 uid="uid://yxjysn3avnhl"]
 
 [ext_resource type="Texture2D" uid="uid://ryy8je63yf7e" path="res://sprites/hero/hero.png" id="1_dh7eb"]
 [ext_resource type="Script" uid="uid://h55cxfc2yb1n" path="res://scripts/hero.gd" id="1_fhpx2"]
@@ -172,6 +172,30 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:zoom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 8)]
+}
 
 [sub_resource type="Animation" id="Animation_fq023"]
 resource_name = "return"
@@ -200,10 +224,66 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_4kg8r"]
+resource_name = "zoom_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:zoom")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(9.01, 9.92)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.566667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 8), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4ul70"]
+resource_name = "zoom_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:zoom")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(9.01, 9.92), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 8)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xncni"]
 _data = {
 &"RESET": SubResource("Animation_jskiy"),
-&"return": SubResource("Animation_fq023")
+&"return": SubResource("Animation_fq023"),
+&"zoom_in": SubResource("Animation_4kg8r"),
+&"zoom_out": SubResource("Animation_4ul70")
 }
 
 [node name="Hero" type="CharacterBody2D"]

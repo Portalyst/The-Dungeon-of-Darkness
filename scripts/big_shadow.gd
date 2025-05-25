@@ -19,7 +19,7 @@ func start_showing():
 			self.queue_free()
 	if showing == true:
 		self.modulate.a -= 0.1
-		print(Color(1.0, 1.0, 1.0, -0.0))
+		#print(Color(1.0, 1.0, 1.0, -0.0))
 
 func _on_timer_timeout() -> void:
 	start_showing()
