@@ -10,7 +10,7 @@ size = Vector2(16, 16)
 size = Vector2(176, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_txl5k"]
-size = Vector2(48, 48)
+size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yow3x"]
 size = Vector2(176, 64.25)
@@ -57,11 +57,13 @@ _data = {
 script = ExtResource("1_kno1i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_5pqun")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 
 [node name="AreaUP" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaUP"]
 position = Vector2(0, -56)
@@ -73,18 +75,21 @@ shape = SubResource("RectangleShape2D_x0emv")
 shape = SubResource("RectangleShape2D_txl5k")
 
 [node name="AreaDOWN" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDOWN"]
 position = Vector2(0, 56.125)
 shape = SubResource("RectangleShape2D_yow3x")
 
 [node name="AreaLEFT" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaLEFT"]
 position = Vector2(-56, 0)
 shape = SubResource("RectangleShape2D_hqtex")
 
 [node name="AreaRIGHT" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaRIGHT"]
 position = Vector2(56, 0)
@@ -110,6 +115,10 @@ libraries = {
 &"": SubResource("AnimationLibrary_dcbly")
 }
 
+[node name="Timer_of_immortality" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="body_entered" from="AreaUP" to="." method="_on_area_up_body_entered"]
 [connection signal="body_exited" from="AreaUP" to="." method="_on_area_up_body_exited"]
 [connection signal="body_entered" from="att_area" to="." method="_on_att_area_body_entered"]
@@ -121,3 +130,4 @@ libraries = {
 [connection signal="body_entered" from="AreaRIGHT" to="." method="_on_area_right_body_entered"]
 [connection signal="body_exited" from="AreaRIGHT" to="." method="_on_area_right_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer_of_immortality" to="." method="_on_timer_of_immortality_timeout"]

@@ -5,42 +5,47 @@ extends Area2D
 
 var player
 
-var level_1_coord : Vector2i = Vector2i(248, -344)
-var level_2_coord_var_0 : Vector2i = Vector2i(312, -696)
-var level_2_coord_var_1 : Vector2i = Vector2i(152, -696)
-var level_2_coord_var_2 : Vector2i = Vector2i(232, -616)
-var level_3_coord_var_1 : Vector2i = Vector2i(168, -984)
-var level_3_coord_var_0 : Vector2i = Vector2i(280, -984)
-
 signal launch_animation(String)
 
 func _ready():
 	set_meta("stairs", 1)
+	if up == false and variant == "":
+		Global.level_1_coord = self.position
+	if up == true and variant == "bottom":
+		Global.level_2_coord_var_2 = self.position
+	if up == false and variant == "left":
+		Global.level_2_coord_var_1 = self.position
+	if up == false and variant == "right":
+		Global.level_2_coord_var_0 = self.position
+	if up == true and variant == "left":
+		Global.level_3_coord_var_1 = self.position
+	if up == true and variant == "right":
+		Global.level_3_coord_var_0 = self.position
 
 func stairs_log(player_layer):
 	launch_animation.emit("in")
 	await player.animation_player.animation_finished
 	if player_layer == 1:
 		Global.current_level += 1
-		player.position = level_2_coord_var_2
+		player.position = Global.level_2_coord_var_2
 
 	if player_layer == 2:
 		if up == false:
 			Global.current_level += 1
 			if variant == "left":
-				player.position = level_3_coord_var_1
+				player.position = Global.level_3_coord_var_1
 			if variant == "right":
-				player.position = level_3_coord_var_0
+				player.position = Global.level_3_coord_var_0
 		if up == true:
 			Global.current_level -= 1
-			player.position = level_1_coord
+			player.position = Global.level_1_coord
 
 	if player_layer == 3:
 		Global.current_level -= 1
 		if variant == "left":
-			player.position = level_2_coord_var_1
+			player.position = Global.level_2_coord_var_1
 		if variant == "right":
-			player.position = level_2_coord_var_0
+			player.position = Global.level_2_coord_var_0
 	launch_animation.emit("out")
 
 func _on_body_entered(body: Node2D) -> void:

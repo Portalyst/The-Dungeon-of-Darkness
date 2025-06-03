@@ -22,12 +22,15 @@ signal give_exp(int)
 @export var HP = 8
 @export var dead : bool = false
 @export var danger_lvl : int
+@export var index_in_array : int
 
 var moves = 6
 
 var player
 
 var start_position : Vector2
+
+var need_more_power : bool = false
 
 func _ready():
 	player = $"../Hero"
@@ -80,7 +83,11 @@ func _on_area_right_body_exited(body):
 		$Timer.start()
 
 func _on_timer_timeout():
-	if (player.dead == false) and (Global.player_action == false):
+	print(dead)
+	if dead == true and need_more_power == true and $Timer_of_immortality.is_stopped() == true:
+		$Timer_of_immortality.start
+		need_more_power = false
+	if (player.dead == false) and (Global.player_action == false) and dead == false:
 		if prep_to_att == false:
 			if moves != 0:
 				var direction : Vector2
@@ -135,7 +142,12 @@ func take_damage(damage):
 			give_exp.emit(danger_lvl)
 			dead = true
 			give_turn.emit()
-			queue_free()
+			if type != "skeleton":
+				queue_free()
+			else:
+				need_more_power = true
+				#$Timer_of_immortality.start()
+				$AnimatedSprite2D.play("dead")
 
 func attack():
 	var deal_damage : int = randi_range(1, damage)
@@ -149,3 +161,8 @@ func attack():
 	give_turn.emit()
 	$Timer.start()
 	print(deal_damage)
+
+
+func _on_timer_of_immortality_timeout() -> void:
+	dead = false
+	$AnimatedSprite2D.play("idle")

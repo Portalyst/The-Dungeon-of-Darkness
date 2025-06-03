@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvg0vwab5ui8q"]
+
+[ext_resource type="PackedScene" uid="uid://b4dpvg0rvrgdg" path="res://scenes/enemy_base.tscn" id="1_ivqcw"]
+[ext_resource type="Texture2D" uid="uid://bgard87ge36do" path="res://sprites/enemy/skeleton/dead.png" id="2_bnirc"]
+[ext_resource type="Texture2D" uid="uid://w4usxt787xh6" path="res://sprites/enemy/skeleton/idle.png" id="3_5pgwy"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ssl1b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bnirc")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_5pgwy")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="skeleton" instance=ExtResource("1_ivqcw")]
+type = "skeleton"
+armor = 12
+damage = 4
+HP = 6
+danger_lvl = 1
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_ssl1b")
+animation = &"idle"

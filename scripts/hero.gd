@@ -23,7 +23,8 @@ var enemy_body
 
 var on_line = false
 
-var mimic_in_area = false
+var mimic_in_area : bool = false
+var skeleton_in_area : bool = false
 
 var door_in_area = false
 
@@ -141,7 +142,7 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text == "level":
 		new_level()
 	
-	if new_text == "attack mimic" and enemy_spoted == true and Global.player_action == true and mimic_in_area == true:
+	if new_text == "attack" and enemy_spoted == true and Global.player_action == true:
 		attack()
 		moves = 6
 	
@@ -661,6 +662,8 @@ func _on_area_2d_body_entered(body):
 		enemy_body = body
 		if body.type == "mimic":
 			mimic_in_area = true
+		if body.type == "skeleton":
+			skeleton_in_area = true
 
 func _on_area_2d_body_exited(body):
 	if body.has_meta("enemy"):
@@ -670,19 +673,27 @@ func _on_area_2d_body_exited(body):
 		enemy_body = null
 		if body.type == "mimic":
 			mimic_in_area = false
+		if body.type == "skeleton":
+			skeleton_in_area = false
 
 func _on_area_2d_2_body_entered(body):
 	if body.has_meta("enemy"):
 		Global.in_battle = true
 		body.give_turn.connect(take_turn)
 		body.give_exp.connect(take_exp)
-		#print("enemy spoted")
+		Global.enemies_lives.append(body.dead)
+		body.index_in_array = Global.enemies_lives.size() - 1
+		print(body.index_in_array, Global.enemies_lives)
 
 func _on_area_2d_2_body_exited(body):
 	if body.has_meta("enemy"):
 		Global.in_battle = false
-		moves = 6
+		if body.dead == false:
+			moves = 6
 		body.give_turn.disconnect(take_turn)
+		Global.enemies_lives.remove_at(body.index_in_array)
+		body.index_in_array = -1
+		print(body.index_in_array, Global.enemies_lives)
 
 func _on_close_button_pressed():
 	$CanvasLayer/ItemsMenu.hide()

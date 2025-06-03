@@ -1,5 +1,7 @@
 extends Node
 
+var enemies_lives : Array = []
+
 var coins : int = 15
 
 var max_HP : int = 10
@@ -79,4 +81,13 @@ var rare_items : Array =[mimic_scaly, lightweight_heavy_armor, chain_armor, s_sp
 
 var legendary_items : Array = [p_claymore]
 
+#Stairs logic
+
 var current_level : int = 1
+
+var level_1_coord : Vector2i
+var level_2_coord_var_0 : Vector2i
+var level_2_coord_var_1 : Vector2i
+var level_2_coord_var_2 : Vector2i
+var level_3_coord_var_1 : Vector2i
+var level_3_coord_var_0 : Vector2i
