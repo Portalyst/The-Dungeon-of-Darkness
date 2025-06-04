@@ -15,16 +15,13 @@ var door_cord : Vector2
 var is_door_open : bool
 var is_door_lock : bool
 
-var enemy_spoted = false
-
 var moves = 60
-
-var enemy_body
 
 var on_line = false
 
 var mimic_in_area : bool = false
 var skeleton_in_area : bool = false
+var cult_in_area : bool = false
 
 var door_in_area = false
 
@@ -75,8 +72,8 @@ func _physics_process(delta):
 		$CanvasLayer2/Candle.play("youre_turn")
 	if Global.player_action == false and dead == false:
 		$CanvasLayer2/Candle.play("enemy_turn")
-	$Label2.text = "moves: " + str(moves)
-	$Label.text = "player action: " + str(Global.player_action)
+	$Label2.text = "turn: " + str(Global.current_turn, " ") + "array: " + str(Global.all_enemies.size())
+	$Label.text = "player action: " + str(Global.enemies_lives) + " " + str(Global.in_battle)
 	if dead == true or Global.player_action == false or on_line == true:
 		canmove = false
 	if Global.player_action == true and on_line == false and dead == false:
@@ -141,10 +138,20 @@ func _on_line_edit_text_submitted(new_text):
 	
 	if new_text == "level":
 		new_level()
-	
-	if new_text == "attack" and enemy_spoted == true and Global.player_action == true:
-		attack()
-		moves = 6
+	print(skeleton_in_area, Global.all_enemies.has(Global.skeleton))
+	if new_text == "attack skeleton" and Global.player_action == true and skeleton_in_area == true:
+		for indx in Global.all_enemies.size():
+			if Global.all_enemies[indx]:
+				if Global.all_enemies[indx].type == "skeleton":
+					attack(indx)
+					break
+
+	if new_text == "attack cultist" and Global.player_action == true and cult_in_area == true:
+		for indx in Global.all_enemies.size():
+			if Global.all_enemies[indx] != 0:
+				if Global.all_enemies[indx].type == "cult":
+					attack(indx)
+					break
 	
 	if new_text == "punch door" and door_in_area == true and dead == false and Global.player_action == true:
 		punch_door.emit()
@@ -158,9 +165,13 @@ func _on_line_edit_text_submitted(new_text):
 			is_door_open = true
 	
 	if new_text == "end" and Global.in_battle == true:
+		print(Global.all_enemies)
+		print(Global.enemies_lives)
 		moves = 6
 		if Global.enemies_lives.has(false) == true:
 			Global.player_action = false
+			Global.switch_turn()
+			#print("goida")
 
 	if new_text == "eq sword":
 		var eq_item = InvLog.items.find(Global.sword)
@@ -651,38 +662,53 @@ func get_damage(damage):
 		death()
 
 func take_turn(enemy_dead, enemy_index, enemy_type):
+	Global.switch_turn()
 	Global.enemies_lives[enemy_index] = enemy_dead
 	moves = 6
-	Global.player_action = true
 	if Global.enemies_lives.has(false) == false:
 		Global.in_battle = false
 		Global.enemies_lives.clear()
-		for i in Global.skeleton_index:
-			Global.enemies_lives.append(true)
-	print("in battle", Global.in_battle)
-	print("array", Global.enemies_lives)
+		if Global.pure == false:
+			for i in Global.skeleton_index:
+				Global.enemies_lives.append(true)
+	#print("in battle", Global.in_battle)
+	#print("array", Global.enemies_lives)
 
 func _on_area_2d_body_entered(body):
 	if body.has_meta("enemy"):
 		body.deal_attack.connect(get_damage)
 		body.drop_loot.connect(get_loot)
-		enemy_spoted = true
-		enemy_body = body
 		if body.type == "mimic":
 			mimic_in_area = true
 		if body.type == "skeleton":
 			skeleton_in_area = true
+		if body.type == "cult":
+			cult_in_area = true
 
 func _on_area_2d_body_exited(body):
 	if body.has_meta("enemy"):
 		body.deal_attack.disconnect(get_damage)
 		body.drop_loot.disconnect(get_loot)
-		enemy_spoted = false
-		enemy_body = null
-		if body.type == "mimic":
-			mimic_in_area = false
-		if body.type == "skeleton":
-			skeleton_in_area = false
+		for i in Global.all_enemies:
+			if i:
+				if i.type == "skeleton":
+					skeleton_in_area = true
+				else:
+					skeleton_in_area = false
+				if i.type == "mimic":
+					mimic_in_area = true
+				else:
+					mimic_in_area = false
+				if i.type == "cult":
+					cult_in_area = true
+				else:
+					cult_in_area = false
+		#if Global.all_enemies.has(Global.mimic) == false:
+			#mimic_in_area = false
+		#if Global.all_enemies.has(Global.skeleton) == false:
+			#skeleton_in_area = false
+		#if Global.all_enemies.has(Global.cultist) == false:
+			#cult_in_area = false
 
 func _on_area_2d_2_body_entered(body):
 	if body.has_meta("enemy"):
@@ -690,28 +716,31 @@ func _on_area_2d_2_body_entered(body):
 			Global.in_battle = true
 		body.give_turn.connect(take_turn)
 		body.give_exp.connect(take_exp)
+		Global.all_enemies.append(body)
+		body.index_of_enemy = Global.all_enemies.size() - 1
 		if body.index_in_array == -1:
 			Global.enemies_lives.append(body.dead)
 			body.index_in_array = Global.enemies_lives.size() - 1
 			if body.type == "skeleton":
 				Global.skeleton_index.append(body.index_in_array)
-		print(body.index_in_array, Global.enemies_lives)
+		#print(body.index_in_array, Global.enemies_lives)
 
 func _on_area_2d_2_body_exited(body):
 	if body.has_meta("enemy"):
-		Global.in_battle = false
+		#Global.in_battle = false
 		if body.dead == false:
 			moves = 6
 		body.give_turn.disconnect(take_turn)
+		Global.all_enemies[body.index_of_enemy] = null
 		#if body.dead == true:
 			#Global.enemies_lives.remove_at(body.index_in_array)
 			#body.index_in_array = -1
-		print(body.index_in_array, Global.enemies_lives)
+		#print(body.index_in_array, Global.enemies_lives)
 
 func _on_close_button_pressed():
 	$CanvasLayer/ItemsMenu.hide()
 
-func attack():
+func attack(index_of_target):
 	var attk = randi_range(1, 20) + Global.boost + Global.char_boost
 	$dice.text = str(attk)
 	$dice.modulate = Color(1, 1, 1)
@@ -719,7 +748,7 @@ func attack():
 	$AnimationPlayer.play("return")
 	await $AnimationPlayer.animation_finished
 	$dice.visible = false
-	if attk >= enemy_body.armor:
+	if attk >= Global.all_enemies[index_of_target].armor:
 		var deal_damage = randi_range(1, Global.damage)
 		$dice.text = str(deal_damage)
 		$dice.modulate = Color(1, 0, 0)
@@ -727,9 +756,10 @@ func attack():
 		$AnimationPlayer.play("return")
 		await $AnimationPlayer.animation_finished
 		$dice.visible = false
-		player_attack.emit(deal_damage)
-	if attk < enemy_body.armor:
+		player_attack.emit(deal_damage, index_of_target)
+	if attk < Global.all_enemies[index_of_target].armor:
 		Global.player_action = false
+		Global.switch_turn()
 
 func _on_damage_timer_timeout():
 	if dead != true:

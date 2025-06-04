@@ -1,7 +1,11 @@
 extends Node
 
 var enemies_lives : Array = []
+
 var skeleton_index : Array = []
+
+var all_enemies : Array = []
+var current_turn : int = -1
 
 var coins : int = 15
 
@@ -73,6 +77,12 @@ var coin = load("res://scenes/coins.tscn")
 var mimic_tongue = load("res://scenes/mimic_tongue.tscn")
 var mimic_scaly = load("res://scenes/mimic_scaly.tscn")
 
+#enemies
+
+var skeleton = load("res://scenes/skeleton.tscn")
+var cultist = load("res://scenes/cultist.tscn")
+var mimic = load("res://scripts/mimic_chest.gd")
+
 var common_items : Array = [iron_armor, iron_chestplate, leather_armor, b_spear, spear,
 							b_halberd, halberd, b_claymore, dagger, s_dagger, p_dagger,
 							b_sword, sword, s_sword, bat]
@@ -92,3 +102,11 @@ var level_2_coord_var_1 : Vector2i
 var level_2_coord_var_2 : Vector2i
 var level_3_coord_var_1 : Vector2i
 var level_3_coord_var_0 : Vector2i
+
+func switch_turn():
+	current_turn += 1
+	if current_turn >= all_enemies.size():
+		current_turn = -1
+		player_action = true
+	if current_turn != -1 and all_enemies[current_turn] != null:
+		all_enemies[current_turn].turn = true

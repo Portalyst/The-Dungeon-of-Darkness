@@ -14,7 +14,7 @@ func _ready():
 	items[0] = Global.coin
 	items[1] = Global.p_claymore
 	items[2] = Global.iron_chestplate
-	items[3] = Global.b_claymore
+	items[3] = Global.claymore
 	items[4] = Global.iron_armor
 	items[5] = Global.armor_of_knights
 	

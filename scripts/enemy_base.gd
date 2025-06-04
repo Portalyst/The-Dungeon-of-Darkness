@@ -22,7 +22,11 @@ signal give_exp(int)
 @export var HP = 8
 @export var dead : bool = false
 @export var danger_lvl : int
+
 @export var index_in_array : int = -1
+
+@export var index_of_enemy : int
+@export var turn : bool = false
 
 var moves = 6
 
@@ -30,7 +34,7 @@ var player
 
 var start_position : Vector2
 
-var need_more_power : bool = false
+var rescue_flag : bool = false
 
 func _ready():
 	player = $"../Hero"
@@ -83,12 +87,14 @@ func _on_area_right_body_exited(body):
 		$Timer.start()
 
 func _on_timer_timeout():
-	if dead == true and need_more_power == true and $Timer_of_immortality.is_stopped() == true and on_bottom == false and on_left == false and on_right == false and on_top == false:
+	#print(dead)
+	if dead == true and on_bottom == false and on_left == false and on_right == false and on_top == false and rescue_flag == true:
 		$Timer_of_immortality.start()
-		need_more_power = false
-	else:
+		rescue_flag = false
+	if on_bottom == true or on_left == true or on_right == true or on_top == true:
 		$Timer_of_immortality.stop()
-	if (player.dead == false) and (Global.player_action == false) and dead == false:
+		rescue_flag = true
+	if (player.dead == false) and dead == false and turn == true:
 		if prep_to_att == false:
 			if moves != 0:
 				var direction : Vector2
@@ -105,8 +111,9 @@ func _on_timer_timeout():
 				$Timer.start()
 			if moves == 0:
 				give_turn.emit(dead, index_in_array, type)
+				turn = false
 				moves = 6
-		if (prep_to_att == true) and (Global.player_action == false):
+		if (prep_to_att == true) and turn == true:
 			var attack = randi_range(1, 20)
 			$dice.modulate = Color(1, 1, 1)
 			$dice.show()
@@ -119,10 +126,11 @@ func _on_timer_timeout():
 				attack()
 			if attack < Global.armor:
 				give_turn.emit(dead, index_in_array, type)
+				turn = false
 			#Global.player_action = true
 	if on_top == false and on_bottom == false and on_left == false and on_right == false and prep_to_att == false:
 		self.position = start_position
-	if (player.dead == false) and (Global.player_action == true):
+	if (player.dead == false) and turn == false:
 		$Timer.start()
 
 func _on_att_area_body_entered(body):
@@ -133,24 +141,29 @@ func _on_att_area_body_exited(body):
 	if body.has_meta("player"):
 		prep_to_att = false
 
-func take_damage(damage):
-	if dead == false:
+func take_damage(damage, index_of_target):
+	print("UES", dead, damage, HP, index_of_target, index_of_enemy)
+	if dead == false and index_of_target == index_of_enemy:
 		HP -= damage
 		if HP <= 0:
+			#Global.all_enemies.remove_at(index_of_enemy)
+			#print("OAOOAOAO")
 			var chance = randi_range(0, 10)
 			if chance == 10:
 				drop_loot.emit(loot)
 			give_exp.emit(danger_lvl)
 			dead = true
-			give_turn.emit(dead, index_in_array, type)
-			if type != "skeleton":
+			turn = false
+			if type != "skeleton" or Global.pure == true:
 				queue_free()
 			else:
-				need_more_power = true
-				#$Timer_of_immortality.start()
 				$AnimatedSprite2D.play("dead")
+				rescue_flag = true
 		if HP > 0:
 			Global.player_action = false
+			Global.switch_turn()
+		give_turn.emit(dead, index_in_array, type)
+		Global.switch_turn()
 
 func attack():
 	var deal_damage : int = randi_range(1, damage)
@@ -162,10 +175,11 @@ func attack():
 	$dice.hide()
 	deal_attack.emit(deal_damage)
 	give_turn.emit(dead, index_in_array, type)
+	turn = false
 	$Timer.start()
-	print(deal_damage)
 
 
-func _on_timer_of_immortality_timeout() -> void:
+func _on_timer_of_immortality_timeout():
 	dead = false
 	$AnimatedSprite2D.play("idle")
+	Global.enemies_lives[index_in_array] = false
