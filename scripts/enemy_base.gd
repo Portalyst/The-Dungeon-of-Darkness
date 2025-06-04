@@ -22,7 +22,7 @@ signal give_exp(int)
 @export var HP = 8
 @export var dead : bool = false
 @export var danger_lvl : int
-@export var index_in_array : int
+@export var index_in_array : int = -1
 
 var moves = 6
 
@@ -83,10 +83,11 @@ func _on_area_right_body_exited(body):
 		$Timer.start()
 
 func _on_timer_timeout():
-	print(dead)
-	if dead == true and need_more_power == true and $Timer_of_immortality.is_stopped() == true:
-		$Timer_of_immortality.start
+	if dead == true and need_more_power == true and $Timer_of_immortality.is_stopped() == true and on_bottom == false and on_left == false and on_right == false and on_top == false:
+		$Timer_of_immortality.start()
 		need_more_power = false
+	else:
+		$Timer_of_immortality.stop()
 	if (player.dead == false) and (Global.player_action == false) and dead == false:
 		if prep_to_att == false:
 			if moves != 0:
@@ -103,7 +104,7 @@ func _on_timer_timeout():
 				moves -= 1
 				$Timer.start()
 			if moves == 0:
-				give_turn.emit()
+				give_turn.emit(dead, index_in_array, type)
 				moves = 6
 		if (prep_to_att == true) and (Global.player_action == false):
 			var attack = randi_range(1, 20)
@@ -117,7 +118,7 @@ func _on_timer_timeout():
 			if attack >= Global.armor:
 				attack()
 			if attack < Global.armor:
-				give_turn.emit()
+				give_turn.emit(dead, index_in_array, type)
 			#Global.player_action = true
 	if on_top == false and on_bottom == false and on_left == false and on_right == false and prep_to_att == false:
 		self.position = start_position
@@ -141,13 +142,15 @@ func take_damage(damage):
 				drop_loot.emit(loot)
 			give_exp.emit(danger_lvl)
 			dead = true
-			give_turn.emit()
+			give_turn.emit(dead, index_in_array, type)
 			if type != "skeleton":
 				queue_free()
 			else:
 				need_more_power = true
 				#$Timer_of_immortality.start()
 				$AnimatedSprite2D.play("dead")
+		if HP > 0:
+			Global.player_action = false
 
 func attack():
 	var deal_damage : int = randi_range(1, damage)
@@ -158,7 +161,7 @@ func attack():
 	await $AnimationPlayer.animation_finished
 	$dice.hide()
 	deal_attack.emit(deal_damage)
-	give_turn.emit()
+	give_turn.emit(dead, index_in_array, type)
 	$Timer.start()
 	print(deal_damage)
 

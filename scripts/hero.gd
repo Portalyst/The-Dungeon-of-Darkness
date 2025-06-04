@@ -17,7 +17,7 @@ var is_door_lock : bool
 
 var enemy_spoted = false
 
-var moves = 6
+var moves = 60
 
 var enemy_body
 
@@ -159,7 +159,8 @@ func _on_line_edit_text_submitted(new_text):
 	
 	if new_text == "end" and Global.in_battle == true:
 		moves = 6
-		Global.player_action = false
+		if Global.enemies_lives.has(false) == true:
+			Global.player_action = false
 
 	if new_text == "eq sword":
 		var eq_item = InvLog.items.find(Global.sword)
@@ -649,10 +650,17 @@ func get_damage(damage):
 	if Global.HP <= 0:
 		death()
 
-func take_turn():
-	#print("I GDE?")
-	Global.player_action = true
+func take_turn(enemy_dead, enemy_index, enemy_type):
+	Global.enemies_lives[enemy_index] = enemy_dead
 	moves = 6
+	Global.player_action = true
+	if Global.enemies_lives.has(false) == false:
+		Global.in_battle = false
+		Global.enemies_lives.clear()
+		for i in Global.skeleton_index:
+			Global.enemies_lives.append(true)
+	print("in battle", Global.in_battle)
+	print("array", Global.enemies_lives)
 
 func _on_area_2d_body_entered(body):
 	if body.has_meta("enemy"):
@@ -678,11 +686,15 @@ func _on_area_2d_body_exited(body):
 
 func _on_area_2d_2_body_entered(body):
 	if body.has_meta("enemy"):
-		Global.in_battle = true
+		if body.dead == false:
+			Global.in_battle = true
 		body.give_turn.connect(take_turn)
 		body.give_exp.connect(take_exp)
-		Global.enemies_lives.append(body.dead)
-		body.index_in_array = Global.enemies_lives.size() - 1
+		if body.index_in_array == -1:
+			Global.enemies_lives.append(body.dead)
+			body.index_in_array = Global.enemies_lives.size() - 1
+			if body.type == "skeleton":
+				Global.skeleton_index.append(body.index_in_array)
 		print(body.index_in_array, Global.enemies_lives)
 
 func _on_area_2d_2_body_exited(body):
@@ -691,15 +703,15 @@ func _on_area_2d_2_body_exited(body):
 		if body.dead == false:
 			moves = 6
 		body.give_turn.disconnect(take_turn)
-		Global.enemies_lives.remove_at(body.index_in_array)
-		body.index_in_array = -1
+		#if body.dead == true:
+			#Global.enemies_lives.remove_at(body.index_in_array)
+			#body.index_in_array = -1
 		print(body.index_in_array, Global.enemies_lives)
 
 func _on_close_button_pressed():
 	$CanvasLayer/ItemsMenu.hide()
 
 func attack():
-	Global.player_action = false
 	var attk = randi_range(1, 20) + Global.boost + Global.char_boost
 	$dice.text = str(attk)
 	$dice.modulate = Color(1, 1, 1)
@@ -716,6 +728,8 @@ func attack():
 		await $AnimationPlayer.animation_finished
 		$dice.visible = false
 		player_attack.emit(deal_damage)
+	if attk < enemy_body.armor:
+		Global.player_action = false
 
 func _on_damage_timer_timeout():
 	if dead != true:
@@ -725,6 +739,7 @@ func death():
 	$CanvasLayer2/Candle.play("dead")
 	dead = true
 	$Hero.modulate = Color(1, 0, 0)
+	print("dead")
 
 func take_exp(monster_lvl):
 	if monster_lvl == 1:

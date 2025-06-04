@@ -1,11 +1,12 @@
 extends Node
 
 var enemies_lives : Array = []
+var skeleton_index : Array = []
 
 var coins : int = 15
 
 var max_HP : int = 10
-var HP : int = 10
+var HP : int = 100
 
 var armor : int = 10
 
