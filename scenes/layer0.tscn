@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cbf7xxmkd213u"]
+[gd_scene load_steps=9 format=3 uid="uid://cbf7xxmkd213u"]
 
 [ext_resource type="Script" uid="uid://c3us4a7fasnod" path="res://scripts/layer_0.gd" id="1_8lkp1"]
 [ext_resource type="TileSet" uid="uid://bxvp47e1ea26j" path="res://rooms.tres" id="1_rpsrf"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://yxjysn3avnhl" path="res://scenes/hero.tscn" id="4_bttit"]
 [ext_resource type="PackedScene" uid="uid://dyfpfivnl14ge" path="res://scenes/stairs.tscn" id="6_fxsg0"]
 [ext_resource type="PackedScene" uid="uid://dvg0vwab5ui8q" path="res://scenes/skeleton.tscn" id="7_bttit"]
+[ext_resource type="PackedScene" uid="uid://8my2slo55dje" path="res://scenes/cultist.tscn" id="8_fvpmc"]
 
 [node name="level" type="Node2D"]
 script = ExtResource("1_8lkp1")
@@ -33,5 +34,5 @@ position = Vector2(248, -424)
 [node name="skeleton" parent="." instance=ExtResource("7_bttit")]
 position = Vector2(232, -88)
 
-[node name="skeleton2" parent="." instance=ExtResource("7_bttit")]
+[node name="cultist" parent="." instance=ExtResource("8_fvpmc")]
 position = Vector2(264, -88)

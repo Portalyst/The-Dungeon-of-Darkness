@@ -77,12 +77,6 @@ var coin = load("res://scenes/coins.tscn")
 var mimic_tongue = load("res://scenes/mimic_tongue.tscn")
 var mimic_scaly = load("res://scenes/mimic_scaly.tscn")
 
-#enemies
-
-var skeleton = load("res://scenes/skeleton.tscn")
-var cultist = load("res://scenes/cultist.tscn")
-var mimic = load("res://scripts/mimic_chest.gd")
-
 var common_items : Array = [iron_armor, iron_chestplate, leather_armor, b_spear, spear,
 							b_halberd, halberd, b_claymore, dagger, s_dagger, p_dagger,
 							b_sword, sword, s_sword, bat]
@@ -104,22 +98,31 @@ var level_3_coord_var_1 : Vector2i
 var level_3_coord_var_0 : Vector2i
 
 func switch_turn():
-	var a : int = 1
-	for i in all_enemies:
-		if i == null:
-			a += 1
-	current_turn += a
+	current_turn += 1
+	if current_turn > -1 and current_turn < all_enemies.size():
+		if all_enemies[current_turn] == null:
+			current_turn += 1
+		#print(a)
+	#for i in all_enemies:
+		#if i == null:
+			#a += 1
+	#current_turn += 1
 	if current_turn >= all_enemies.size():
 		current_turn = -1
 		player_action = true
 	if current_turn != -1 and all_enemies[current_turn] != null:
 		all_enemies[current_turn].turn = true
+	update_turn()
 	#else:
 		#switch_turn()
 
 func update_turn():
+	print(current_turn, all_enemies.size())
 	if current_turn >= all_enemies.size():
 		current_turn = -1
 		player_action = true
 	if all_enemies.any(func(body): return body != null) == false:
 		all_enemies.clear()
+		in_battle = false
+		player_action = true
+		current_turn = -1

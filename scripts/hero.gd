@@ -72,7 +72,7 @@ func _physics_process(delta):
 		$CanvasLayer2/Candle.play("youre_turn")
 	if Global.player_action == false and dead == false:
 		$CanvasLayer2/Candle.play("enemy_turn")
-	$Label2.text = "turn: " + str(Global.current_turn, " ") + "array: " + str(Global.all_enemies.size())
+	$Label2.text = "turn: " + str(Global.current_turn, " ") + "array: " + str(Global.all_enemies)
 	$Label.text = "player action: " + str(Global.enemies_lives) + " " + str(Global.in_battle)
 	if dead == true or Global.player_action == false or on_line == true:
 		canmove = false
@@ -138,7 +138,7 @@ func _on_line_edit_text_submitted(new_text):
 	
 	if new_text == "level":
 		new_level()
-	print(skeleton_in_area, Global.all_enemies.has(Global.skeleton))
+
 	if new_text == "attack skeleton" and Global.player_action == true and skeleton_in_area == true:
 		for indx in Global.all_enemies.size():
 			if Global.all_enemies[indx]:
@@ -148,7 +148,7 @@ func _on_line_edit_text_submitted(new_text):
 
 	if new_text == "attack cultist" and Global.player_action == true and cult_in_area == true:
 		for indx in Global.all_enemies.size():
-			if Global.all_enemies[indx] != 0:
+			if Global.all_enemies[indx]:
 				if Global.all_enemies[indx].type == "cult":
 					attack(indx)
 					break
@@ -733,9 +733,7 @@ func _on_area_2d_2_body_exited(body):
 		body.give_turn.disconnect(take_turn)
 		if Global.all_enemies[body.index_of_enemy]:
 			Global.all_enemies[body.index_of_enemy] = null
-		print(Global.all_enemies)
-		Global.update_turn()
-		print(Global.all_enemies)
+		#Global.update_turn()
 		#if body.dead == true:
 			#Global.enemies_lives.remove_at(body.index_in_array)
 			#body.index_in_array = -1

@@ -120,6 +120,10 @@ libraries = {
 wait_time = 5.0
 one_shot = true
 
+[node name="damage_timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="body_entered" from="AreaUP" to="." method="_on_area_up_body_entered"]
 [connection signal="body_exited" from="AreaUP" to="." method="_on_area_up_body_exited"]
 [connection signal="body_entered" from="att_area" to="." method="_on_att_area_body_entered"]
@@ -132,3 +136,4 @@ one_shot = true
 [connection signal="body_exited" from="AreaRIGHT" to="." method="_on_area_right_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer_of_immortality" to="." method="_on_timer_of_immortality_timeout"]
+[connection signal="timeout" from="damage_timer" to="." method="_on_damage_timer_timeout"]

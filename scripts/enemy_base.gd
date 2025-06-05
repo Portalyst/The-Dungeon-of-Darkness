@@ -87,7 +87,6 @@ func _on_area_right_body_exited(body):
 		$Timer.start()
 
 func _on_timer_timeout():
-	#print(dead)
 	if dead == true and on_bottom == false and on_left == false and on_right == false and on_top == false and rescue_flag == true:
 		$Timer_of_immortality.start()
 		rescue_flag = false
@@ -142,9 +141,9 @@ func _on_att_area_body_exited(body):
 		prep_to_att = false
 
 func take_damage(damage, index_of_target):
-	print("UES", dead, damage, HP, index_of_target, index_of_enemy)
 	if dead == false and index_of_target == index_of_enemy:
 		HP -= damage
+		self.modulate = Color(1, 0, 0)
 		if HP <= 0:
 			#Global.all_enemies.remove_at(index_of_enemy)
 			#print("OAOOAOAO")
@@ -154,20 +153,19 @@ func take_damage(damage, index_of_target):
 			give_exp.emit(danger_lvl)
 			dead = true
 			turn = false
+			give_turn.emit(dead, index_in_array, type)
 			if type != "skeleton" or Global.pure == true:
 				#give_turn.emit(dead, index_in_array, type)
 				queue_free()
 			else:
 				$AnimatedSprite2D.play("dead")
 				rescue_flag = true
-			give_turn.emit(dead, index_in_array, type)
-			Global.switch_turn()
+			
+			#Global.update_turn()
+			#Global.switch_turn()
 			print(Global.all_enemies)
 		if HP > 0:
-			Global.player_action = false
-			Global.switch_turn()
-		
-		#Global.switch_turn()
+			$damage_timer.start()
 
 func attack():
 	var deal_damage : int = randi_range(1, damage)
@@ -187,3 +185,9 @@ func _on_timer_of_immortality_timeout():
 	dead = false
 	$AnimatedSprite2D.play("idle")
 	Global.enemies_lives[index_in_array] = false
+
+
+func _on_damage_timer_timeout() -> void:
+	self.modulate = Color(1, 1, 1)
+	Global.player_action = false
+	Global.switch_turn()
