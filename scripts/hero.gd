@@ -731,7 +731,11 @@ func _on_area_2d_2_body_exited(body):
 		if body.dead == false:
 			moves = 6
 		body.give_turn.disconnect(take_turn)
-		Global.all_enemies[body.index_of_enemy] = null
+		if Global.all_enemies[body.index_of_enemy]:
+			Global.all_enemies[body.index_of_enemy] = null
+		print(Global.all_enemies)
+		Global.update_turn()
+		print(Global.all_enemies)
 		#if body.dead == true:
 			#Global.enemies_lives.remove_at(body.index_in_array)
 			#body.index_in_array = -1

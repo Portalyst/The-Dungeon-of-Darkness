@@ -104,9 +104,22 @@ var level_3_coord_var_1 : Vector2i
 var level_3_coord_var_0 : Vector2i
 
 func switch_turn():
-	current_turn += 1
+	var a : int = 1
+	for i in all_enemies:
+		if i == null:
+			a += 1
+	current_turn += a
 	if current_turn >= all_enemies.size():
 		current_turn = -1
 		player_action = true
 	if current_turn != -1 and all_enemies[current_turn] != null:
 		all_enemies[current_turn].turn = true
+	#else:
+		#switch_turn()
+
+func update_turn():
+	if current_turn >= all_enemies.size():
+		current_turn = -1
+		player_action = true
+	if all_enemies.any(func(body): return body != null) == false:
+		all_enemies.clear()

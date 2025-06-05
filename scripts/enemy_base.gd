@@ -155,15 +155,19 @@ func take_damage(damage, index_of_target):
 			dead = true
 			turn = false
 			if type != "skeleton" or Global.pure == true:
+				#give_turn.emit(dead, index_in_array, type)
 				queue_free()
 			else:
 				$AnimatedSprite2D.play("dead")
 				rescue_flag = true
+			give_turn.emit(dead, index_in_array, type)
+			Global.switch_turn()
+			print(Global.all_enemies)
 		if HP > 0:
 			Global.player_action = false
 			Global.switch_turn()
-		give_turn.emit(dead, index_in_array, type)
-		Global.switch_turn()
+		
+		#Global.switch_turn()
 
 func attack():
 	var deal_damage : int = randi_range(1, damage)
