@@ -38,6 +38,9 @@ var canmove = true
 var chest_in_area = false
 var currarea
 
+var last_commands : Array = []
+var command : int
+
 #SIGNALS
 
 #battle
@@ -76,8 +79,8 @@ func _physics_process(delta):
 		$CanvasLayer2/Candle.play("youre_turn")
 	if turn == false and dead == false:
 		$CanvasLayer2/Candle.play("enemy_turn")
-	$Label2.text = "turn: " + str(Global.current_turn, " ")# + "array: " + str(Global.turn_list)
-	$Label.text ="array: " + str(Global.turn_list) #"player action: " + str(Global.enemies_lives) + " " + str(Global.in_battle)
+	$Label2.text = str(command)#"turn: " + str(Global.current_turn, " ")# + "array: " + str(Global.turn_list)
+	$Label.text = str(last_commands)#"array: " + str(Global.turn_list) #"player action: " + str(Global.enemies_lives) + " " + str(Global.in_battle)
 	if dead == true or turn == false or on_line == true:
 		canmove = false
 	if turn == true and on_line == false and dead == false:
@@ -85,6 +88,17 @@ func _physics_process(delta):
 	if canmove == true:
 		if Input.is_action_just_pressed("inv"):
 			$CanvasLayer.visible = !$CanvasLayer.visible
+	
+	if on_line == true and dead == false:
+		if Input.is_action_just_pressed("arrow_down"):
+			if command > 0:
+				command -= 1
+				$CanvasLayer2/LineEdit.text = last_commands[command]
+		if Input.is_action_just_pressed("arrow_up"):
+			if command < last_commands.size() - 1:
+				command += 1
+				$CanvasLayer2/LineEdit.text = last_commands[command]
+	
 	if Input.is_action_just_pressed("esc"):
 		canmove = true
 	if moves != 0:
@@ -114,6 +128,11 @@ func move(direction: Vector2):
 
 
 func _on_line_edit_text_submitted(new_text):
+	if last_commands.has(new_text) == true:
+		last_commands.remove_at(last_commands.find(new_text))
+	last_commands.append(new_text) 
+	command = last_commands.size()
+	
 	$Timer.wait_time = 0.01
 	if new_text == "open chest":
 		#if mimic_in_area == true:
@@ -146,18 +165,6 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text.contains("attack") == true and turn == true and Global.in_battle == true:
 		var name : String = new_text.replace("attack ", "")
 		attack(name)
-	
-	#if new_text == "attack skeleton" and Global.player_action == true and skeleton_in_area == true:
-		#var name : String = "skeleton"
-		#attack(name)
-#
-	#if new_text == "attack cultist" and Global.player_action == true and cult_in_area == true:
-		#var name : String = "cult"
-		#attack(name)
-	#
-	#if new_text == "attack shadow man" and Global.player_action == true and shadow_man_in_area == true:
-		#var name : String = "shadow"
-		#attack(name)
 	
 	if new_text == "punch door" and door_in_area == true and dead == false and turn == true:
 		punch_door.emit()
@@ -200,6 +207,7 @@ func _on_line_edit_text_submitted(new_text):
 							Global.char_boost = strength
 						if char_scaling == "dexterity":
 							Global.char_boost = dexterity
+						$CanvasLayer/Inv/WeaponIcon.hide()
 					else:
 						var has = InvLog.items.find("a")
 						if has == -1:
@@ -210,6 +218,7 @@ func _on_line_edit_text_submitted(new_text):
 						armor_changed.emit(item)
 						InvLog.items[13] = item
 						Global.armor = item.get_state().get_node_property_value(0, 2)
+						$CanvasLayer/Inv/ArmorIcon.hide()
 					#print(Global.armor)
 					#print(Global.damage)
 	

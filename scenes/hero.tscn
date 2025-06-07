@@ -516,7 +516,7 @@ theme_override_font_sizes/font_size = 15
 theme_override_styles/focus = SubResource("StyleBoxEmpty_b3m87")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_017yj")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_5w8w7")
-clear_button_enabled = true
+keep_editing_on_text_submit = true
 script = SubResource("GDScript_u14dc")
 
 [node name="Bars" type="Sprite2D" parent="CanvasLayer2"]
