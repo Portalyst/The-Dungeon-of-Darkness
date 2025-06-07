@@ -3,9 +3,10 @@ extends Node2D
 @export var Name = ""
 @export var damage = ""
 @export var item_slot : int
-@export var discription = ""
+@export var discription = "a"
 @export var type = ""
 @export var protection : int
+@export var char_scaling : String
 @export var Script_Name : PackedScene
 #@export var characteristic = ""
 #@export var Info : PackedScene

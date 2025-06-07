@@ -13,6 +13,8 @@ func _ready():
 		items.append({})
 	items[0] = Global.sword
 	items[1] = Global.claymore
+	items[2] = Global.iron_chestplate
+	items[3] = Global.iron_armor
 	
 	items[12] = "w"
 	items[13] = "a"

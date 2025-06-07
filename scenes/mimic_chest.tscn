@@ -45,7 +45,3 @@ HP = 10
 [node name="AnimatedSprite2D" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_4cpe7")
 animation = &"active"
-
-[node name="dice" parent="." index="8"]
-offset_top = -7.0
-offset_bottom = 5.0

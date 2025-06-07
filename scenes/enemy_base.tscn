@@ -117,7 +117,7 @@ libraries = {
 }
 
 [node name="Timer_of_immortality" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 30.0
 one_shot = true
 
 [node name="damage_timer" type="Timer" parent="."]

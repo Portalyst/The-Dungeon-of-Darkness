@@ -178,455 +178,42 @@ func _on_line_edit_text_submitted(new_text):
 			Global.switch_turn()
 			#print("goida")
 	
-	#if new_text.contains("eq") == true and Global.player_action == true:
-		#for item in Global.all_items:
-			#print(item.get_state().get_node_property_value(0, 0))
-			#if item.get_state().get_node_property_value(0, 0) == new_text.replace("eq ", ""):
-				#var eq_item : int = InvLog.items.find(item)
-				#print("gol1")
-				#if eq_item != -1:
-					#var has = InvLog.items.find("w")
-					#if has == -1:
-						#InvLog.remove_item(12)
-						#weapon_changed.emit(null)
-						#remove.emit(-1)
-					#remove.emit(eq_item)
-					#print("gol")
-					#weapon_changed.emit(item)
-					#InvLog.items[12] = item
-					#Global.damage = item.get_state().get_node_property_value(0, 1).replace("1-", "").to_int()
-					#Global.pure = item.get_state().get_node_property_value(0, 0).contains("Pure")
+	if new_text.contains("eq") == true and turn == true:
+		for item in Global.all_items:
+		#	print(item.get_state().get_node_property_value(0, 2))
+			if item.get_state().get_node_property_value(0, 0) == new_text.replace("eq ", ""):
+				var eq_item : int = InvLog.items.find(item)
+				if eq_item != -1:
+					if item.get_state().get_node_property_value(0, 1).contains("1-") == true:
+						var has = InvLog.items.find("w")
+						if has == -1:
+							InvLog.remove_item(12)
+							weapon_changed.emit(null)
+							remove.emit(-1)
+						remove.emit(eq_item)
+						weapon_changed.emit(item)
+						InvLog.items[12] = item
+						Global.damage = item.get_state().get_node_property_value(0, 1).replace("1-", "").to_int()
+						Global.pure = item.get_state().get_node_property_value(0, 0).contains("Pure")
+						var char_scaling = item.get_state().get_node_property_value(0, 4)
+						if char_scaling == "strength":
+							Global.char_boost = strength
+						if char_scaling == "dexterity":
+							Global.char_boost = dexterity
+					else:
+						var has = InvLog.items.find("a")
+						if has == -1:
+							InvLog.remove_item(13)
+							armor_changed.emit(null)
+							remove.emit(-1)
+						remove.emit(eq_item)
+						armor_changed.emit(item)
+						InvLog.items[13] = item
+						Global.armor = item.get_state().get_node_property_value(0, 2)
+					#print(Global.armor)
+					#print(Global.damage)
 	
-	if new_text == "eq sword":
-		var eq_item = InvLog.items.find(Global.sword)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.sword)
-			InvLog.items[12] = Global.sword
-			Global.damage = 6
-			Global.boost = 0
-			Global.pure = false
-			Global.char_boost = strength
 
-	if new_text == "eq dagger":
-		var eq_item = InvLog.items.find(Global.dagger)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.dagger)
-			InvLog.items[12] = Global.dagger
-			Global.damage = 4
-			Global.boost = 0
-			Global.pure = false
-			Global.char_boost = dexterity
-
-	if new_text == "eq sharp dagger":
-		var eq_item = InvLog.items.find(Global.s_dagger)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.s_dagger)
-			InvLog.items[12] = Global.s_dagger
-			Global.damage = 6
-			Global.boost = 2
-			Global.pure = false
-			Global.char_boost = dexterity
-
-	if new_text == "eq pure dagger":
-		var eq_item = InvLog.items.find(Global.p_dagger)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.p_dagger)
-			InvLog.items[12] = Global.p_dagger
-			Global.damage = 6
-			Global.boost = 0
-			Global.pure = true
-			Global.char_boost = dexterity
-
-	if new_text == "eq broken sword":
-		var eq_item = InvLog.items.find(Global.b_sword)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.b_sword)
-			InvLog.items[12] = Global.b_sword
-			Global.damage = 4
-			Global.boost = -2
-			Global.pure = false
-			Global.char_boost = strength
-
-	if new_text == "eq pure sword":
-		var eq_item = InvLog.items.find(Global.p_sword)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.p_sword)
-			InvLog.items[12] = Global.p_sword
-			Global.damage = 8
-			Global.boost = 0
-			Global.pure = true
-			Global.char_boost = strength
-
-	if new_text == "eq sharp sword":
-		var eq_item = InvLog.items.find(Global.s_sword)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.s_sword)
-			InvLog.items[12] = Global.s_sword
-			Global.damage = 8
-			Global.boost = 2
-			Global.pure = false
-			Global.char_boost = strength
-
-	if new_text == "eq broken claymore":
-		var eq_item = InvLog.items.find(Global.b_claymore)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.b_claymore)
-			InvLog.items[12] = Global.b_claymore
-			Global.damage = 6
-			Global.boost = -2
-			Global.pure = false
-			Global.char_boost = strength
-
-	if new_text == "eq pure claymore":
-		var eq_item = InvLog.items.find(Global.p_claymore)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.p_claymore)
-			InvLog.items[12] = Global.p_claymore
-			Global.damage = 12
-			Global.boost = 12 
-			Global.pure = true
-			Global.char_boost = strength
-			print(InvLog.items[12])
-
-	if new_text == "eq greate claymore":
-		var eq_item = InvLog.items.find(Global.g_claymore)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.g_claymore)
-			InvLog.items[12] = Global.g_claymore
-			Global.damage = 12
-			Global.boost = 0 
-			Global.pure = false
-			Global.char_boost = strength
-
-	if new_text == "eq claymore":
-		var eq_item = InvLog.items.find(Global.claymore)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.claymore)
-			InvLog.items[12] = Global.claymore
-			Global.damage = 100
-			Global.boost = 100
-			Global.pure = false
-			Global.char_boost = strength
-
-	if new_text == "eq pure halberd":
-		var eq_item = InvLog.items.find(Global.p_halberd)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.p_halberd)
-			InvLog.items[12] = Global.p_halberd
-			Global.damage = 12
-			Global.boost = 0
-			Global.pure = true
-			Global.char_boost = strength
-
-	if new_text == "eq sharp halberd":
-		var eq_item = InvLog.items.find(Global.s_halberd)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.s_halberd)
-			InvLog.items[12] = Global.s_halberd
-			Global.damage = 8
-			Global.boost = 2
-			Global.pure = false
-			Global.char_boost = strength
-
-	if new_text == "eq halberd":
-		var eq_item = InvLog.items.find(Global.halberd)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.halberd)
-			InvLog.items[12] = Global.halberd
-			Global.damage = 8
-			Global.boost = 0
-			Global.pure = false
-			Global.char_boost = strength
-
-	if new_text == "eq broken halberd":
-		var eq_item = InvLog.items.find(Global.b_halberd)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.b_halberd)
-			InvLog.items[12] = Global.b_halberd
-			Global.damage = 6
-			Global.boost = -2
-			Global.pure = false
-			Global.char_boost = strength
-
-	if new_text == "eq broken spear":
-		var eq_item = InvLog.items.find(Global.b_spear)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.b_spear)
-			InvLog.items[12] = Global.b_spear
-			Global.damage = 4
-			Global.boost = -2
-			Global.pure = false
-			Global.char_boost = dexterity
-
-	if new_text == "eq spear":
-		var eq_item = InvLog.items.find(Global.spear)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.spear)
-			InvLog.items[12] = Global.spear
-			Global.damage = 6
-			Global.boost = 0
-			Global.pure = false
-			Global.char_boost = dexterity
-
-	if new_text == "eq pure spear":
-		var eq_item = InvLog.items.find(Global.p_spear)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.p_spear)
-			InvLog.items[12] = Global.p_spear
-			Global.damage = 8
-			Global.boost = 0
-			Global.pure = true
-			Global.char_boost = dexterity
-
-	if new_text == "eq sharp spear":
-		var eq_item = InvLog.items.find(Global.s_spear)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.s_spear)
-			InvLog.items[12] = Global.s_spear
-			Global.damage = 8
-			Global.boost = 2
-			Global.pure = false
-			Global.char_boost = dexterity
-
-	if new_text == "eq bat":
-		var eq_item = InvLog.items.find(Global.bat)
-		if eq_item != -1:
-			var has = InvLog.items.find("w")
-			if has == -1:
-				InvLog.remove_item(12)
-				weapon_changed.emit(null)
-				remove.emit(-1)
-			remove.emit(eq_item)
-			weapon_changed.emit(Global.bat)
-			InvLog.items[12] = Global.bat
-			Global.damage = 6
-			Global.boost = 0
-			Global.pure = false
-			Global.char_boost = strength
-
-	if new_text == "eq iron armor":
-		var eq_item = InvLog.items.find(Global.iron_armor)
-		if eq_item != -1:
-			remove.emit(-1)
-			var has = InvLog.items.find("a")
-			armor_changed.emit(null)
-			if has == -1:
-				InvLog.remove_item(13)
-			remove.emit(eq_item)
-			armor_changed.emit(Global.iron_armor)
-			InvLog.items[13] = Global.iron_armor
-			Global.armor = 10
-	if new_text == "eq iron chestplate":
-		var eq_item = InvLog.items.find(Global.iron_chestplate)
-		if eq_item != -1:
-			var has = InvLog.items.find("a")
-			if has == -1:
-				InvLog.remove_item(13)
-				armor_changed.emit(null)
-				remove.emit(-1)
-			#print(InvLog.items[12])
-			remove.emit(eq_item) #эта сука удаляет еще и оружку. как? да если б я знал
-			armor_changed.emit(Global.iron_chestplate)
-			InvLog.items[13] = Global.iron_chestplate
-			Global.armor = 10
-	if new_text == "eq armor of knights":
-		var eq_item = InvLog.items.find(Global.armor_of_knights)
-		if eq_item != -1:
-			remove.emit(-1)
-			var has = InvLog.items.find("a")
-			armor_changed.emit(null)
-			if has == -1:
-				InvLog.remove_item(13)
-			remove.emit(eq_item)
-			armor_changed.emit(Global.armor_of_knights)
-			InvLog.items[13] = Global.armor_of_knights
-			Global.armor = 12
-	if new_text == "eq prototype a":
-		var eq_item = InvLog.items.find(Global.prototype_a)
-		if eq_item != -1:
-			remove.emit(-1)
-			var has = InvLog.items.find("a")
-			armor_changed.emit(null)
-			if has == -1:
-				InvLog.remove_item(13)
-			remove.emit(eq_item)
-			armor_changed.emit(Global.prototype_a)
-			InvLog.items[13] = Global.prototype_a
-			Global.armor = 18
-	if new_text == "eq scaly armor":
-		var eq_item = InvLog.items.find(Global.scaly_armor)
-		if eq_item != -1:
-			remove.emit(-1)
-			var has = InvLog.items.find("a")
-			armor_changed.emit(null)
-			if has == -1:
-				InvLog.remove_item(13)
-			remove.emit(eq_item)
-			armor_changed.emit(Global.scaly_armor)
-			InvLog.items[13] = Global.scaly_armor
-			Global.armor = 12
-	if new_text == "eq leather armor":
-		var eq_item = InvLog.items.find(Global.leather_armor)
-		if eq_item != -1:
-			remove.emit(-1)
-			var has = InvLog.items.find("a")
-			armor_changed.emit(null)
-			if has == -1:
-				InvLog.remove_item(13)
-			remove.emit(eq_item)
-			armor_changed.emit(Global.leather_armor)
-			InvLog.items[13] = Global.leather_armor
-			Global.armor = 8
-	if new_text == "eq heavy armor":
-		var eq_item = InvLog.items.find(Global.heavy_armor)
-		if eq_item != -1:
-			remove.emit(-1)
-			var has = InvLog.items.find("a")
-			armor_changed.emit(null)
-			if has == -1:
-				InvLog.remove_item(13)
-			remove.emit(eq_item)
-			armor_changed.emit(Global.heavy_armor)
-			InvLog.items[13] = Global.heavy_armor
-			Global.armor = 16
-	if new_text == "eq chain armor":
-		var eq_item = InvLog.items.find(Global.chain_armor)
-		if eq_item != -1:
-			remove.emit(-1)
-			var has = InvLog.items.find("a")
-			armor_changed.emit(null)
-			if has == -1:
-				InvLog.remove_item(13)
-			remove.emit(eq_item)
-			armor_changed.emit(Global.chain_armor)
-			InvLog.items[13] = Global.chain_armor
-			Global.armor = 10
-	if new_text == "eq bone armor":
-		var eq_item = InvLog.items.find(Global.bone_armor)
-		if eq_item != -1:
-			remove.emit(-1)
-			var has = InvLog.items.find("a")
-			armor_changed.emit(null)
-			if has == -1:
-				InvLog.remove_item(13)
-			remove.emit(eq_item)
-			armor_changed.emit(Global.bone_armor)
-			InvLog.items[13] = Global.bone_armor
-			Global.armor = 10
 #	if Global.in_battle == true:
 #		$CanvasLayer2/CLOCK/turn_clock.play("end")
 	new_text = ""
@@ -635,7 +222,7 @@ func _on_line_edit_text_submitted(new_text):
 
 
 func _on_line_edit_mouse_entered():
-	$CanvasLayer2/LineEdit.grab_focus()
+	#$CanvasLayer2/LineEdit.grab_focus()
 	on_line = true
 
 
@@ -883,10 +470,11 @@ func look_around():
 func _on_trash_button_pressed() -> void:
 	if visible == true:
 		var index_of_item = InvLog.items.find(Global.selected_item)
-		print(Global.selected_item)
-		print(index_of_item)
 		remove.emit(index_of_item)
-		print(InvLog.items.find(Global.selected_item))
+		$CanvasLayer/ItemsMenu.hide()
+		#print(Global.selected_item)
+		#print(index_of_item)
+		#print(InvLog.items.find(Global.selected_item))
 
 func stairs_animation(zoom_in_out):
 	if zoom_in_out == "in":

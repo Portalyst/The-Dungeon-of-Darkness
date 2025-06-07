@@ -89,10 +89,10 @@ var rare_items : Array =[mimic_scaly, lightweight_heavy_armor, chain_armor, s_sp
 
 var legendary_items : Array = [p_claymore]
 
-var all_items : Array = [iron_armor, iron_chestplate, leather_armor, b_spear, spear,
-						b_halberd, halberd, b_claymore, dagger, s_dagger, p_dagger,
-						b_sword, sword, s_sword, bat, lightweight_heavy_armor, chain_armor, s_spear,
-						p_spear, p_sword, claymore, s_halberd, p_halberd, heavy_armor, p_claymore]
+var all_items : Array = [bat, p_sword, b_sword, sword, claymore, b_claymore, p_claymore, g_claymore, halberd, 
+						b_halberd, s_halberd, p_halberd, dagger, p_dagger, s_dagger, spear, s_spear, b_spear,
+						p_spear, bone_armor, chain_armor, armor_of_knights, heavy_armor, iron_armor, leather_armor,
+						lightweight_heavy_armor, scaly_armor, iron_chestplate, prototype_a]
 
 #Stairs logic
 
