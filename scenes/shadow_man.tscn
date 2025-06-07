@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://jq6pdc8y8va"]
+
+[ext_resource type="PackedScene" uid="uid://b4dpvg0rvrgdg" path="res://scenes/enemy_base.tscn" id="1_7i62r"]
+[ext_resource type="Texture2D" uid="uid://bofao44242xul" path="res://sprites/enemy/shadow man/idle.png" id="2_es2om"]
+[ext_resource type="Texture2D" uid="uid://dy3ubjinvt74k" path="res://sprites/enemy/shadow man/shadow.png" id="3_2ifek"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ovcbs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_es2om")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_2ifek")
+}],
+"loop": true,
+"name": &"shadow",
+"speed": 5.0
+}]
+
+[node name="shadow_man" instance=ExtResource("1_7i62r")]
+type = "shadow man"
+armor = 15
+damage = 6
+HP = 4
+danger_lvl = 2
+immortal = true
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_ovcbs")
+animation = &"idle"

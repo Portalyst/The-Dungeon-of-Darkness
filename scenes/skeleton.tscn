@@ -29,6 +29,7 @@ armor = 12
 damage = 4
 HP = 6
 danger_lvl = 1
+immortal = true
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_ssl1b")

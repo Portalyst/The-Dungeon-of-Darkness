@@ -15,6 +15,7 @@ signal give_turn()
 
 signal give_exp(int)
 
+
 @export var loot : PackedScene
 @export var type : String
 @export var armor : int
@@ -22,6 +23,7 @@ signal give_exp(int)
 @export var HP = 8
 @export var dead : bool = false
 @export var danger_lvl : int
+@export var immortal : bool
 
 @export var index_in_array : int = -1
 
@@ -87,10 +89,16 @@ func _on_area_right_body_exited(body):
 		$Timer.start()
 
 func _on_timer_timeout():
-	if dead == true and on_bottom == false and on_left == false and on_right == false and on_top == false and rescue_flag == true:
+	
+	if turn == false and type == "shadow man":
+		$AnimatedSprite2D.play("idle")
+		#print("b")
+	if turn == true and type == "shadow man":
+		$AnimatedSprite2D.play("shadow")
+	if dead == true and on_bottom == false and on_left == false and on_right == false and on_top == false and rescue_flag == true and immortal == true:
 		$Timer_of_immortality.start()
 		rescue_flag = false
-	if on_bottom == true or on_left == true or on_right == true or on_top == true:
+	if on_bottom == true or on_left == true or on_right == true or on_top == true and immortal == true:
 		$Timer_of_immortality.stop()
 		rescue_flag = true
 	if (player.dead == false) and dead == false and turn == true:
@@ -110,7 +118,6 @@ func _on_timer_timeout():
 				$Timer.start()
 			if moves == 0:
 				give_turn.emit(dead, index_in_array, type)
-				turn = false
 				moves = 6
 		if (prep_to_att == true) and turn == true:
 			var attack = randi_range(1, 20)
@@ -125,7 +132,6 @@ func _on_timer_timeout():
 				attack()
 			if attack < Global.armor:
 				give_turn.emit(dead, index_in_array, type)
-				turn = false
 			#Global.player_action = true
 	if on_top == false and on_bottom == false and on_left == false and on_right == false and prep_to_att == false:
 		self.position = start_position
@@ -152,20 +158,29 @@ func take_damage(damage, index_of_target):
 				drop_loot.emit(loot)
 			give_exp.emit(danger_lvl)
 			dead = true
-			turn = false
+			#Global.all_enemies[Global.current_turn] = null
+			#print(Global.all_enemies[Global.current_turn])
 			give_turn.emit(dead, index_in_array, type)
-			if type != "skeleton" or Global.pure == true:
+			print("solus one")
+			if immortal == false or Global.pure == true:
 				#give_turn.emit(dead, index_in_array, type)
 				queue_free()
 			else:
-				$AnimatedSprite2D.play("dead")
+				$damage_timer.start()
+				if type == "skeleton":
+					$AnimatedSprite2D.play("dead")
+				if type == "shadow man":
+					$AnimatedSprite2D.hide()
 				rescue_flag = true
+				Global.update_turn()
 			
 			#Global.update_turn()
 			#Global.switch_turn()
-			print(Global.all_enemies)
+			#print(Global.all_enemies)
 		if HP > 0:
 			$damage_timer.start()
+			Global.switch_turn()
+			Global.update_turn()
 
 func attack():
 	var deal_damage : int = randi_range(1, damage)
@@ -177,17 +192,20 @@ func attack():
 	$dice.hide()
 	deal_attack.emit(deal_damage)
 	give_turn.emit(dead, index_in_array, type)
-	turn = false
 	$Timer.start()
 
 
 func _on_timer_of_immortality_timeout():
 	dead = false
-	$AnimatedSprite2D.play("idle")
+	if type == "skeleton":
+		$AnimatedSprite2D.play("idle")
+	if type == "shadow man":
+		$AnimatedSprite2D.show()
 	Global.enemies_lives[index_in_array] = false
+	#Global.update_turn()
 
 
 func _on_damage_timer_timeout() -> void:
 	self.modulate = Color(1, 1, 1)
-	Global.player_action = false
-	Global.switch_turn()
+	#Global.player_action = false
+	

@@ -32,7 +32,7 @@ position = Vector2(248, -248)
 position = Vector2(248, -424)
 
 [node name="skeleton" parent="." instance=ExtResource("7_bttit")]
-position = Vector2(232, -88)
+position = Vector2(264, -104)
 
 [node name="cultist" parent="." instance=ExtResource("8_fvpmc")]
-position = Vector2(264, -88)
+position = Vector2(232, -104)

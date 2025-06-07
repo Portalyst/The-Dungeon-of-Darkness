@@ -2,10 +2,10 @@ extends Node
 
 var enemies_lives : Array = []
 
-var skeleton_index : Array = []
+var immortality_index : Array = []
 
-var all_enemies : Array = []
-var current_turn : int = -1
+var turn_list : Array = []
+var current_turn : int = 0
 
 var coins : int = 15
 
@@ -21,7 +21,6 @@ var needful_exp : int = 100
 var player
 
 var in_battle : bool = false
-var player_action : bool = true
 
 var damage : int = 1
 var pure : bool = false
@@ -33,6 +32,10 @@ var selected_item
 #weapons
 
 var bat = load("res://scenes/bat.tscn")
+
+func _ready() -> void:
+	print(bat)
+	print(bat.get_state().get_node_property_name(0, 0))
 
 var p_sword = load("res://scenes/p_sword.tscn")
 var s_sword = load("res://scenes/s_sword.tscn")
@@ -86,6 +89,11 @@ var rare_items : Array =[mimic_scaly, lightweight_heavy_armor, chain_armor, s_sp
 
 var legendary_items : Array = [p_claymore]
 
+var all_items : Array = [iron_armor, iron_chestplate, leather_armor, b_spear, spear,
+						b_halberd, halberd, b_claymore, dagger, s_dagger, p_dagger,
+						b_sword, sword, s_sword, bat, lightweight_heavy_armor, chain_armor, s_spear,
+						p_spear, p_sword, claymore, s_halberd, p_halberd, heavy_armor, p_claymore]
+
 #Stairs logic
 
 var current_level : int = 1
@@ -98,31 +106,50 @@ var level_3_coord_var_1 : Vector2i
 var level_3_coord_var_0 : Vector2i
 
 func switch_turn():
+	for bodies_index in turn_list.size():
+		print(bodies_index)
+		if turn_list[bodies_index] != null:
+			turn_list[bodies_index].turn = false
+			print(turn_list[bodies_index].dead, " ", turn_list[bodies_index])
+			if turn_list[bodies_index].dead == true:
+				turn_list[bodies_index] = null
 	current_turn += 1
-	if current_turn > -1 and current_turn < all_enemies.size():
-		if all_enemies[current_turn] == null:
-			current_turn += 1
+	#if current_turn < turn_list.size():
+		#if turn_list[current_turn] != null:
+			#if turn_list[current_turn].dead == true:
+				#turn_list[current_turn] = null
+	while current_turn < turn_list.size() and turn_list[current_turn] == null:
+		current_turn += 1
+	#for bodies in turn_list:
+		#if bodies == null:
+			#current_turn += 1
 		#print(a)
 	#for i in all_enemies:
 		#if i == null:
 			#a += 1
 	#current_turn += 1
-	if current_turn >= all_enemies.size():
-		current_turn = -1
-		player_action = true
-	if current_turn != -1 and all_enemies[current_turn] != null:
-		all_enemies[current_turn].turn = true
-	update_turn()
+	if current_turn >= turn_list.size():
+		current_turn = 0
+		#player_action = true
+	if turn_list[current_turn] != null:
+		turn_list[current_turn].turn = true
+	#update_turn()
 	#else:
 		#switch_turn()
 
 func update_turn():
-	print(current_turn, all_enemies.size())
-	if current_turn >= all_enemies.size():
-		current_turn = -1
-		player_action = true
-	if all_enemies.any(func(body): return body != null) == false:
-		all_enemies.clear()
+	#print(current_turn, turn_list.size())
+	#if current_turn < turn_list.size():
+		#if turn_list[current_turn] == null:
+			#current_turn = 0
+	if current_turn >= turn_list.size():
+		current_turn = 0
+		#player_action = true
+	if turn_list.all(func(body): return body == null or body == turn_list[0]) == true:
+		for idx in turn_list.size():
+			if idx != 0:
+				turn_list.remove_at(idx)
 		in_battle = false
-		player_action = true
-		current_turn = -1
+		#player_action = true
+		current_turn = 0
+	#update_turn()
