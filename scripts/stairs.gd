@@ -8,6 +8,10 @@ var player
 signal launch_animation(String)
 
 func _ready():
+	if up == true:
+		$AnimatedSprite2D.play("up")
+	else:
+		$AnimatedSprite2D.play("down")
 	set_meta("stairs", 1)
 	if up == false and variant == "":
 		Global.level_1_coord = self.position

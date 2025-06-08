@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://c37y7rfmkl8q2"]
+
+[ext_resource type="Script" uid="uid://b3odnicxmjdhb" path="res://scripts/grass.gd" id="1_u68v2"]
+[ext_resource type="Texture2D" uid="uid://bpkofwlycy116" path="res://sprites/menu/main_menu/grass/grass_1.png" id="2_cvbpf"]
+[ext_resource type="Texture2D" uid="uid://4pv2dchn4up1" path="res://sprites/menu/main_menu/grass/grass_2.png" id="3_48p3m"]
+[ext_resource type="Texture2D" uid="uid://co46qahifyxmm" path="res://sprites/menu/main_menu/grass/grass_3.png" id="4_qjw0v"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h00y4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cvbpf")
+}],
+"loop": true,
+"name": &"idle_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_48p3m")
+}],
+"loop": true,
+"name": &"idle_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_qjw0v")
+}],
+"loop": true,
+"name": &"idle_3",
+"speed": 5.0
+}]
+
+[node name="grass" type="Node2D"]
+script = ExtResource("1_u68v2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 4)
+sprite_frames = SubResource("SpriteFrames_h00y4")
+animation = &"idle_3"
+offset = Vector2(0, -4)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.01
+autostart = true
+
+[node name="Timer2" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

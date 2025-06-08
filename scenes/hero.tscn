@@ -535,6 +535,18 @@ texture_progress = ExtResource("24_rpah5")
 position = Vector2(8.5, 3.5)
 texture = ExtResource("22_rpah5")
 
+[node name="HPcount" type="Label" parent="CanvasLayer2/Bars/HP_bar"]
+visible = false
+layout_mode = 0
+offset_left = 12.0
+offset_top = -1.0
+offset_right = 39.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("4_5h4rp")
+theme_override_font_sizes/font_size = 8
+text = "10/10"
+horizontal_alignment = 2
+
 [node name="curr-level" type="Label" parent="CanvasLayer2/Bars"]
 offset_left = -36.0
 offset_top = -8.0
@@ -620,4 +632,6 @@ theme_override_font_sizes/font_size = 5
 [connection signal="mouse_exited" from="CanvasLayer2/LineEdit" to="." method="_on_line_edit_mouse_exited"]
 [connection signal="mouse_exited" from="CanvasLayer2/LineEdit" to="CanvasLayer2/LineEdit" method="_on_mouse_exited"]
 [connection signal="text_submitted" from="CanvasLayer2/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="mouse_entered" from="CanvasLayer2/Bars/HP_bar" to="." method="_on_hp_bar_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer2/Bars/HP_bar" to="." method="_on_hp_bar_mouse_exited"]
 [connection signal="timeout" from="damage_timer" to="." method="_on_damage_timer_timeout"]

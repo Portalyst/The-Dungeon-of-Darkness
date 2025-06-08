@@ -1,10 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://dyfpfivnl14ge"]
+[gd_scene load_steps=6 format=3 uid="uid://dyfpfivnl14ge"]
 
 [ext_resource type="Script" uid="uid://ci7suw665mc04" path="res://scripts/stairs.gd" id="1_qpode"]
-[ext_resource type="Texture2D" uid="uid://by7irsl2q5m5s" path="res://sprites/background/stairs.png" id="2_t8gvg"]
+[ext_resource type="Texture2D" uid="uid://bnfvb5dkw1s84" path="res://sprites/background/stairs/stairs_down.png" id="2_qpode"]
+[ext_resource type="Texture2D" uid="uid://by7irsl2q5m5s" path="res://sprites/background/stairs/stairs_up.png" id="3_t8gvg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_alqbs"]
 size = Vector2(48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_alqbs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qpode")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_t8gvg")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
 
 [node name="stairs" type="Area2D"]
 script = ExtResource("1_qpode")
@@ -12,8 +32,9 @@ script = ExtResource("1_qpode")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_alqbs")
 
-[node name="Stairs" type="Sprite2D" parent="."]
-texture = ExtResource("2_t8gvg")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_alqbs")
+animation = &"down"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

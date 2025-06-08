@@ -17,7 +17,7 @@ var is_door_lock : bool
 
 var moves = 60
 
-var on_line = false
+var on_line : bool = false
 
 var turn : bool = true
 
@@ -144,7 +144,7 @@ func _on_line_edit_text_submitted(new_text):
 		#if chest_in_area == false:
 		#	new_text = "no chest"
 		#	$Timer.start()
-	if new_text == "use stair":
+	if new_text == "enter":
 		use_stair.emit(Global.current_level)
 	
 	if new_text == "zoom 1":
@@ -157,7 +157,7 @@ func _on_line_edit_text_submitted(new_text):
 		look_around()
 	
 	if new_text == "dead":
-		death()
+		get_damage(10000)
 	
 	if new_text == "level":
 		new_level()
@@ -424,6 +424,10 @@ func take_exp(monster_lvl):
 
 func HP_changed():
 	$CanvasLayer2/Bars/HP_bar.value = Global.HP * 100 / Global.max_HP
+	if Global.HP >= -999:
+		$CanvasLayer2/Bars/HP_bar/HPcount.text = str(Global.HP) + "/" + str(Global.max_HP)
+	else:
+		$CanvasLayer2/Bars/HP_bar/HPcount.text = "-999/" + str(Global.max_HP)
 
 func EXP_changed():
 	$CanvasLayer2/Bars/EXP_bar.value = Global.exp * 100 / Global.needful_exp
@@ -490,3 +494,10 @@ func stairs_animation(zoom_in_out):
 		$AnimationPlayer.play("zoom_in")
 	if zoom_in_out == "out":
 		$AnimationPlayer.play("zoom_out")
+
+
+func _on_hp_bar_mouse_entered() -> void:
+	$CanvasLayer2/Bars/HP_bar/HPcount.show()
+
+func _on_hp_bar_mouse_exited() -> void:
+	$CanvasLayer2/Bars/HP_bar/HPcount.hide()

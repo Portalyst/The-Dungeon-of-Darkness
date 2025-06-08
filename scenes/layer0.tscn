@@ -24,7 +24,7 @@ door_type = 3
 position = Vector2(248, -344)
 
 [node name="Hero" parent="." instance=ExtResource("4_bttit")]
-position = Vector2(248, -248)
+position = Vector2(248, -184)
 
 [node name="Big-shadow" parent="." instance=ExtResource("3_fxsg0")]
 position = Vector2(248, -424)
