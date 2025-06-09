@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://yxjysn3avnhl"]
+[gd_scene load_steps=59 format=3 uid="uid://yxjysn3avnhl"]
 
 [ext_resource type="Texture2D" uid="uid://ryy8je63yf7e" path="res://sprites/hero/hero.png" id="1_dh7eb"]
 [ext_resource type="Script" uid="uid://h55cxfc2yb1n" path="res://scripts/hero.gd" id="1_fhpx2"]
@@ -26,6 +26,10 @@
 [ext_resource type="Texture2D" uid="uid://dfc8576d0ax7l" path="res://sprites/menu/stats_bars/exp/EXP_bar.png" id="22_wc88v"]
 [ext_resource type="Texture2D" uid="uid://156g8n17kwt2" path="res://sprites/menu/stats_bars/exp/EXP_label.png" id="24_4kg8r"]
 [ext_resource type="Texture2D" uid="uid://b3qjbq58iiypg" path="res://sprites/menu/stats_bars/HP/HP_Bar.png" id="24_rpah5"]
+[ext_resource type="Texture2D" uid="uid://dc6sjeufxyj65" path="res://sprites/menu/dialog_window.png" id="27_61g13"]
+[ext_resource type="Texture2D" uid="uid://fwlo72f74yr1" path="res://sprites/hero/hero_portrait.png" id="28_61g13"]
+[ext_resource type="Texture2D" uid="uid://gpswnmn2axsx" path="res://sprites/NPC's/portrait_empty.png" id="29_nh6g3"]
+[ext_resource type="Texture2D" uid="uid://djaye4sib3kc" path="res://sprites/menu/dialog_window_part.png" id="30_8v78m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ipe5"]
 size = Vector2(16, 16)
@@ -158,6 +162,58 @@ func _on_mouse_exited():
 	deselect()
 "
 
+[sub_resource type="Animation" id="Animation_nh6g3"]
+resource_name = "NPC_talk"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer2/DialogWindow/NPCPortrait:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(56, 31), Vector2(56, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer2/DialogWindow/NPCPortrait:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.5, 0.5), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer2/DialogWindow/HeroPortrait:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(56, 0), Vector2(56, 31)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer2/DialogWindow/HeroPortrait:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.5, 0.5), Vector2(1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_jskiy"]
 length = 0.001
 tracks/0/type = "value"
@@ -195,6 +251,106 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 8)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer2/DialogWindow/NPCPortrait:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(56, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer2/DialogWindow/NPCPortrait:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CanvasLayer2/DialogWindow/HeroPortrait:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(56, 31)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CanvasLayer2/DialogWindow/HeroPortrait:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_48qaf"]
+resource_name = "hero_talk"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer2/DialogWindow/NPCPortrait:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(56, 0), Vector2(56, 31)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer2/DialogWindow/NPCPortrait:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.5, 0.5), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer2/DialogWindow/HeroPortrait:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(56, 31), Vector2(56, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer2/DialogWindow/HeroPortrait:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.5, 0.5), Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_fq023"]
@@ -280,7 +436,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xncni"]
 _data = {
+&"NPC_talk": SubResource("Animation_nh6g3"),
 &"RESET": SubResource("Animation_jskiy"),
+&"hero_talk": SubResource("Animation_48qaf"),
 &"return": SubResource("Animation_fq023"),
 &"zoom_in": SubResource("Animation_4kg8r"),
 &"zoom_out": SubResource("Animation_4ul70")
@@ -579,6 +737,69 @@ texture = ExtResource("24_rpah5")
 position = Vector2(15, 141)
 texture = ExtResource("16_2grt1")
 
+[node name="DialogWindow" type="Sprite2D" parent="CanvasLayer2"]
+visible = false
+position = Vector2(72, 144)
+texture = ExtResource("27_61g13")
+
+[node name="DialogControl" type="Control" parent="CanvasLayer2/DialogWindow"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -72.0
+offset_top = -16.0
+offset_right = 73.0
+offset_bottom = 24.0
+
+[node name="NameOfCharacter" type="Label" parent="CanvasLayer2/DialogWindow"]
+offset_left = -69.0
+offset_top = -15.0
+offset_right = -4.0
+offset_bottom = -5.0
+theme_override_fonts/font = ExtResource("4_5h4rp")
+theme_override_font_sizes/font_size = 8
+text = "???:"
+
+[node name="dialog" type="Label" parent="CanvasLayer2/DialogWindow"]
+offset_left = -69.0
+offset_top = -7.0
+offset_right = 20.0
+offset_bottom = 16.0
+theme_override_fonts/font = ExtResource("4_5h4rp")
+theme_override_font_sizes/font_size = 5
+text = "agu agu, agu agu"
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="HeroPortrait" type="Sprite2D" parent="CanvasLayer2/DialogWindow"]
+position = Vector2(56, 31)
+texture = ExtResource("28_61g13")
+
+[node name="NPCPortrait" type="Sprite2D" parent="CanvasLayer2/DialogWindow"]
+position = Vector2(56, 0)
+texture = ExtResource("29_nh6g3")
+
+[node name="next_button" type="Button" parent="CanvasLayer2/DialogWindow"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 13.0
+offset_top = -15.0
+offset_right = 40.0
+offset_bottom = -6.0
+
+[node name="Label" type="Label" parent="CanvasLayer2/DialogWindow/next_button"]
+layout_mode = 0
+offset_left = -9.0
+offset_right = 26.0
+offset_bottom = 9.0
+theme_override_fonts/font = ExtResource("4_5h4rp")
+theme_override_font_sizes/font_size = 8
+text = "next->"
+horizontal_alignment = 2
+
+[node name="DialogWindowPart" type="Sprite2D" parent="CanvasLayer2"]
+position = Vector2(128, 159.5)
+scale = Vector2(1, 1.00001)
+texture = ExtResource("30_8v78m")
+
 [node name="dice" type="Label" parent="."]
 visible = false
 offset_left = -7.0
@@ -616,6 +837,9 @@ offset_right = 1.0
 offset_bottom = -9.0
 theme_override_font_sizes/font_size = 5
 
+[node name="dialog_text_timer" type="Timer" parent="."]
+wait_time = 0.1
+
 [connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
 [connection signal="body_exited" from="Area2D2" to="." method="_on_area_2d_2_body_exited"]
 [connection signal="pressed" from="CanvasLayer/prtButton" to="." method="_on_prt_button_pressed"]
@@ -635,3 +859,4 @@ theme_override_font_sizes/font_size = 5
 [connection signal="mouse_entered" from="CanvasLayer2/Bars/HP_bar" to="." method="_on_hp_bar_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer2/Bars/HP_bar" to="." method="_on_hp_bar_mouse_exited"]
 [connection signal="timeout" from="damage_timer" to="." method="_on_damage_timer_timeout"]
+[connection signal="timeout" from="dialog_text_timer" to="." method="_on_dialog_text_timer_timeout"]

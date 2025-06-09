@@ -4,6 +4,10 @@ var enemies_lives : Array = []
 
 var immortality_index : Array = []
 
+var NPC_Array : Array = []
+
+var player_name : String = "Dark"
+
 var turn_list : Array = []
 var current_turn : int = 0
 
@@ -150,6 +154,7 @@ func update_turn():
 			if idx != 0:
 				turn_list.remove_at(idx)
 		in_battle = false
+		enemies_lives.clear()
 		#player_action = true
 		current_turn = 0
 	#update_turn()

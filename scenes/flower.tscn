@@ -18,21 +18,6 @@ tracks/0/keys = {
 "values": [0.0]
 }
 
-[sub_resource type="Animation" id="Animation_yoh7s"]
-resource_name = "touched_right"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Flower:rotation")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6, 0.866667, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, -0.467569, 0.613909, -0.251752, 0.0]
-}
-
 [sub_resource type="Animation" id="Animation_rqhtc"]
 resource_name = "touched_left"
 tracks/0/type = "value"
@@ -46,6 +31,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.613909, -0.467569, 0.369758, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_yoh7s"]
+resource_name = "touched_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flower:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.866667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.467569, 0.613909, -0.251752, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rqhtc"]

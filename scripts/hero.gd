@@ -41,6 +41,8 @@ var currarea
 var last_commands : Array = []
 var command : int
 
+var next_dialog_pressed : bool = false
+
 #SIGNALS
 
 #battle
@@ -56,8 +58,10 @@ signal open_door
 signal punch_door
 #Secret objects
 signal try_to_spot(int)
-
+#level
 signal use_stair
+#NPC
+signal talk_to_NPC
 
 func _ready():
 	Global.turn_list.append(self)
@@ -79,8 +83,8 @@ func _physics_process(delta):
 		$CanvasLayer2/Candle.play("youre_turn")
 	if turn == false and dead == false:
 		$CanvasLayer2/Candle.play("enemy_turn")
-	$Label2.text = str(command)#"turn: " + str(Global.current_turn, " ")# + "array: " + str(Global.turn_list)
-	$Label.text = str(last_commands)#"array: " + str(Global.turn_list) #"player action: " + str(Global.enemies_lives) + " " + str(Global.in_battle)
+	$Label2.text = str(Global.in_battle)#turn: " + str(Global.current_turn, " ")# + "array: " + str(Global.turn_list)
+	$Label.text = str(Global.enemies_lives)#str(last_commands)#"array: " + str(Global.turn_list) #"player action: " +  + " " +
 	if dead == true or turn == false or on_line == true:
 		canmove = false
 	if turn == true and on_line == false and dead == false:
@@ -144,6 +148,10 @@ func _on_line_edit_text_submitted(new_text):
 		#if chest_in_area == false:
 		#	new_text = "no chest"
 		#	$Timer.start()
+	if new_text == "talk":
+		talk_to_NPC.emit()
+	
+	
 	if new_text == "enter":
 		use_stair.emit(Global.current_level)
 	
@@ -281,7 +289,7 @@ func get_damage(damage):
 	if Global.HP <= 0:
 		death()
 
-func take_turn(enemy_dead, enemy_index, enemy_type):
+func take_turn(enemy_dead, enemy_index):
 	print("solus two")
 	Global.switch_turn()
 	Global.enemies_lives[enemy_index] = enemy_dead
@@ -296,9 +304,14 @@ func take_turn(enemy_dead, enemy_index, enemy_type):
 	#print("array", Global.enemies_lives)
 
 func _on_area_2d_body_entered(body):
-	if body.has_meta("enemy"):
+	if body.has_meta("enemy") or body.has_meta("NPC"):
 		body.deal_attack.connect(get_damage)
 		body.drop_loot.connect(get_loot)
+		if body.has_meta("NPC"):
+			body.return_dialog_value.connect(update_dialog)
+			if body.index_in_NPC_array == -1:
+				Global.NPC_Array.append(body)
+				body.index_in_NPC_array == Global.NPC_Array.size() - 1
 		#if body.type == "mimic":
 			#mimic_in_area = true
 		#if body.type == "skeleton":
@@ -309,9 +322,14 @@ func _on_area_2d_body_entered(body):
 					#shadow_man_in_area = true
 
 func _on_area_2d_body_exited(body):
-	if body.has_meta("enemy"):
+	if body.has_meta("enemy") or body.has_meta("NPC"):
 		body.deal_attack.disconnect(get_damage)
 		body.drop_loot.disconnect(get_loot)
+		if body.has_meta("NPC"):
+			body.return_dialog_value.disconnect(update_dialog)
+			if body.index_in_NPC_array != -1:
+				Global.NPC_Array.remove_at(body.index_in_NPC_array)
+				body.index_in_NPC_array == -1
 		#for i in Global.all_enemies:
 			#if i:
 				#if i.type == "shadow":
@@ -338,9 +356,12 @@ func _on_area_2d_body_exited(body):
 			#cult_in_area = false
 
 func _on_area_2d_2_body_entered(body):
-	if body.has_meta("enemy"):
-		if body.dead == false:
+	if body.has_meta("enemy") or body.has_meta("NPC"):
+		if body.dead == false and body.has_meta("enemy"):
 			Global.in_battle = true
+		if body.has_meta("NPC"):
+			if body.dead == false and body.aggressive == true:
+				Global.in_battle = true
 		body.give_turn.connect(take_turn)
 		body.give_exp.connect(take_exp)
 		Global.turn_list.append(body)
@@ -353,7 +374,7 @@ func _on_area_2d_2_body_entered(body):
 		#print(body.index_in_array, Global.enemies_lives)
 
 func _on_area_2d_2_body_exited(body):
-	if body.has_meta("enemy"):
+	if body.has_meta("enemy") or body.has_meta("NPC"):
 		#Global.in_battle = false
 		if body.dead == false:
 			moves = 6
@@ -361,6 +382,7 @@ func _on_area_2d_2_body_exited(body):
 		if body.index_of_enemy < Global.turn_list.size():
 			Global.turn_list[body.index_of_enemy] = null
 		Global.update_turn()
+		body.index_in_array = -1
 		#if body.dead == true:
 			#Global.enemies_lives.remove_at(body.index_in_array)
 			#body.index_in_array = -1
@@ -501,3 +523,41 @@ func _on_hp_bar_mouse_entered() -> void:
 
 func _on_hp_bar_mouse_exited() -> void:
 	$CanvasLayer2/Bars/HP_bar/HPcount.hide()
+
+func update_dialog(npc_dialog_list, name_of_npc, npc_portrait, first_meet):
+	$CanvasLayer2/DialogWindow.show()
+	print("sybau")
+	var player_talk : bool = false
+	$CanvasLayer2/DialogWindow/NPCPortrait.texture = npc_portrait
+	$dialog_text_timer.start()
+	$dialog_text_timer.one_shot = false
+	$CanvasLayer2/DialogWindow/next_button/Label.text = "next->"
+	for i in npc_dialog_list.size():
+		$CanvasLayer2/DialogWindow/dialog.visible_characters = 0
+		if npc_dialog_list[i].contains("мое имя") or npc_dialog_list[i].contains("меня зовут") or npc_dialog_list[i].contains("my name is"):
+			first_meet = false
+		if npc_dialog_list[i].contains("hero: "):
+			player_talk = true
+			$AnimationPlayer.play("hero_talk")
+		if npc_dialog_list[i].contains("hero: ") == false and player_talk == true:
+			player_talk = false
+			$AnimationPlayer.play("NPC_talk")
+		if first_meet == true:
+			$CanvasLayer2/DialogWindow/NameOfCharacter.text = "???:"
+		else:
+			$CanvasLayer2/DialogWindow/NameOfCharacter.text = name_of_npc + ":"
+		if player_talk == true:
+			$CanvasLayer2/DialogWindow/NameOfCharacter.text = Global.player_name + ":"
+		if player_talk == false:
+			$CanvasLayer2/DialogWindow/dialog.text = npc_dialog_list[i]
+		else:
+			$CanvasLayer2/DialogWindow/dialog.text = npc_dialog_list[i].replace("hero: ", "")
+		if i == npc_dialog_list.size() - 1:
+			$CanvasLayer2/DialogWindow/next_button/Label.text = "exit"
+		await $CanvasLayer2/DialogWindow/next_button.pressed
+	$dialog_text_timer.stop()
+	$dialog_text_timer.one_shot = true
+	$CanvasLayer2/DialogWindow.hide()
+
+func _on_dialog_text_timer_timeout() -> void:
+	$CanvasLayer2/DialogWindow/dialog.visible_characters += 1

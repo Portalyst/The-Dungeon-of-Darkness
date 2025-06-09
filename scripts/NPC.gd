@@ -15,20 +15,23 @@ signal give_turn()
 
 signal give_exp(int)
 
+signal return_dialog_value
 
 @export var loot : PackedScene
-@export var type : String
+@export var Name : String
 @export var armor : int
 @export var damage : int
 @export var HP = 8
 @export var dead : bool = false
 @export var danger_lvl : int
-@export var immortal : bool
+@export var immortal : bool = false
 
 @export var index_in_array : int = -1
 
 @export var index_of_enemy : int
 @export var turn : bool = false
+@export var aggressive : bool = false
+@export var index_in_NPC_array : int = -1
 
 var moves = 6
 
@@ -38,10 +41,17 @@ var start_position : Vector2
 
 var rescue_flag : bool = false
 
+@export var dialog_list : Array = ["hero: agu", "what did you say? my name is Empty, btw", "hero: agu?", "fuck off!"]
+
+@export var portrait : CompressedTexture2D
+
+var first_meet : bool = true
+
 func _ready():
 	player = $"../Hero"
-	set_meta("enemy", 3)
+	set_meta("NPC", 3)
 	player.player_attack.connect(take_damage)
+	player.talk_to_NPC.connect(talk)
 	start_position = self.position
 
 func _on_area_up_body_entered(body):
@@ -90,18 +100,13 @@ func _on_area_right_body_exited(body):
 
 func _on_timer_timeout():
 	
-	if turn == false and type == "shadow man":
-		$AnimatedSprite2D.play("idle")
-		#print("b")
-	if turn == true and type == "shadow man":
-		$AnimatedSprite2D.play("shadow")
-	if dead == true and on_bottom == false and on_left == false and on_right == false and on_top == false and rescue_flag == true and immortal == true:
-		$Timer_of_immortality.start()
-		rescue_flag = false
-	if on_bottom == true or on_left == true or on_right == true or on_top == true and immortal == true:
-		$Timer_of_immortality.stop()
-		rescue_flag = true
-	if (player.dead == false) and dead == false and turn == true:
+	#if dead == true and on_bottom == false and on_left == false and on_right == false and on_top == false and rescue_flag == true and immortal == true:
+		#$Timer_of_immortality.start()
+		#rescue_flag = false
+	#if on_bottom == true or on_left == true or on_right == true or on_top == true and immortal == true:
+		#$Timer_of_immortality.stop()
+		#rescue_flag = true
+	if (player.dead == false) and dead == false and turn == true and aggressive == true:
 		if prep_to_att == false:
 			if moves != 0:
 				var direction : Vector2
@@ -135,7 +140,7 @@ func _on_timer_timeout():
 			#Global.player_action = true
 	if on_top == false and on_bottom == false and on_left == false and on_right == false and prep_to_att == false and self.position != start_position:
 		self.position = start_position
-	if (player.dead == false) and turn == false:
+	if (player.dead == false) and turn == false and aggressive == true:
 		$Timer.start()
 
 func _on_att_area_body_entered(body):
@@ -150,6 +155,7 @@ func take_damage(damage, index_of_target):
 	if dead == false and index_of_target == index_of_enemy:
 		HP -= damage
 		self.modulate = Color(1, 0, 0)
+		aggressive = true
 		if HP <= 0:
 			#Global.all_enemies.remove_at(index_of_enemy)
 			#print("OAOOAOAO")
@@ -161,18 +167,17 @@ func take_damage(damage, index_of_target):
 			#Global.all_enemies[Global.current_turn] = null
 			#print(Global.all_enemies[Global.current_turn])
 			give_turn.emit(dead, index_in_array)
-			print("solus one")
 			if immortal == false or Global.pure == true:
-				#give_turn.emit(dead, index_in_array, type)
+				#give_turn.emit(dead, index_in_array)
 				queue_free()
-			else:
-				$damage_timer.start()
-				if type == "skeleton":
-					$AnimatedSprite2D.play("dead")
-				if type == "shadow man":
-					$AnimatedSprite2D.hide()
-				rescue_flag = true
-				Global.update_turn()
+			#else:
+				#$damage_timer.start()
+				#if type == "skeleton":
+					#$AnimatedSprite2D.play("dead")
+				#if type == "shadow man":
+					#$AnimatedSprite2D.hide()
+				#rescue_flag = true
+				#Global.update_turn()
 			
 			#Global.update_turn()
 			#Global.switch_turn()
@@ -197,10 +202,6 @@ func attack():
 
 func _on_timer_of_immortality_timeout():
 	dead = false
-	if type == "skeleton":
-		$AnimatedSprite2D.play("idle")
-	if type == "shadow man":
-		$AnimatedSprite2D.show()
 	Global.enemies_lives[index_in_array] = false
 	#Global.update_turn()
 
@@ -209,3 +210,5 @@ func _on_damage_timer_timeout() -> void:
 	self.modulate = Color(1, 1, 1)
 	#Global.player_action = false
 	
+func talk():
+	return_dialog_value.emit(dialog_list, Name, portrait, first_meet)

@@ -36,7 +36,6 @@ offset_bottom = 113.0
 [node name="SettingsFrame" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(48.5, 90)
-scale = Vector2(1, 1)
 texture = ExtResource("5_5dd4i")
 
 [node name="PlayButton" type="Button" parent="."]
@@ -49,7 +48,6 @@ offset_bottom = 92.5
 [node name="PlayFrame" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(73, 70.5)
-scale = Vector2(1, 1)
 texture = ExtResource("4_jk1qb")
 
 [node name="ExitButton" type="Button" parent="."]
@@ -62,7 +60,6 @@ offset_bottom = 147.0
 [node name="ExitFrame" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(86.5, 127)
-scale = Vector2(1, 1)
 texture = ExtResource("6_lgwnu")
 
 [node name="all_grass" type="Node2D" parent="."]
