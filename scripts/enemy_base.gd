@@ -201,7 +201,8 @@ func _on_timer_of_immortality_timeout():
 		$AnimatedSprite2D.play("idle")
 	if type == "shadow man":
 		$AnimatedSprite2D.show()
-	Global.enemies_lives[index_in_array] = false
+	if index_in_array < Global.enemies_lives.size():
+		Global.enemies_lives[index_in_array] = false
 	#Global.update_turn()
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://yxjysn3avnhl"]
+[gd_scene load_steps=60 format=3 uid="uid://yxjysn3avnhl"]
 
 [ext_resource type="Texture2D" uid="uid://ryy8je63yf7e" path="res://sprites/hero/hero.png" id="1_dh7eb"]
 [ext_resource type="Script" uid="uid://h55cxfc2yb1n" path="res://scripts/hero.gd" id="1_fhpx2"]
@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://fwlo72f74yr1" path="res://sprites/hero/hero_portrait.png" id="28_61g13"]
 [ext_resource type="Texture2D" uid="uid://gpswnmn2axsx" path="res://sprites/NPC's/portrait_empty.png" id="29_nh6g3"]
 [ext_resource type="Texture2D" uid="uid://djaye4sib3kc" path="res://sprites/menu/dialog_window_part.png" id="30_8v78m"]
+[ext_resource type="Texture2D" uid="uid://de8tc3hcamwbx" path="res://sprites/menu/dialog_cross.png" id="30_48qaf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ipe5"]
 size = Vector2(16, 16)
@@ -795,6 +796,78 @@ theme_override_font_sizes/font_size = 8
 text = "next->"
 horizontal_alignment = 2
 
+[node name="variant_one" type="Button" parent="CanvasLayer2/DialogWindow"]
+visible = false
+self_modulate = Color(0.962722, 0.956973, 0.951669, 0)
+offset_left = -62.0
+offset_top = -2.0
+offset_right = -39.0
+offset_bottom = 6.0
+
+[node name="DialogCross" type="Sprite2D" parent="CanvasLayer2/DialogWindow/variant_one"]
+visible = false
+position = Vector2(12, 11)
+texture = ExtResource("30_48qaf")
+
+[node name="Label" type="Label" parent="CanvasLayer2/DialogWindow/variant_one"]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -1.0
+offset_right = 29.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("4_5h4rp")
+theme_override_font_sizes/font_size = 6
+text = "agu"
+horizontal_alignment = 1
+
+[node name="variant_two" type="Button" parent="CanvasLayer2/DialogWindow"]
+visible = false
+self_modulate = Color(1, 1, 0, 0)
+offset_left = -28.0
+offset_top = -2.0
+offset_right = -5.0
+offset_bottom = 6.0
+
+[node name="DialogCross" type="Sprite2D" parent="CanvasLayer2/DialogWindow/variant_two"]
+visible = false
+position = Vector2(12, 11)
+texture = ExtResource("30_48qaf")
+
+[node name="Label" type="Label" parent="CanvasLayer2/DialogWindow/variant_two"]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -1.0
+offset_right = 29.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("4_5h4rp")
+theme_override_font_sizes/font_size = 6
+text = "agu"
+horizontal_alignment = 1
+
+[node name="variant_three" type="Button" parent="CanvasLayer2/DialogWindow"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 6.0
+offset_top = -2.0
+offset_right = 29.0
+offset_bottom = 6.0
+
+[node name="DialogCross" type="Sprite2D" parent="CanvasLayer2/DialogWindow/variant_three"]
+visible = false
+position = Vector2(12, 11)
+texture = ExtResource("30_48qaf")
+
+[node name="Label" type="Label" parent="CanvasLayer2/DialogWindow/variant_three"]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -1.0
+offset_right = 29.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("4_5h4rp")
+theme_override_font_sizes/font_size = 6
+text = "agu"
+horizontal_alignment = 1
+
 [node name="DialogWindowPart" type="Sprite2D" parent="CanvasLayer2"]
 position = Vector2(128, 159.5)
 scale = Vector2(1, 1.00001)
@@ -858,5 +931,15 @@ wait_time = 0.1
 [connection signal="text_submitted" from="CanvasLayer2/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="mouse_entered" from="CanvasLayer2/Bars/HP_bar" to="." method="_on_hp_bar_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer2/Bars/HP_bar" to="." method="_on_hp_bar_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer2/DialogWindow/next_button" to="." method="_on_next_button_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer2/DialogWindow/variant_one" to="." method="_on_variant_one_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer2/DialogWindow/variant_one" to="." method="_on_variant_one_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer2/DialogWindow/variant_one" to="." method="_on_variant_one_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer2/DialogWindow/variant_two" to="." method="_on_variant_two_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer2/DialogWindow/variant_two" to="." method="_on_variant_two_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer2/DialogWindow/variant_two" to="." method="_on_variant_two_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer2/DialogWindow/variant_three" to="." method="_on_variant_three_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer2/DialogWindow/variant_three" to="." method="_on_variant_three_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer2/DialogWindow/variant_three" to="." method="_on_variant_three_pressed"]
 [connection signal="timeout" from="damage_timer" to="." method="_on_damage_timer_timeout"]
 [connection signal="timeout" from="dialog_text_timer" to="." method="_on_dialog_text_timer_timeout"]

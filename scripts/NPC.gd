@@ -41,8 +41,8 @@ var start_position : Vector2
 
 var rescue_flag : bool = false
 
-@export var dialog_list : Array = ["hero: agu", "what did you say? my name is Empty, btw", "hero: agu?", "fuck off!"]
-
+@export var dialog_list : Array = ["heroa: ", "hero: suka", "hero: ne suka", "what did you say? my name is Empty, btw", "hero: agu?", "fuck off!"]
+@export var variants : Array = ["suka", "ne suka"]
 @export var portrait : CompressedTexture2D
 
 var first_meet : bool = true
@@ -211,4 +211,4 @@ func _on_damage_timer_timeout() -> void:
 	#Global.player_action = false
 	
 func talk():
-	return_dialog_value.emit(dialog_list, Name, portrait, first_meet)
+	return_dialog_value.emit(dialog_list, Name, portrait, first_meet, variants)

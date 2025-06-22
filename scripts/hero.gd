@@ -21,10 +21,17 @@ var on_line : bool = false
 
 var turn : bool = true
 
+var dialog_index : int = 0
 #var mimic_in_area : bool = false
 #var skeleton_in_area : bool = false
 #var cult_in_area : bool = false
 #var shadow_man_in_area : bool = false
+
+var NPC_dialog_list : Array
+var name_of_NPC : String
+var NPC_portrait : CompressedTexture2D
+var player_first_meet : bool
+var player_dialog_variants : Array
 
 var door_in_area = false
 
@@ -308,7 +315,7 @@ func _on_area_2d_body_entered(body):
 		body.deal_attack.connect(get_damage)
 		body.drop_loot.connect(get_loot)
 		if body.has_meta("NPC"):
-			body.return_dialog_value.connect(update_dialog)
+			body.return_dialog_value.connect(get_npc_var)
 			if body.index_in_NPC_array == -1:
 				Global.NPC_Array.append(body)
 				body.index_in_NPC_array == Global.NPC_Array.size() - 1
@@ -326,7 +333,7 @@ func _on_area_2d_body_exited(body):
 		body.deal_attack.disconnect(get_damage)
 		body.drop_loot.disconnect(get_loot)
 		if body.has_meta("NPC"):
-			body.return_dialog_value.disconnect(update_dialog)
+			body.return_dialog_value.disconnect(get_npc_var)
 			if body.index_in_NPC_array != -1:
 				Global.NPC_Array.remove_at(body.index_in_NPC_array)
 				body.index_in_NPC_array == -1
@@ -524,40 +531,124 @@ func _on_hp_bar_mouse_entered() -> void:
 func _on_hp_bar_mouse_exited() -> void:
 	$CanvasLayer2/Bars/HP_bar/HPcount.hide()
 
-func update_dialog(npc_dialog_list, name_of_npc, npc_portrait, first_meet):
-	$CanvasLayer2/DialogWindow.show()
-	print("sybau")
-	var player_talk : bool = false
-	$CanvasLayer2/DialogWindow/NPCPortrait.texture = npc_portrait
+func get_npc_var(npc_dialog_list, name_of_npc, npc_portrait, first_meet, player_variants):
+	NPC_dialog_list = npc_dialog_list
+	print(NPC_dialog_list)
+	print(npc_dialog_list)
+	name_of_NPC = name_of_npc
+	NPC_portrait = npc_portrait
+	player_first_meet = first_meet
+	player_dialog_variants = player_variants
+	$CanvasLayer2/DialogWindow/NPCPortrait.texture = NPC_portrait
 	$dialog_text_timer.start()
 	$dialog_text_timer.one_shot = false
 	$CanvasLayer2/DialogWindow/next_button/Label.text = "next->"
-	for i in npc_dialog_list.size():
+	update_dialog()
+	#$dialog_text_timer.stop()
+	#$dialog_text_timer.one_shot = true
+	#$CanvasLayer2/DialogWindow.hide()
+
+func update_dialog():
+	$CanvasLayer2/DialogWindow/next_button.show()
+	$CanvasLayer2/DialogWindow.show()
+	$CanvasLayer2/DialogWindow/variant_one.hide()
+	$CanvasLayer2/DialogWindow/variant_two.hide()
+	$CanvasLayer2/DialogWindow/variant_three.hide()
+	$CanvasLayer2/DialogWindow/dialog.show()
+	var player_talk : bool = false
+	if dialog_index < NPC_dialog_list.size():
 		$CanvasLayer2/DialogWindow/dialog.visible_characters = 0
-		if npc_dialog_list[i].contains("мое имя") or npc_dialog_list[i].contains("меня зовут") or npc_dialog_list[i].contains("my name is"):
-			first_meet = false
-		if npc_dialog_list[i].contains("hero: "):
+		
+		if NPC_dialog_list[dialog_index].contains("hero: ") == true or NPC_dialog_list[dialog_index].contains("heroa: ") == true:
 			player_talk = true
 			$AnimationPlayer.play("hero_talk")
-		if npc_dialog_list[i].contains("hero: ") == false and player_talk == true:
+		if NPC_dialog_list[dialog_index].contains("hero: ") == false and NPC_dialog_list[dialog_index].contains("heroa: ") == false:
 			player_talk = false
 			$AnimationPlayer.play("NPC_talk")
-		if first_meet == true:
+		if player_first_meet == true:
 			$CanvasLayer2/DialogWindow/NameOfCharacter.text = "???:"
 		else:
-			$CanvasLayer2/DialogWindow/NameOfCharacter.text = name_of_npc + ":"
+			$CanvasLayer2/DialogWindow/NameOfCharacter.text = name_of_NPC + ":"
 		if player_talk == true:
 			$CanvasLayer2/DialogWindow/NameOfCharacter.text = Global.player_name + ":"
 		if player_talk == false:
-			$CanvasLayer2/DialogWindow/dialog.text = npc_dialog_list[i]
+			$CanvasLayer2/DialogWindow/dialog.text = NPC_dialog_list[dialog_index]
 		else:
-			$CanvasLayer2/DialogWindow/dialog.text = npc_dialog_list[i].replace("hero: ", "")
-		if i == npc_dialog_list.size() - 1:
+			if NPC_dialog_list[dialog_index].contains("hero: ") == true: 
+				$CanvasLayer2/DialogWindow/dialog.text = NPC_dialog_list[dialog_index].replace("hero: ", "")
+			if NPC_dialog_list[dialog_index].contains("heroa: ") == true: 
+				$CanvasLayer2/DialogWindow/variant_one/Label.text = player_dialog_variants[0]
+				$CanvasLayer2/DialogWindow/variant_one.show()
+				$CanvasLayer2/DialogWindow/next_button.hide()
+				$CanvasLayer2/DialogWindow/dialog.hide()
+				if player_dialog_variants.size() == 2:
+					$CanvasLayer2/DialogWindow/variant_two/Label.text = player_dialog_variants[1]
+					$CanvasLayer2/DialogWindow/variant_two.show()
+				if player_dialog_variants.size() == 3:
+					$CanvasLayer2/DialogWindow/variant_three/Label.text = player_dialog_variants[2]
+					$CanvasLayer2/DialogWindow/variant_three.show()
+		if NPC_dialog_list[dialog_index].contains("мое имя") or NPC_dialog_list[dialog_index].contains("меня зовут") or NPC_dialog_list[dialog_index].contains("my name is"):
+			player_first_meet = false
+		if dialog_index == NPC_dialog_list.size() - 1:
 			$CanvasLayer2/DialogWindow/next_button/Label.text = "exit"
-		await $CanvasLayer2/DialogWindow/next_button.pressed
-	$dialog_text_timer.stop()
-	$dialog_text_timer.one_shot = true
-	$CanvasLayer2/DialogWindow.hide()
+			dialog_index = 0
 
 func _on_dialog_text_timer_timeout() -> void:
 	$CanvasLayer2/DialogWindow/dialog.visible_characters += 1
+
+func _on_next_button_pressed() -> void:
+	if $CanvasLayer2/DialogWindow/next_button.visible == true:
+		if $CanvasLayer2/DialogWindow/next_button/Label.text == "exit":
+			$dialog_text_timer.stop()
+			$dialog_text_timer.one_shot = true
+			$CanvasLayer2/DialogWindow.hide()
+		else:
+			dialog_index += 1
+			update_dialog()
+
+func _on_variant_one_mouse_entered() -> void:
+	if $CanvasLayer2/DialogWindow/variant_one.visible == true:
+		$CanvasLayer2/DialogWindow/variant_one/DialogCross.show()
+
+func _on_variant_one_mouse_exited() -> void:
+	$CanvasLayer2/DialogWindow/variant_one/DialogCross.hide()
+
+func _on_variant_two_mouse_entered() -> void:
+	if $CanvasLayer2/DialogWindow/variant_two.visible == true:
+		$CanvasLayer2/DialogWindow/variant_two/DialogCross.show()
+
+func _on_variant_two_mouse_exited() -> void:
+	$CanvasLayer2/DialogWindow/variant_two/DialogCross.hide()
+
+func _on_variant_three_mouse_entered() -> void:
+	if $CanvasLayer2/DialogWindow/variant_three.visible == true:
+		$CanvasLayer2/DialogWindow/variant_three/DialogCross.show()
+
+func _on_variant_three_mouse_exited() -> void:
+	$CanvasLayer2/DialogWindow/variant_three/DialogCross.hide()
+
+func _on_variant_one_pressed() -> void:
+	if $CanvasLayer2/DialogWindow/variant_one.visible == true:
+		$CanvasLayer2/DialogWindow/variant_one/DialogCross.hide()
+		chosen_variant("hero: "+$CanvasLayer2/DialogWindow/variant_one/Label.text)
+
+func _on_variant_two_pressed() -> void:
+	if $CanvasLayer2/DialogWindow/variant_two.visible == true:
+		$CanvasLayer2/DialogWindow/variant_two/DialogCross.hide()
+		chosen_variant("hero: "+$CanvasLayer2/DialogWindow/variant_two/Label.text)
+
+func _on_variant_three_pressed() -> void:
+	if $CanvasLayer2/DialogWindow/variant_three.visible == true:
+		$CanvasLayer2/DialogWindow/variant_three/DialogCross.hide()
+		chosen_variant("hero: "+$CanvasLayer2/DialogWindow/variant_three/Label.text)
+
+func chosen_variant(text):
+	for a in player_dialog_variants:
+		var c = "hero: " + a
+		if c != text:
+			var b : int = NPC_dialog_list.find(c)
+			NPC_dialog_list.remove_at(b)
+			print(a)
+			print(text)
+	dialog_index += 1
+	update_dialog()
