@@ -42,7 +42,7 @@ var start_position : Vector2
 var rescue_flag : bool = false
 
 @export var dialog_list : Array = ["heroa: ", "hero: suka", "hero: ne suka", "what did you say? my name is Empty, btw", "hero: agu?", "fuck off!"]
-@export var variants : Array = ["suka", "ne suka"]
+@export var variants : Array = ["suka", "ne suka"] 
 @export var portrait : CompressedTexture2D
 
 var first_meet : bool = true

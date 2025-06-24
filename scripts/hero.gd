@@ -531,14 +531,15 @@ func _on_hp_bar_mouse_entered() -> void:
 func _on_hp_bar_mouse_exited() -> void:
 	$CanvasLayer2/Bars/HP_bar/HPcount.hide()
 
-func get_npc_var(npc_dialog_list, name_of_npc, npc_portrait, first_meet, player_variants):
-	NPC_dialog_list = npc_dialog_list
-	print(NPC_dialog_list)
-	print(npc_dialog_list)
+func get_npc_var(npcc_dialog_list, name_of_npc, npc_portrait, first_meet, player_variants):
+	NPC_dialog_list.append_array(npcc_dialog_list)
+	#print(player_variants)
+	#print(player_dialog_variants)
 	name_of_NPC = name_of_npc
 	NPC_portrait = npc_portrait
 	player_first_meet = first_meet
-	player_dialog_variants = player_variants
+	player_dialog_variants.append_array(player_variants)
+	#print(player_dialog_variants)
 	$CanvasLayer2/DialogWindow/NPCPortrait.texture = NPC_portrait
 	$dialog_text_timer.start()
 	$dialog_text_timer.one_shot = false
@@ -555,10 +556,20 @@ func update_dialog():
 	$CanvasLayer2/DialogWindow/variant_two.hide()
 	$CanvasLayer2/DialogWindow/variant_three.hide()
 	$CanvasLayer2/DialogWindow/dialog.show()
+	for i in 3:
+		print("SUKA")
+		if dialog_index < NPC_dialog_list.size():
+			print(NPC_dialog_list[dialog_index])
+			if NPC_dialog_list[dialog_index] == "":
+				dialog_index += 1
+				print("NEXT")
+			else:
+				break
+		else:
+			break
 	var player_talk : bool = false
 	if dialog_index < NPC_dialog_list.size():
 		$CanvasLayer2/DialogWindow/dialog.visible_characters = 0
-		
 		if NPC_dialog_list[dialog_index].contains("hero: ") == true or NPC_dialog_list[dialog_index].contains("heroa: ") == true:
 			player_talk = true
 			$AnimationPlayer.play("hero_talk")
@@ -577,21 +588,37 @@ func update_dialog():
 			if NPC_dialog_list[dialog_index].contains("hero: ") == true: 
 				$CanvasLayer2/DialogWindow/dialog.text = NPC_dialog_list[dialog_index].replace("hero: ", "")
 			if NPC_dialog_list[dialog_index].contains("heroa: ") == true: 
+				var count_of_choice : int = 0
+				for i in range(dialog_index + 1, NPC_dialog_list.size()):
+					if NPC_dialog_list[i].contains("hero: "):
+						count_of_choice += 1
+						#print("GOOOOAAAL")
+					else:
+						break
 				$CanvasLayer2/DialogWindow/variant_one/Label.text = player_dialog_variants[0]
 				$CanvasLayer2/DialogWindow/variant_one.show()
 				$CanvasLayer2/DialogWindow/next_button.hide()
 				$CanvasLayer2/DialogWindow/dialog.hide()
-				if player_dialog_variants.size() == 2:
+				if count_of_choice >= 2:
 					$CanvasLayer2/DialogWindow/variant_two/Label.text = player_dialog_variants[1]
 					$CanvasLayer2/DialogWindow/variant_two.show()
-				if player_dialog_variants.size() == 3:
+				if count_of_choice == 3:
 					$CanvasLayer2/DialogWindow/variant_three/Label.text = player_dialog_variants[2]
 					$CanvasLayer2/DialogWindow/variant_three.show()
 		if NPC_dialog_list[dialog_index].contains("мое имя") or NPC_dialog_list[dialog_index].contains("меня зовут") or NPC_dialog_list[dialog_index].contains("my name is"):
 			player_first_meet = false
-		if dialog_index == NPC_dialog_list.size() - 1:
-			$CanvasLayer2/DialogWindow/next_button/Label.text = "exit"
-			dialog_index = 0
+			$CanvasLayer2/DialogWindow/NameOfCharacter.text = name_of_NPC + ":"
+	print(dialog_index, NPC_dialog_list.size())
+	var true_or_false : bool = false
+	for i in range(dialog_index, NPC_dialog_list.size()):
+		if dialog_index < NPC_dialog_list.size():
+			if NPC_dialog_list[i] == "":
+				true_or_false = true
+			else:
+				true_or_false = false
+	if dialog_index >= NPC_dialog_list.size() - 1 or true_or_false == true:
+		$CanvasLayer2/DialogWindow/next_button/Label.text = "exit"
+		dialog_index = 0
 
 func _on_dialog_text_timer_timeout() -> void:
 	$CanvasLayer2/DialogWindow/dialog.visible_characters += 1
@@ -602,6 +629,7 @@ func _on_next_button_pressed() -> void:
 			$dialog_text_timer.stop()
 			$dialog_text_timer.one_shot = true
 			$CanvasLayer2/DialogWindow.hide()
+			NPC_dialog_list.clear()
 		else:
 			dialog_index += 1
 			update_dialog()
@@ -630,25 +658,54 @@ func _on_variant_three_mouse_exited() -> void:
 func _on_variant_one_pressed() -> void:
 	if $CanvasLayer2/DialogWindow/variant_one.visible == true:
 		$CanvasLayer2/DialogWindow/variant_one/DialogCross.hide()
-		chosen_variant("hero: "+$CanvasLayer2/DialogWindow/variant_one/Label.text)
+		chosen_variant($CanvasLayer2/DialogWindow/variant_one/Label.text)
 
 func _on_variant_two_pressed() -> void:
 	if $CanvasLayer2/DialogWindow/variant_two.visible == true:
 		$CanvasLayer2/DialogWindow/variant_two/DialogCross.hide()
-		chosen_variant("hero: "+$CanvasLayer2/DialogWindow/variant_two/Label.text)
+		chosen_variant($CanvasLayer2/DialogWindow/variant_two/Label.text)
 
 func _on_variant_three_pressed() -> void:
 	if $CanvasLayer2/DialogWindow/variant_three.visible == true:
 		$CanvasLayer2/DialogWindow/variant_three/DialogCross.hide()
-		chosen_variant("hero: "+$CanvasLayer2/DialogWindow/variant_three/Label.text)
+		chosen_variant($CanvasLayer2/DialogWindow/variant_three/Label.text)
 
 func chosen_variant(text):
-	for a in player_dialog_variants:
-		var c = "hero: " + a
-		if c != text:
-			var b : int = NPC_dialog_list.find(c)
-			NPC_dialog_list.remove_at(b)
-			print(a)
-			print(text)
+	var count_of_choice : int = -1
+	for i in range(dialog_index + 1, NPC_dialog_list.size()):
+		if NPC_dialog_list[i].contains("hero: "):
+			count_of_choice += 1
+			#print("GOOOOAAAL")
+		else:
+			break
+	#for a in player_dialog_variants:
+		#var c = "hero: " + a
+	for i in (count_of_choice + 1): #так долго не замечать ошибку? ахах ебать ты забавный, челик
+		player_dialog_variants.remove_at(0)
+		
+	#var a : int = NPC_dialog_list.find("hero: " + text)
+	var c : int = -1
+	#var count_of_del : int = 0
+	for i in range(dialog_index + 1, NPC_dialog_list.size()):
+		#print(NPC_dialog_list[dialog_index + 1],c, count_of_choice)
+		c += 1
+		
+		print(NPC_dialog_list, i)
+		#print("CD", i, NPC_dialog_list.size())
+		if NPC_dialog_list.size() <= i:
+			i -= 1 #i - NPC_dialog_list.size() + 
+		#print("DCL", i, NPC_dialog_list[i], ("hero: " + text))
+		if NPC_dialog_list[i] != ("hero: " + text) and NPC_dialog_list[i].contains("hero: ") == true:
+			#print("PR0: ", NPC_dialog_list,count_of_del)
+			NPC_dialog_list[i] = ""
+			#count_of_del += 1
+			#print("PR1: ", NPC_dialog_list,count_of_del)
+			#print("delete")
+		if c == count_of_choice:
+			#print("break")
+			break
+			#print(text)
 	dialog_index += 1
+	#print(player_dialog_variants, count_of_choice)
 	update_dialog()
+	#player_dialog_variants.clear()
